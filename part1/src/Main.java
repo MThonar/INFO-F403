@@ -3,8 +3,7 @@ import java.io.*;
 
 
 class Main {
-	public static void main (String[] args)
-	{
+	public static void main(String[] args) throws FileNotFoundException, IOException {
    		FileReader source = new FileReader(args [0]);
    		final LexicalAnalyzer analyzer = new LexicalAnalyzer(source);
    		ArrayList<String> ls = new ArrayList<String>();
