@@ -4,10 +4,6 @@ import java.io.*;
 
 class Main {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-<<<<<<< HEAD:Part1/src/Main.java
-	{
-=======
->>>>>>> 4c36e6e911402d248d63cae121088588a2a936b7:part1/src/Main.java
    		FileReader source = new FileReader(args [0]);
    		final LexicalAnalyzer analyzer = new LexicalAnalyzer(source);
    		ArrayList<String> ls = new ArrayList<String>();
@@ -27,4 +23,4 @@ class Main {
    			}
 	 	}
 	}
-}}
+}
