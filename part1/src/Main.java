@@ -1,26 +1,46 @@
-import java.util.ArrayList;
-import java.io.*;
 
+import java.io.*;
+import java.util.*;
 
 class Main {
-	public static void main(String[] args) throws FileNotFoundException, IOException {
-   		FileReader source = new FileReader(args [0]);
-   		final LexicalAnalyzer analyzer = new LexicalAnalyzer(source);
-   		ArrayList<String> ls = new ArrayList<String>();
-   		while(true) {
-	   		Symbol s = analyzer.nextToken();
-	   		if (s.getType().toString().equals("VARNAME")) {
-	   			System.out.println(s.toString());
-	   			ls.add(s + " " + s.getValue());
+
+   private static final TreeMap<String,Integer> ls = new TreeMap<String,Integer>();
+
+   private static void varL(String var,int line){
+			if(!ls.containsKey(var))
+				ls.put(var,line);
+			}
+				
+				
+   public static void main (String[] args){
+   if(args.length >= 1){
+   	try{
+	   	final FileReader source=new FileReader(args [0]);
+	   	final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
+
+	   	while(true){
+	   		Symbol s = lexAn.nextToken();
+	   		System.out.println(s.toString());
+	   		if (s.getType().toString().equals("VARNAME")){
+	   			varL(s.getValue().toString(), s.getLine());
 	   		}	
-	   		else if(s.getType().toString() == "END") {
+	   		else if(s.getType().toString() == "END"){
 	   			System.out.println("Variables");
-	   			for(int i = 0; i < ls.size(); i++) {
-	   			
-		    			System.out.println(ls.get(i));
-	   			}
-	   			break;
-   			}
-	 	}
-	}
+	   			for (String i : ls.keySet()) {
+					System.out.println(i + " " + ls.get(i));
+					}break;}
+			
+			}
+  
+  			
+  	}catch(Exception e) {}
+    }
+    else 
+  	System.out.println("The file .co is empty");
+    } 
 }
+ 
+  
+ 
+
+

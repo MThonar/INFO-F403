@@ -7,10 +7,11 @@
 %function nextToken
 %type Symbol  //Says that the return type is Symbol
 
-// Return value of the program
-%eofval{
-	return new Symbol(LexicalUnit.END_OF_STREAM, yyline, yycolumn);
+%eofval{// called after scanning
+
+
 %eofval}
+
 
 
 // Extended Regular Expressions
@@ -29,18 +30,33 @@ Exponent       = [eE]{Integer}
 Real           = {Integer}{Decimal}?{Exponent}?
 Identifier     = {Alpha}{AlphaNumeric}*
 
-Varname 	= [a-z]|[A-Z] [a-z]|[0-9]|[A-Z]*
-Number 	= "{Sign}?(([1-9][0-9]*)|0)"|{Real}
+
+Varname 	= [a-z]? [a-z]|[1-9]|[A-Z]*
+Number 	= {Sign}?(([1-9][0-9]*)|0)
 ShortComments 	= "co" .*
 LongComments	= "CO" .* "CO"
 
-%%// Identification of tokens
+%%// Identification of tokens 
+
+//Varname 	= ([a-z]|[A-Z]) [a-z]|[0-9]|[A-Z]*
+
+//spaces // 
+
+" "		{}
+"\n"		{}
 
 
-// Relational operators
-"="	        {return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn);}
-">"	      	{return new Symbol(LexicalUnit.GREATER,yyline, yycolumn);}
-"<"	        {return new Symbol(LexicalUnit.SMALLER,yyline, yycolumn);}
+
+// various "symbols"
+":="		{return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn, yytext());}
+"+" 		{return new Symbol(LexicalUnit.PLUS,yyline, yycolumn, yytext());}
+"-"		{return new Symbol(LexicalUnit.MINUS,yyline, yycolumn, yytext());}
+"*"		{return new Symbol(LexicalUnit.TIMES,yyline, yycolumn, yytext());}
+"/"		{return new Symbol(LexicalUnit.DIVIDE,yyline, yycolumn, yytext());}
+"("		{return new Symbol(LexicalUnit.LPAREN,yyline, yycolumn, yytext());}
+")"		{return new Symbol(LexicalUnit.RPAREN,yyline, yycolumn, yytext());}
+";"		{return new Symbol(LexicalUnit.SEMICOLON,yyline, yycolumn, yytext());}
+
 
 // If/Else/else/do/while/for/print/read keywords
 "if"	        {return new Symbol(LexicalUnit.IF,yyline, yycolumn, yytext());}
@@ -63,23 +79,22 @@ LongComments	= "CO" .* "CO"
 
 
 
-// various "symbols"
-"+" 		{return new Symbol(LexicalUnit.PLUS,yyline, yycolumn);}
-"-"		{return new Symbol(LexicalUnit.MINUS,yyline, yycolumn);}
-"*"		{return new Symbol(LexicalUnit.TIMES,yyline, yycolumn);}
-"/"		{return new Symbol(LexicalUnit.DIVIDE,yyline, yycolumn);}
-"("		{return new Symbol(LexicalUnit.LPAREN,yyline, yycolumn);}
-")"		{return new Symbol(LexicalUnit.RPAREN,yyline, yycolumn);}
-";"		{return new Symbol(LexicalUnit.SEMICOLON,yyline, yycolumn);}
-":="		{return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn);}
+// Relational operators
+"="	        {return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn, yytext());}
+">"	      	{return new Symbol(LexicalUnit.GREATER,yyline, yycolumn, yytext());}
+"<"	        {return new Symbol(LexicalUnit.SMALLER,yyline, yycolumn, yytext());}
+
+
+
+
 
 
 // C99 variable identifier
 //{Identifier}  		{return new Symbol(LexicalUnit.C99VAR,yyline, yycolumn, yytext());} no need of those as it's they are C identifiers
 
+
 // Variables name
 {Varname}		{return new Symbol(LexicalUnit.VARNAME, yyline, yycolumn, yytext());}
-
 // numbers
 {Number}		{return new Symbol(LexicalUnit.NUMBER, yyline, yycolumn, yytext());}
 
