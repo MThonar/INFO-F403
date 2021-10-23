@@ -34,6 +34,7 @@ class Main {
 				}
 			}
 			catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 		else {

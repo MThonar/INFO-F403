@@ -20,12 +20,12 @@ LongComments	= "CO" .* "CO"
 
 %%// Identification of tokens 
 " "		{}
-"\n"		{}
-"\t"		{}
+"\n"	{}
+"\t"	{}
 
 // Various "symbols"
-":="		{return new Symbol(LexicalUnit.ASSIGN, yyline, yycolumn, yytext());}
-"+" 		{return new Symbol(LexicalUnit.PLUS, yyline, yycolumn, yytext());}
+":="	{return new Symbol(LexicalUnit.ASSIGN, yyline, yycolumn, yytext());}
+"+" 	{return new Symbol(LexicalUnit.PLUS, yyline, yycolumn, yytext());}
 "-"		{return new Symbol(LexicalUnit.MINUS, yyline, yycolumn, yytext());}
 "*"		{return new Symbol(LexicalUnit.TIMES, yyline, yycolumn, yytext());}
 "/"		{return new Symbol(LexicalUnit.DIVIDE, yyline, yycolumn, yytext());}
@@ -37,18 +37,18 @@ LongComments	= "CO" .* "CO"
 "if"		{return new Symbol(LexicalUnit.IF, yyline, yycolumn, yytext());}
 "then"		{return new Symbol(LexicalUnit.THEN, yyline, yycolumn, yytext());}
 "else"		{return new Symbol(LexicalUnit.ELSE, yyline, yycolumn, yytext());}
-"while"	{return new Symbol(LexicalUnit.WHILE, yyline, yycolumn, yytext());}
+"while"	    {return new Symbol(LexicalUnit.WHILE, yyline, yycolumn, yytext());}
 "do"		{return new Symbol(LexicalUnit.DO, yyline, yycolumn, yytext());}
 "for"		{return new Symbol(LexicalUnit.FOR, yyline, yycolumn, yytext());}
-"print"	{return new Symbol(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
+"print"	    {return new Symbol(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
 "read"		{return new Symbol(LexicalUnit.READ, yyline, yycolumn, yytext());}
-"begin"	{return new Symbol(LexicalUnit.BEG, yyline, yycolumn, yytext());}
+"begin"	    {return new Symbol(LexicalUnit.BEG, yyline, yycolumn, yytext());}
 "end"		{return new Symbol(LexicalUnit.END, yyline, yycolumn, yytext());}
 "endfor"	{return new Symbol(LexicalUnit.ENDFOR, yyline, yycolumn, yytext());}
 "by"		{return new Symbol(LexicalUnit.BY, yyline, yycolumn, yytext());}
 "from"		{return new Symbol(LexicalUnit.FROM, yyline, yycolumn, yytext());}
 "endwhile"	{return new Symbol(LexicalUnit.ENDWHILE, yyline, yycolumn, yytext());}
-"endif"	{return new Symbol(LexicalUnit.ENDIF, yyline, yycolumn, yytext());}
+"endif"	    {return new Symbol(LexicalUnit.ENDIF, yyline, yycolumn, yytext());}
 "to"		{return new Symbol(LexicalUnit.TO, yyline, yycolumn, yytext());}
 "not"		{return new Symbol(LexicalUnit.NOT, yyline, yycolumn, yytext());}
 
@@ -64,5 +64,5 @@ LongComments	= "CO" .* "CO"
 {Number}	{return new Symbol(LexicalUnit.NUMBER, yyline, yycolumn, yytext());}
 
 // Comments to be ignored
-{ShortComments}	{}
-{LongComments}		{}
+{ShortComments}	  {}
+{LongComments}    {}
