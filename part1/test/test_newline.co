@@ -1,0 +1,14 @@
+CO This alCOl file test if newline caracters (/n) are correctly ignored CO
+
+begin
+
+
+
+
+read(b);
+
+
+
+
+read(a);
+end

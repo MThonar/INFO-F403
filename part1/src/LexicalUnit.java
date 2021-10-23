@@ -1,33 +1,33 @@
 public enum LexicalUnit{
-    VARNAME, //fait	
-    NUMBER, //fait
-    BEG,	//fait
-    END,	//fait
-    SEMICOLON,	//fait
-    ASSIGN,	//fait
-    LPAREN,	//fait
-    RPAREN,	//fait
-    MINUS,	//fait
-    PLUS,	//fait
-    TIMES,	//fait 
-    DIVIDE,	//fait
-    IF,	//fait
-    THEN,	//fait
-    ENDIF,
-    ELSE,	//fait
-    NOT,	//fait
-    EQUAL,	//fait
-    GREATER,	//fait
-    SMALLER,	//fait
-    WHILE,	//fait
-    DO,	//fait
-    ENDWHILE,	
-    FOR,	//fait
-    FROM,	//fait
-    BY,	//fait
-    TO,
-    ENDFOR,	//fait
-    PRINT,	//fait
-    READ,	//fait
+	VARNAME,
+	NUMBER,
+	BEG,
+	END,
+	SEMICOLON,
+	ASSIGN,
+	LPAREN,
+	RPAREN,
+	MINUS,
+	PLUS,
+	TIMES,		//test
+	DIVIDE,	//test
+	IF,		//test
+	THEN,		//test
+	ENDIF,		//test
+	ELSE,		//test
+	NOT,
+	EQUAL,
+	GREATER,
+	SMALLER,	//test
+	WHILE,
+	DO,
+	ENDWHILE,
+	FOR,		//test
+	FROM,		//test
+	BY,		//test
+	TO,		//test
+	ENDFOR,	//test
+	PRINT,
+	READ,
 	END_OF_STREAM
 }
