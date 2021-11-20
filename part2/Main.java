@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.*;
 
@@ -14,23 +15,23 @@ class Main {
 	 * @param args is the alCOl file given as argument during the execution.
 	 */
 	public static void main (String[] args){
+		ArrayList<LexicalUnit> list = new ArrayList<>(); 
 		if(args.length >= 1){
 			try {
 				final FileReader source=new FileReader(args [0]);
 				final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);		
 				while(true) {
 					Symbol s = lexAn.nextToken();
-					System.out.println(s.toString());
 					if (s.getType().toString().equals("VARNAME")) {
 						varL(s.getValue().toString(), s.getLine());
 					}	
 					else if(s.getType().toString() == "END") {
-						System.out.println("Variables");
 						for (String i : ls.keySet()) {
-							System.out.println(i + " " + ls.get(i));
+							list.append(ls.get(i));
 						}
 					break;
 					}
+					for (i: list){ System.out.println(i);}
 				}
 			}
 			catch(Exception e) {
@@ -53,4 +54,3 @@ class Main {
 		}
 	}	
 }
-

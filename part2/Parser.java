@@ -1,18 +1,14 @@
 void Program(){
 	match(begin); code(); match(end)
 }
-/* fonction avec epsilon
+
 void code(){
 	token tok = next_token();
 	switch(tok){
-	case end:
-	case endif:
-	case else:
-	case endwhile:
-	case endfor: return;
+	case end: return;}
 	}
-	instlist();
-}*/
+	Instlist();
+}
 
 void Instlist(){
 	Instruction(); InstListTail();
@@ -40,10 +36,14 @@ void Instlist(){
 		syntax_error(tok); break;
 	}*/
 }
-/* continet epsilon
+
 void InstListTail(){
-	token tok = next_token()
-}*/
+	token tok = next_token();
+	switch(tok){
+	case end: return;
+	}
+	match(";"); Instlist();
+}
 
 void Instruction(){
 	token tok = next_token();
@@ -117,9 +117,31 @@ void A(){
 void E(){
 	B();
 }
-/*eps
+
 void F(){
-}*/
+	token tok = next_token();
+	switch(tok){
+	case end:
+	case "+":
+	case "-":
+	case ";":
+	case "=":
+	case "<":
+	case ">":
+	case then:
+	case "do":
+	case by:
+	case to: return;
+	//} switch(tok){
+	case "*":
+		match("*"); B(); F();
+		break;
+	case "/":
+		match("/"); B(); F();
+		break;
+	}
+	//}
+}
 
 void B(){
 	token tok = next_token();
