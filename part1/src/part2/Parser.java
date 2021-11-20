@@ -1,8 +1,11 @@
 package part2;
 
+import part1.LexicalUnit;
+
 public class Parser {
+
     void Program(){
-        match(begin); code(); match(end)
+        match(LexicalUnit.BEG); Code(); match(LexicalUnit.END);
     }
 
     void Code(){
@@ -22,7 +25,7 @@ public class Parser {
         switch(tok){
             case end: return;
         }
-        match(";"); InstList();
+        match(LexicalUnit.SEMICOLON); InstList();
     }
 
     void Instruction(){
@@ -52,7 +55,7 @@ public class Parser {
     }
 
     void Assign(){
-        match([Varname]); match(':='); ExprArith();
+        match(LexicalUnit.VARNAME); match(LexicalUnit.ASSIGN); ExprArith();
     }
 
     void ExprArith(){
@@ -89,10 +92,10 @@ public class Parser {
             case by:
             case to: return;
             case "*":
-                match("*"); B(); F();
+                match(LexicalUnit.TIMES); B(); F();
                 break;
             case "/":
-                match("/"); B(); F();
+                match(LexicalUnit.DIVIDE); B(); F();
                 break;
         }
     }
@@ -104,13 +107,13 @@ public class Parser {
                 match([Varname]);
                 break;
             case '(':
-                match("("); B(); match(")");
+                match(LexicalUnit.LPAREN); B(); match(LexicalUnit.RPAREN);
                 break;
             case '-':
-                match('-'); B();
+                match(LexicalUnit.MINUS); B();
                 break;
             case [Number]:
-                match([Number]);
+                match(LexicalUnit.NUMBER);
                 break;
             default:
                 syntax_error(tok); break;
@@ -118,17 +121,17 @@ public class Parser {
     }
 
     void If(){
-        match('if'); Cond(); match(then); Code(); IfTail();
+        match(LexicalUnit.IF); Cond(); match(LexicalUnit.THEN); Code(); IfTail();
     }
 
     void IfTail(){
         token tok = next_token();
         switch(tok){
             case endif:
-                match(endif);
+                match(LexicalUnit.ENDIF);
                 break;
             case "else":
-                match("else"); Code(); match(endif);
+                match(LexicalUnit.ELSE); Code(); match(LexicalUnit.ENDIF);
                 break;
             default:
                 syntax_error(tok); break;
@@ -139,7 +142,7 @@ public class Parser {
         token tok = next_token();
         switch(tok){
             case not:
-                match(not); Cond();
+                match(LexicalUnit.NOT); Cond();
                 break;
             case [Varname]:
                 SimpleCond();
@@ -181,5 +184,10 @@ public class Parser {
 
     void While(){
         match("while"); Cond(); match("do"); Code(); match('endwhile');
+    }
+
+    boolean match(LexicalUnit token) {
+        Token currentToken;
+        token == currentToken;
     }
 }
