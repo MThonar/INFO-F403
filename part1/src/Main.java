@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-
+	
 	private static final TreeMap<String,Integer> ls = new TreeMap<String,Integer>();
 	
 	/**
