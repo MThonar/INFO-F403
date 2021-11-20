@@ -1,8 +1,13 @@
+package part1;
+
 import java.io.*;
 import java.util.*;
 
 class Main {
 
+	/**
+	 * TreeMap to store in lexicographical order all the variables names as keys and the line number where the first occurrence of the variable appears
+	 */
 	private static final TreeMap<String,Integer> ls = new TreeMap<String,Integer>();
 	
 	/**
@@ -34,6 +39,7 @@ class Main {
 				}
 			}
 			catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 		else {

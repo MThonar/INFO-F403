@@ -9,8 +9,8 @@
 
 // Return value of the program
 %eofval{
-		return new Symbol(LexicalUnit.END_OF_STREAM, yyline, yycolumn, yytext());
-%eofval}
+		return new part1.Symbol(LexicalUnit.END_OF_STREAM, yyline, yycolumn, yytext());
+        %eofval}
 
 // Extended Regular Expressions
 VarName	= [A-Z]|[a-z] ([0-9]|[A-Z]|[a-z])*
