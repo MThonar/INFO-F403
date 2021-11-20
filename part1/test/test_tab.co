@@ -1,5 +1,0 @@
-CO This alCOl file test if tabulation caracters (/t) are correctly ignored CO
-
-begin
-	read(a);
-end

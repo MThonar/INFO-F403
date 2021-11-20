@@ -1,9 +1,0 @@
-begin
-  a := 00000 ; CO CO CO
-  abraca1234dabra := 159 ; co co
-  1abc := 666;
-  b := 10E4;
-  if a = 0 && not b = 0 then
-    print(a);
-  endif
-end
