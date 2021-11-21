@@ -10,17 +10,19 @@ class Main {
     public static void main (String[] args){
         if(args.length >= 1){
             try {
+            	System.out.println("coucou");
                 final FileReader source=new FileReader(args [0]);
                 final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
                 Symbol s = lexAn.nextToken();
-                list.add(s);
                 while(s.getType().toString() != "END") {
-                    Parser parser = new Parser(s);
-                    s = lexAn.nextToken();
+			list.add(s);
+			Parser parser = new Parser(list);
+			s = lexAn.nextToken();
                 }
-				for(Symbol i : list) {
-					System.out.println(i);
-				}
+                if(s.getType().toString() == "END") {
+                	list.add(s);
+                }
+		System.out.println(list);
                 //parser.startParsing();
             }
             catch(Exception e) {

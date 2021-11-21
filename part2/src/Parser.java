@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Parser {
-    private final Symbol symbol;
+    private final ArrayList<Symbol> tokenSequence;
     private LexicalUnit currentToken;
 
-    public Parser(Symbol symbol){
-        this.symbol = symbol;
+    public Parser(ArrayList<Symbol> tokenSequence){
+        this.tokenSequence = tokenSequence;
     }
 
     void Program() throws Exception {
