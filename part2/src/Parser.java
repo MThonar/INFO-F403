@@ -10,6 +10,7 @@ public class Parser {
     public Parser(ArrayList<Symbol> tokenSequence){
         this.tokenSequence = tokenSequence;
         nextToken = tokenSequence.iterator();
+        rules = new ArrayList<>();
         getNextToken();
     }
 
@@ -313,6 +314,9 @@ public class Parser {
 
     public void startParsing() throws Exception {
         Program();
+        for (String i : rules) {
+            System.out.println(i);
+        }
     }
 
     public void syntax_error(LexicalUnit token) throws Exception {
