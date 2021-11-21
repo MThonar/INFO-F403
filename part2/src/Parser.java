@@ -110,7 +110,6 @@ public class Parser {
             case THEN:
             case DO:
             case BY:
-                return;
             case TO: {
                 System.out.println("18 ");
                 return;
@@ -153,7 +152,6 @@ public class Parser {
             case THEN:
             case DO:
             case BY:
-                return;
             case TO: {
                 System.out.println("23 ");
                 return;
