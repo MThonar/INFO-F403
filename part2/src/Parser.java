@@ -5,6 +5,7 @@ public class Parser {
     private final ArrayList<Symbol> tokenSequence;
     private Iterator<Symbol> nextToken;
     private Symbol currentToken;
+    private ArrayList<String> rules;
 
     public Parser(ArrayList<Symbol> tokenSequence){
         this.tokenSequence = tokenSequence;
@@ -20,7 +21,7 @@ public class Parser {
 
     void Program() throws Exception {
         if (currentToken.getType() == LexicalUnit.BEG) {
-            System.out.println("1 ");
+            rules.add("1 ");
             match(LexicalUnit.BEG); Code(); match(LexicalUnit.END);
         }
     }
@@ -32,17 +33,17 @@ public class Parser {
             case ELSE:
             case ENDWHILE:
             case ENDFOR: {
-                System.out.println("2 ");
+                rules.add("2 ");
                 return;
             }
         }
-        System.out.println("3 ");
+        rules.add("3 ");
         InstList();
 
     }
 
     void InstList() throws Exception {
-        System.out.println("4 ");
+        rules.add("4 ");
         Instruction(); InstListTail();
     }
 
@@ -53,43 +54,43 @@ public class Parser {
             case ELSE:
             case ENDWHILE:
             case ENDFOR: {
-                System.out.println("6 ");
+                rules.add("6 ");
                 return;
             }
         }
-        System.out.println("5 ");
+        rules.add("5 ");
         match(LexicalUnit.SEMICOLON); InstList();
     }
 
     void Instruction() throws Exception {
         switch (currentToken.getType()) {
             case VARNAME : {
-                System.out.println("7 ");
+                rules.add("7 ");
                 Assign();
                 return;
             }
             case IF : {
-                System.out.println("8 ");
+                rules.add("8 ");
                 If();
                 return;
             }
             case WHILE : {
-                System.out.println("9 ");
+                rules.add("9 ");
                 While();
                 return;
             }
             case FOR : {
-                System.out.println("10 ");
+                rules.add("10 ");
                 For();
                 return;
             }
             case PRINT : {
-                System.out.println("11 ");
+                rules.add("11 ");
                 Print();
                 return;
             }
             case READ : {
-                System.out.println("12 ");
+                rules.add("12 ");
                 Read();
                 return;
             }
@@ -98,17 +99,17 @@ public class Parser {
     }
 
     void Assign() throws Exception {
-        System.out.println("13 ");
+        rules.add("13 ");
         match(LexicalUnit.VARNAME); match(LexicalUnit.ASSIGN); ExprArith();
     }
 
     void ExprArith() throws Exception {
-        System.out.println("14 ");
+        rules.add("14 ");
         C(); D();
     }
 
     void C() throws Exception {
-        System.out.println("15 ");
+        rules.add("15 ");
         A();
     }
 
@@ -123,18 +124,18 @@ public class Parser {
             case DO:
             case BY:
             case TO: {
-                System.out.println("18 ");
+                rules.add("18 ");
                 return;
             }
             case PLUS : {
-                System.out.println("16 ");
+                rules.add("16 ");
                 match(LexicalUnit.PLUS);
                 A();
                 D();
                 return;
             }
             case MINUS : {
-                System.out.println("17 ");
+                rules.add("17 ");
                 match(LexicalUnit.MINUS);
                 A();
                 D();
@@ -143,12 +144,12 @@ public class Parser {
     }
 
     void A() throws Exception {
-        System.out.println("19 ");
+        rules.add("19 ");
         E(); F();
     }
 
     void E() throws Exception {
-        System.out.println("20 ");
+        rules.add("20 ");
         B();
     }
 
@@ -165,18 +166,18 @@ public class Parser {
             case DO:
             case BY:
             case TO: {
-                System.out.println("23 ");
+                rules.add("23 ");
                 return;
             }
             case TIMES: {
-                System.out.println("21 ");
+                rules.add("21 ");
                 match(LexicalUnit.TIMES);
                 B();
                 F();
                 return;
             }
             case DIVIDE: {
-                System.out.println("22 ");
+                rules.add("22 ");
                 match(LexicalUnit.DIVIDE);
                 B();
                 F();
@@ -187,25 +188,25 @@ public class Parser {
     void B() throws Exception {
         switch (currentToken.getType()) {
             case VARNAME : {
-                System.out.println("26 ");
+                rules.add("26 ");
                 match(LexicalUnit.VARNAME);
                 return;
             }
             case LPAREN : {
-                System.out.println("25 ");
+                rules.add("25 ");
                 match(LexicalUnit.LPAREN);
                 B();
                 match(LexicalUnit.RPAREN);
                 return;
             }
             case MINUS : {
-                System.out.println("24 ");
+                rules.add("24 ");
                 match(LexicalUnit.MINUS);
                 B();
                 return;
             }
             case NUMBER : {
-                System.out.println("27 ");
+                rules.add("27 ");
                 match(LexicalUnit.NUMBER);
                 return;
             }
@@ -214,19 +215,19 @@ public class Parser {
     }
 
     void If() throws Exception {
-        System.out.println("28 ");
+        rules.add("28 ");
         match(LexicalUnit.IF); Cond(); match(LexicalUnit.THEN); Code(); IfTail();
     }
 
     void IfTail() throws Exception {
         switch (currentToken.getType()) {
             case ENDIF : {
-                System.out.println("29 ");
+                rules.add("29 ");
                 match(LexicalUnit.ENDIF);
                 return;
             }
             case ELSE : {
-                System.out.println("30 ");
+                rules.add("30 ");
                 match(LexicalUnit.ELSE);
                 Code();
                 match(LexicalUnit.ENDIF);
@@ -239,7 +240,7 @@ public class Parser {
     void Cond() throws Exception {
         switch (currentToken.getType()) {
             case NOT : {
-                System.out.println("31 ");
+                rules.add("31 ");
                 match(LexicalUnit.NOT);
                 Cond();
                 return;
@@ -248,7 +249,7 @@ public class Parser {
             case LPAREN:
             case MINUS:
             case NUMBER: {
-                System.out.println("32 ");
+                rules.add("32 ");
                 SimpleCond();
                 return;
             }
@@ -257,24 +258,24 @@ public class Parser {
     }
 
     void SimpleCond() throws Exception {
-        System.out.println("33 ");
+        rules.add("33 ");
         ExprArith(); Comp(); ExprArith();
     }
 
     void Comp() throws Exception {
         switch (currentToken.getType()) {
             case EQUAL : {
-                System.out.println("34 ");
+                rules.add("34 ");
                 match(LexicalUnit.EQUAL);
                 return;
             }
             case GREATER : {
-                System.out.println("35 ");
+                rules.add("35 ");
                 match(LexicalUnit.GREATER);
                 return;
             }
             case SMALLER : {
-                System.out.println("36 ");
+                rules.add("36 ");
                 match(LexicalUnit.SMALLER);
                 return;
             }
@@ -283,29 +284,28 @@ public class Parser {
     }
 
     void While() throws Exception {
-        System.out.println("37 ");
+        rules.add("37 ");
         match(LexicalUnit.WHILE); Cond(); match(LexicalUnit.DO); Code(); match(LexicalUnit.ENDWHILE);
     }
 
     void For() throws Exception {
-        System.out.println("38 ");
+        rules.add("38 ");
         match(LexicalUnit.FOR); match(LexicalUnit.VARNAME); match(LexicalUnit.FROM); ExprArith(); match(LexicalUnit.BY);
         ExprArith(); match(LexicalUnit.TO); ExprArith(); match(LexicalUnit.DO); Code(); match(LexicalUnit.ENDFOR);
     }
 
     void Print(){
-        System.out.println("39 ");
+        rules.add("39 ");
         match(LexicalUnit.PRINT); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
     }
 
     void Read(){
-        System.out.println("40 ");
+        rules.add("40 ");
         match(LexicalUnit.READ); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
     }
 
     void match(LexicalUnit token) {
         if (currentToken.getType() == token) {
-            System.out.println("Token " + token + " is matched! Good job, keep going!");
             //faire fonctionner le parseTree
             getNextToken();
         }
