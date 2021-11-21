@@ -17,9 +17,11 @@ class Main {
                     list.add(s.getType());
                     s = lexAn.nextToken();
                 }
-				/*for(LexicalUnit i : list) {
+				for(LexicalUnit i : list) {
 					System.out.println(i);
-				}*/
+				}
+                Parser parser = new Parser(list);
+                parser.startParsing();
             }
             catch(Exception e) {
                 e.printStackTrace();
