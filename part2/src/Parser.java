@@ -315,8 +315,9 @@ public class Parser {
     public void startParsing() throws Exception {
         Program();
         for (String i : rules) {
-            System.out.println(i);
+            System.out.printf(i);
         }
+        System.out.println(" ");
     }
 
     public void syntax_error(LexicalUnit token) throws Exception {

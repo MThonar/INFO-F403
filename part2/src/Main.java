@@ -20,9 +20,9 @@ class Main {
                 if(s.getType().toString() == "END") {
                 	list.add(s);
                 }
-                for (Symbol i : list){
+                /*for (Symbol i : list){
 		        System.out.println(i);
-		 }
+		 }*/
                 Parser parser = new Parser(list);
                 parser.startParsing();
             }
