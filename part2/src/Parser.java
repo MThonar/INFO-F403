@@ -2,13 +2,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Parser {
-    private final ArrayList<Symbol> tokenSequence;
-    private Iterator<Symbol> nextToken;
+    private final Iterator<Symbol> nextToken;
     private Symbol currentToken;
-    private ArrayList<String> rules;
+    private final ArrayList<String> rules;
 
     public Parser(ArrayList<Symbol> tokenSequence){
-        this.tokenSequence = tokenSequence;
         nextToken = tokenSequence.iterator();
         rules = new ArrayList<>();
         getNextToken();
