@@ -237,7 +237,6 @@ public class Parser {
             case VARNAME:
             case LPAREN:
             case MINUS:
-                return;
             case NUMBER: {
                 System.out.println("32 ");
                 SimpleCond();
