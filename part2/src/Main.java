@@ -20,8 +20,9 @@ class Main {
                 if(s.getType().toString() == "END") {
                 	list.add(s);
                 }
-		        System.out.println(list);
+		        //System.out.println(list);
                 Parser parser = new Parser(list);
+                parser.startParsing();
             }
             catch(Exception e) {
                 e.printStackTrace();

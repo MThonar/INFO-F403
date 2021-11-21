@@ -281,10 +281,7 @@ public class Parser {
     }
 
     public void startParsing() throws Exception {
-        /*for (LexicalUnit i : symbol) {
-            currentToken = i;
-            Program();
-        }*/
+        Program();
     }
 
     public void syntax_error(LexicalUnit token) throws Exception {
