@@ -110,6 +110,7 @@ public class Parser {
             case THEN:
             case DO:
             case BY:
+                return;
             case TO: {
                 System.out.println("18 ");
                 return;
@@ -119,6 +120,7 @@ public class Parser {
                 match(LexicalUnit.PLUS);
                 A();
                 D();
+                return;
             }
             case MINUS : {
                 System.out.println("17 ");
@@ -151,6 +153,7 @@ public class Parser {
             case THEN:
             case DO:
             case BY:
+                return;
             case TO: {
                 System.out.println("23 ");
                 return;
@@ -160,6 +163,7 @@ public class Parser {
                 match(LexicalUnit.TIMES);
                 B();
                 F();
+                return;
             }
             case DIVIDE: {
                 System.out.println("22 ");
@@ -175,21 +179,25 @@ public class Parser {
             case VARNAME : {
                 System.out.println("26 ");
                 match(LexicalUnit.VARNAME);
+                return;
             }
             case LPAREN : {
                 System.out.println("25 ");
                 match(LexicalUnit.LPAREN);
                 B();
                 match(LexicalUnit.RPAREN);
+                return;
             }
             case MINUS : {
                 System.out.println("24 ");
                 match(LexicalUnit.MINUS);
                 B();
+                return;
             }
             case NUMBER : {
                 System.out.println("27 ");
                 match(LexicalUnit.NUMBER);
+                return;
             }
             default : syntax_error(currentToken.getType());
         }
@@ -205,12 +213,14 @@ public class Parser {
             case ENDIF : {
                 System.out.println("29 ");
                 match(LexicalUnit.ENDIF);
+                return;
             }
             case ELSE : {
                 System.out.println("30 ");
                 match(LexicalUnit.ELSE);
                 Code();
                 match(LexicalUnit.ENDIF);
+                return;
             }
             default : syntax_error(currentToken.getType());
         }
@@ -222,13 +232,16 @@ public class Parser {
                 System.out.println("31 ");
                 match(LexicalUnit.NOT);
                 Cond();
+                return;
             }
             case VARNAME:
             case LPAREN:
             case MINUS:
+                return;
             case NUMBER: {
                 System.out.println("32 ");
                 SimpleCond();
+                return;
             }
             default : syntax_error(currentToken.getType());
         }
@@ -244,14 +257,17 @@ public class Parser {
             case EQUAL : {
                 System.out.println("34 ");
                 match(LexicalUnit.EQUAL);
+                return;
             }
             case GREATER : {
                 System.out.println("35 ");
                 match(LexicalUnit.GREATER);
+                return;
             }
             case SMALLER : {
                 System.out.println("36 ");
                 match(LexicalUnit.SMALLER);
+                return;
             }
             default : syntax_error(currentToken.getType());
         }
