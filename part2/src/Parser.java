@@ -74,6 +74,7 @@ public class Parser {
             case READ : {
                 System.out.println("12 ");
                 Read();
+                return;
             }
             default : syntax_error(currentToken.getType());
         }
@@ -274,7 +275,7 @@ public class Parser {
 
     void match(LexicalUnit token) {
         if (currentToken.getType() == token) {
-            System.out.println("Token is matched! Good job, keep going!");
+            System.out.println("Token " + token + " is matched! Good job, keep going!");
             //faire fonctionner le parseTree
             getNextToken();
         }
