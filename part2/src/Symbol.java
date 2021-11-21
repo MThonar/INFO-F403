@@ -71,6 +71,6 @@ public class Symbol{
 	}
 
 	public String toTexString() {
-		return "bidon";
+		return this.value.toString();
 	}
 }

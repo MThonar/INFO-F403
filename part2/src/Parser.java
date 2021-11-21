@@ -5,6 +5,7 @@ public class Parser {
     private final Iterator<Symbol> nextToken;
     private Symbol currentToken;
     private final ArrayList<String> rules;
+    private Symbol epsilon = new Symbol(null, "Epsilon");
 
     public Parser(ArrayList<Symbol> tokenSequence){
         nextToken = tokenSequence.iterator();
@@ -19,13 +20,20 @@ public class Parser {
     }
 
     void Program() throws Exception {
+        Symbol program = new Symbol(null, "<Program>");
+        ArrayList<ParseTree> globalTree = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
             rules.add("1 ");
-            match(LexicalUnit.BEG); Code(); match(LexicalUnit.END);
+            match(LexicalUnit.BEG, globalTree);
+            Code(globalTree);
+            match(LexicalUnit.END, globalTree);
         }
+        ParseTree parseTree = new ParseTree(program, globalTree);
     }
 
-    void Code() throws Exception {
+    void Code(ArrayList<ParseTree> parent) throws Exception {
+        Symbol code = new Symbol(null, "<Code>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
             case ENDIF:
@@ -33,15 +41,18 @@ public class Parser {
             case ENDWHILE:
             case ENDFOR: {
                 rules.add("2 ");
+                ParseTree leaf = new ParseTree(epsilon);
+                leafs.add(leaf);
                 return;
             }
         }
         rules.add("3 ");
-        InstList();
-
+        InstList(leafs);
+        ParseTree child = new ParseTree(code, leafs);
+        parent.add(child);
     }
 
-    void InstList() throws Exception {
+    void InstList(ArrayList<ParseTree> parent) throws Exception {
         rules.add("4 ");
         Instruction(); InstListTail();
     }
@@ -303,9 +314,11 @@ public class Parser {
         match(LexicalUnit.READ); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
     }
 
-    void match(LexicalUnit token) {
+    void match(LexicalUnit token, ArrayList<ParseTree> tree) {
         if (currentToken.getType() == token) {
             //faire fonctionner le parseTree
+            ParseTree parseTree = new ParseTree(currentToken);
+            tree.add(parseTree);
             getNextToken();
         }
     }
