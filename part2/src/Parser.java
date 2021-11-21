@@ -26,9 +26,15 @@ public class Parser {
     }
 
     void Code() throws Exception {
-        if (currentToken.getType() == LexicalUnit.END) {
-            System.out.println("2 ");
-            return;
+        switch (currentToken.getType()) {
+            case END:
+            case ENDIF:
+            case ELSE:
+            case ENDWHILE:
+            case ENDFOR: {
+                System.out.println("2 ");
+                return;
+            }
         }
         System.out.println("3 ");
         InstList();
@@ -41,9 +47,15 @@ public class Parser {
     }
 
     void InstListTail() throws Exception {
-        if (currentToken.getType() == LexicalUnit.END) {
-            System.out.println("6 ");
-            return;
+        switch (currentToken.getType()) {
+            case END:
+            case ENDIF:
+            case ELSE:
+            case ENDWHILE:
+            case ENDFOR: {
+                System.out.println("6 ");
+                return;
+            }
         }
         System.out.println("5 ");
         match(LexicalUnit.SEMICOLON); InstList();
