@@ -1,11 +1,21 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Parser {
     private final ArrayList<Symbol> tokenSequence;
+    private Iterator<Symbol> nextToken;
     private Symbol currentToken;
 
     public Parser(ArrayList<Symbol> tokenSequence){
         this.tokenSequence = tokenSequence;
+        nextToken = tokenSequence.iterator();
+        getNextToken();
+    }
+
+    private void getNextToken() {
+        if (nextToken.hasNext()){
+            currentToken = nextToken.next();
+        }
     }
 
     void Program() throws Exception {
@@ -262,12 +272,12 @@ public class Parser {
         match(LexicalUnit.READ); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
     }
 
-    void match(LexicalUnit token) { //a modifier demain
-    	/*res=false;
-    	if (token == s.qqch){
-    		res = true;}
-    	else{
-    		syntax_error(token);}*/
+    void match(LexicalUnit token) {
+        if (currentToken.getType() == token) {
+            System.out.println("Token is matched! Good job, keep going!");
+            //faire fonctionner le parseTree
+            getNextToken();
+        }
     }
 
     public void startParsing() throws Exception {
