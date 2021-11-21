@@ -3,7 +3,7 @@ import java.util.*;
 
 class Main {
 
-    private static final ArrayList<LexicalUnit> list = new ArrayList<>();
+    private static final ArrayList<Symbol> list = new ArrayList<>();
 
     /**
      */
@@ -13,15 +13,15 @@ class Main {
                 final FileReader source=new FileReader(args [0]);
                 final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
                 Symbol s = lexAn.nextToken();
+                list.add(s);
                 while(s.getType().toString() != "END") {
-                    list.add(s.getType());
+                    Parser parser = new Parser(s);
                     s = lexAn.nextToken();
                 }
-				for(LexicalUnit i : list) {
+				for(Symbol i : list) {
 					System.out.println(i);
 				}
-                Parser parser = new Parser(list);
-                parser.startParsing();
+                //parser.startParsing();
             }
             catch(Exception e) {
                 e.printStackTrace();

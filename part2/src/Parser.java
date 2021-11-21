@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Parser {
-    private final ArrayList<LexicalUnit> tokens;
+    private final Symbol symbol;
     private LexicalUnit currentToken;
 
-    public Parser(ArrayList<LexicalUnit> list){
-        this.tokens = list;
+    public Parser(Symbol symbol){
+        this.symbol = symbol;
     }
 
     void Program() throws Exception {
@@ -262,19 +262,19 @@ public class Parser {
         match(LexicalUnit.READ); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
     }
 
-    void match(LexicalUnit token, Symbol s) { //a modifier demain
-    	res=false;
+    void match(LexicalUnit token) { //a modifier demain
+    	/*res=false;
     	if (token == s.qqch){
     		res = true;}
     	else{
-    		syntax_error(token);}
+    		syntax_error(token);}*/
     }
 
     public void startParsing() throws Exception {
-        for (LexicalUnit i : tokens) {
+        /*for (LexicalUnit i : symbol) {
             currentToken = i;
             Program();
-        }
+        }*/
     }
 
     public void syntax_error(LexicalUnit token) throws Exception {
