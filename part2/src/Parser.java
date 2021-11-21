@@ -2,21 +2,21 @@ import java.util.ArrayList;
 
 public class Parser {
     private final ArrayList<Symbol> tokenSequence;
-    private LexicalUnit currentToken;
+    private Symbol currentToken;
 
     public Parser(ArrayList<Symbol> tokenSequence){
         this.tokenSequence = tokenSequence;
     }
 
     void Program() throws Exception {
-        if (currentToken == LexicalUnit.BEG) {
+        if (currentToken.getType() == LexicalUnit.BEG) {
             System.out.println("1 ");
             match(LexicalUnit.BEG); Code(); match(LexicalUnit.END);
         }
     }
 
     void Code() throws Exception {
-        if (currentToken == LexicalUnit.END) {
+        if (currentToken.getType() == LexicalUnit.END) {
             System.out.println("2 ");
             return;
         }
@@ -31,7 +31,7 @@ public class Parser {
     }
 
     void InstListTail() throws Exception {
-        if (currentToken == LexicalUnit.END) {
+        if (currentToken.getType() == LexicalUnit.END) {
             System.out.println("6 ");
             return;
         }
@@ -40,7 +40,7 @@ public class Parser {
     }
 
     void Instruction() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case VARNAME : {
                 System.out.println("7 ");
                 Assign();
@@ -65,7 +65,7 @@ public class Parser {
                 System.out.println("12 ");
                 Read();
             }
-            default : syntax_error(currentToken);
+            default : syntax_error(currentToken.getType());
         }
     }
 
@@ -85,7 +85,7 @@ public class Parser {
     }
 
     void D() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case END:
             case SEMICOLON:
             case EQUAL:
@@ -124,7 +124,7 @@ public class Parser {
     }
 
     void F() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case END:
             case PLUS:
             case MINUS:
@@ -155,7 +155,7 @@ public class Parser {
     }
 
     void B() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case VARNAME : {
                 System.out.println("26 ");
                 match(LexicalUnit.VARNAME);
@@ -175,7 +175,7 @@ public class Parser {
                 System.out.println("27 ");
                 match(LexicalUnit.NUMBER);
             }
-            default : syntax_error(currentToken);
+            default : syntax_error(currentToken.getType());
         }
     }
 
@@ -185,7 +185,7 @@ public class Parser {
     }
 
     void IfTail() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case ENDIF : {
                 System.out.println("29 ");
                 match(LexicalUnit.ENDIF);
@@ -196,12 +196,12 @@ public class Parser {
                 Code();
                 match(LexicalUnit.ENDIF);
             }
-            default : syntax_error(currentToken);
+            default : syntax_error(currentToken.getType());
         }
     }
 
     void Cond() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case NOT : {
                 System.out.println("31 ");
                 match(LexicalUnit.NOT);
@@ -214,7 +214,7 @@ public class Parser {
                 System.out.println("32 ");
                 SimpleCond();
             }
-            default : syntax_error(currentToken);
+            default : syntax_error(currentToken.getType());
         }
     }
 
@@ -224,7 +224,7 @@ public class Parser {
     }
 
     void Comp() throws Exception {
-        switch (currentToken) {
+        switch (currentToken.getType()) {
             case EQUAL : {
                 System.out.println("34 ");
                 match(LexicalUnit.EQUAL);
@@ -237,7 +237,7 @@ public class Parser {
                 System.out.println("36 ");
                 match(LexicalUnit.SMALLER);
             }
-            default : syntax_error(currentToken);
+            default : syntax_error(currentToken.getType());
         }
     }
 
