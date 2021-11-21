@@ -262,7 +262,12 @@ public class Parser {
         match(LexicalUnit.READ); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
     }
 
-    void match(LexicalUnit token) {
+    void match(LexicalUnit token, Symbol s) { //a modifier demain
+    	res=false;
+    	if (token == s.qqch){
+    		res = true;}
+    	else{
+    		syntax_error(token);}
     }
 
     public void startParsing() throws Exception {
