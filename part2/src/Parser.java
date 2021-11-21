@@ -54,22 +54,27 @@ public class Parser {
             case VARNAME : {
                 System.out.println("7 ");
                 Assign();
+                return;
             }
             case IF : {
                 System.out.println("8 ");
                 If();
+                return;
             }
             case WHILE : {
                 System.out.println("9 ");
                 While();
+                return;
             }
             case FOR : {
                 System.out.println("10 ");
                 For();
+                return;
             }
             case PRINT : {
                 System.out.println("11 ");
                 Print();
+                return;
             }
             case READ : {
                 System.out.println("12 ");
