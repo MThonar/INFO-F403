@@ -86,7 +86,15 @@ public class Parser {
 
     void D() throws Exception {
         switch (currentToken) {
-            case END, SEMICOLON, EQUAL, SMALLER, GREATER, THEN, DO, BY, TO : {
+            case END:
+            case SEMICOLON:
+            case EQUAL:
+            case SMALLER:
+            case GREATER:
+            case THEN:
+            case DO:
+            case BY:
+            case TO: {
                 System.out.println("18 ");
                 return;
             }
@@ -117,17 +125,27 @@ public class Parser {
 
     void F() throws Exception {
         switch (currentToken) {
-            case END, PLUS, MINUS, SEMICOLON, EQUAL, SMALLER, GREATER, THEN, DO, BY, TO : {
+            case END:
+            case PLUS:
+            case MINUS:
+            case SEMICOLON:
+            case EQUAL:
+            case SMALLER:
+            case GREATER:
+            case THEN:
+            case DO:
+            case BY:
+            case TO: {
                 System.out.println("23 ");
                 return;
             }
-            case TIMES : {
+            case TIMES: {
                 System.out.println("21 ");
                 match(LexicalUnit.TIMES);
                 B();
                 F();
             }
-            case DIVIDE : {
+            case DIVIDE: {
                 System.out.println("22 ");
                 match(LexicalUnit.DIVIDE);
                 B();
@@ -189,7 +207,10 @@ public class Parser {
                 match(LexicalUnit.NOT);
                 Cond();
             }
-            case VARNAME, LPAREN, MINUS, NUMBER : {
+            case VARNAME:
+            case LPAREN:
+            case MINUS:
+            case NUMBER: {
                 System.out.println("32 ");
                 SimpleCond();
             }
