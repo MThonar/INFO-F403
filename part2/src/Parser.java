@@ -41,31 +41,31 @@ public class Parser {
 
     void Instruction() throws Exception {
         switch (currentToken) {
-            case VARNAME -> {
+            case VARNAME : {
                 System.out.println("7 ");
                 Assign();
             }
-            case IF -> {
+            case IF : {
                 System.out.println("8 ");
                 If();
             }
-            case WHILE -> {
+            case WHILE : {
                 System.out.println("9 ");
                 While();
             }
-            case FOR -> {
+            case FOR : {
                 System.out.println("10 ");
                 For();
             }
-            case PRINT -> {
+            case PRINT : {
                 System.out.println("11 ");
                 Print();
             }
-            case READ -> {
+            case READ : {
                 System.out.println("12 ");
                 Read();
             }
-            default -> syntax_error(currentToken);
+            default : syntax_error(currentToken);
         }
     }
 
@@ -86,17 +86,17 @@ public class Parser {
 
     void D() throws Exception {
         switch (currentToken) {
-            case END, SEMICOLON, EQUAL, SMALLER, GREATER, THEN, DO, BY, TO -> {
+            case END, SEMICOLON, EQUAL, SMALLER, GREATER, THEN, DO, BY, TO : {
                 System.out.println("18 ");
                 return;
             }
-            case PLUS -> {
+            case PLUS : {
                 System.out.println("16 ");
                 match(LexicalUnit.PLUS);
                 A();
                 D();
             }
-            case MINUS -> {
+            case MINUS : {
                 System.out.println("17 ");
                 match(LexicalUnit.MINUS);
                 A();
@@ -117,17 +117,17 @@ public class Parser {
 
     void F() throws Exception {
         switch (currentToken) {
-            case END, PLUS, MINUS, SEMICOLON, EQUAL, SMALLER, GREATER, THEN, DO, BY, TO -> {
+            case END, PLUS, MINUS, SEMICOLON, EQUAL, SMALLER, GREATER, THEN, DO, BY, TO : {
                 System.out.println("23 ");
                 return;
             }
-            case TIMES -> {
+            case TIMES : {
                 System.out.println("21 ");
                 match(LexicalUnit.TIMES);
                 B();
                 F();
             }
-            case DIVIDE -> {
+            case DIVIDE : {
                 System.out.println("22 ");
                 match(LexicalUnit.DIVIDE);
                 B();
@@ -138,26 +138,26 @@ public class Parser {
 
     void B() throws Exception {
         switch (currentToken) {
-            case VARNAME -> {
+            case VARNAME : {
                 System.out.println("26 ");
                 match(LexicalUnit.VARNAME);
             }
-            case LPAREN -> {
+            case LPAREN : {
                 System.out.println("25 ");
                 match(LexicalUnit.LPAREN);
                 B();
                 match(LexicalUnit.RPAREN);
             }
-            case MINUS -> {
+            case MINUS : {
                 System.out.println("24 ");
                 match(LexicalUnit.MINUS);
                 B();
             }
-            case NUMBER -> {
+            case NUMBER : {
                 System.out.println("27 ");
                 match(LexicalUnit.NUMBER);
             }
-            default -> syntax_error(currentToken);
+            default : syntax_error(currentToken);
         }
     }
 
@@ -168,32 +168,32 @@ public class Parser {
 
     void IfTail() throws Exception {
         switch (currentToken) {
-            case ENDIF -> {
+            case ENDIF : {
                 System.out.println("29 ");
                 match(LexicalUnit.ENDIF);
             }
-            case ELSE -> {
+            case ELSE : {
                 System.out.println("30 ");
                 match(LexicalUnit.ELSE);
                 Code();
                 match(LexicalUnit.ENDIF);
             }
-            default -> syntax_error(currentToken);
+            default : syntax_error(currentToken);
         }
     }
 
     void Cond() throws Exception {
         switch (currentToken) {
-            case NOT -> {
+            case NOT : {
                 System.out.println("31 ");
                 match(LexicalUnit.NOT);
                 Cond();
             }
-            case VARNAME, LPAREN, MINUS, NUMBER -> {
+            case VARNAME, LPAREN, MINUS, NUMBER : {
                 System.out.println("32 ");
                 SimpleCond();
             }
-            default -> syntax_error(currentToken);
+            default : syntax_error(currentToken);
         }
     }
 
@@ -204,19 +204,19 @@ public class Parser {
 
     void Comp() throws Exception {
         switch (currentToken) {
-            case EQUAL -> {
+            case EQUAL : {
                 System.out.println("34 ");
                 match(LexicalUnit.EQUAL);
             }
-            case GREATER -> {
+            case GREATER : {
                 System.out.println("35 ");
                 match(LexicalUnit.GREATER);
             }
-            case SMALLER -> {
+            case SMALLER : {
                 System.out.println("36 ");
                 match(LexicalUnit.SMALLER);
             }
-            default -> syntax_error(currentToken);
+            default : syntax_error(currentToken);
         }
     }
 
