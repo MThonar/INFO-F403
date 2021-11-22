@@ -10,7 +10,7 @@ class Main {
     public static void main (String[] args){
         if(true){//args.length >= 3 && args[0] == "-wt"
             try {
-            	System.out.println(args.length);
+            	//System.out.println(args.length);
             	
                 final FileReader source=new FileReader(args [2]);
                 final FileWriter writer = new FileWriter(args[1]);
@@ -38,7 +38,7 @@ class Main {
         }
         else if(args.length ==1) {
         	try {
-            	System.out.println(args.length);
+            	//System.out.println(args.length);
             	for (String i:args){
             		System.out.println(i);}
                 final FileReader source=new FileReader(args [0]);
