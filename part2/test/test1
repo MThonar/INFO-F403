@@ -1,6 +1,0 @@
-begin 
-while a < b do :
-	a:= b+1;
-endwhile;
-end
-
