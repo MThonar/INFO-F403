@@ -51,6 +51,7 @@ public class ParseTree {
             treeTeX.append(child.toLaTexTree());
         }
         treeTeX.append("]");
+        System.out.println(treeTeX.toString());
         return treeTeX.toString();
     }
 

@@ -30,7 +30,8 @@ public class Parser {
             match(LexicalUnit.END, globalTree);
         }
         for (ParseTree i : globalTree){
-        	System.out.println(i.toLaTeX());}
+        	System.out.println(i.toLaTeX());
+        }
         ParseTree parseTree = new ParseTree(program, globalTree);
 
         return parseTree.toLaTeX();	
