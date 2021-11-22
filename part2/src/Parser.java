@@ -50,6 +50,8 @@ public class Parser {
                 rules.add("2 ");
                 ParseTree leaf = new ParseTree(epsilon);
                 leafs.add(leaf);
+                ParseTree child = new ParseTree(code, leafs);
+                parent.add(child);
                 return;
             }
         }
@@ -81,6 +83,8 @@ public class Parser {
                 rules.add("6 ");
                 ParseTree leaf = new ParseTree(epsilon);
                 leafs.add(leaf);
+                ParseTree child = new ParseTree(instListTail, leafs);
+                parent.add(child);
                 return;
             }
         }
@@ -98,11 +102,15 @@ public class Parser {
             case VARNAME : {
                 rules.add("7 ");
                 Assign(leafs);
+                ParseTree child = new ParseTree(instruction, leafs);
+                parent.add(child);
                 return;
             }
             case IF : {
                 rules.add("8 ");
                 If(leafs);
+                ParseTree child = new ParseTree(instruction, leafs);
+                parent.add(child);
                 return;
             }
             case WHILE : {
@@ -110,27 +118,33 @@ public class Parser {
                 ParseTree leaf = new ParseTree(instruction);
                 leafs.add(leaf);
                 While(leafs);
+                ParseTree child = new ParseTree(instruction, leafs);
+                parent.add(child);
                 return;
             }
             case FOR : {
                 rules.add("10 ");
                 For(leafs);
+                ParseTree child = new ParseTree(instruction, leafs);
+                parent.add(child);
                 return;
             }
             case PRINT : {
                 rules.add("11 ");
                 Print(leafs);
+                ParseTree child = new ParseTree(instruction, leafs);
+                parent.add(child);
                 return;
             }
             case READ : {
                 rules.add("12 ");
                 Read(leafs);
+                ParseTree child = new ParseTree(instruction, leafs);
+                parent.add(child);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
-        ParseTree child = new ParseTree(instruction, leafs);
-        parent.add(child);
     }
 
     void Assign(ArrayList<ParseTree> parent) throws Exception {
@@ -179,6 +193,8 @@ public class Parser {
                 rules.add("18 ");
                 ParseTree leaf = new ParseTree(epsilon);
                 leafs.add(leaf);
+                ParseTree child = new ParseTree(D, leafs);
+                parent.add(child);
                 return;
             }
             case PLUS : {
@@ -186,6 +202,8 @@ public class Parser {
                 match(LexicalUnit.PLUS, leafs);
                 A(leafs);
                 D(leafs);
+                ParseTree child = new ParseTree(D, leafs);
+                parent.add(child);
                 return;
             }
             case MINUS : {
@@ -193,10 +211,10 @@ public class Parser {
                 match(LexicalUnit.MINUS, leafs);
                 A(leafs);
                 D(leafs);
+                ParseTree child = new ParseTree(D, leafs);
+                parent.add(child);
             }
         }
-        ParseTree child = new ParseTree(D, leafs);
-        parent.add(child);
     }
 
     void A(ArrayList<ParseTree> parent) throws Exception {
@@ -236,6 +254,8 @@ public class Parser {
                 rules.add("23 ");
                 ParseTree leaf = new ParseTree(epsilon);
                 leafs.add(leaf);
+                ParseTree child = new ParseTree(F, leafs);
+                parent.add(child);
                 return;
             }
             case TIMES: {
@@ -243,6 +263,8 @@ public class Parser {
                 match(LexicalUnit.TIMES, leafs);
                 B(leafs);
                 F(leafs);
+                ParseTree child = new ParseTree(F, leafs);
+                parent.add(child);
                 return;
             }
             case DIVIDE: {
@@ -250,10 +272,10 @@ public class Parser {
                 match(LexicalUnit.DIVIDE, leafs);
                 B(leafs);
                 F(leafs);
+                ParseTree child = new ParseTree(F, leafs);
+                parent.add(child);
             }
         }
-        ParseTree child = new ParseTree(F, leafs);
-        parent.add(child);
     }
 
     void B(ArrayList<ParseTree> parent) throws Exception {
@@ -263,6 +285,8 @@ public class Parser {
             case VARNAME : {
                 rules.add("26 ");
                 match(LexicalUnit.VARNAME, leafs);
+                ParseTree child = new ParseTree(B, leafs);
+                parent.add(child);
                 return;
             }
             case LPAREN : {
@@ -270,23 +294,27 @@ public class Parser {
                 match(LexicalUnit.LPAREN, leafs);
                 B(leafs);
                 match(LexicalUnit.RPAREN, leafs);
+                ParseTree child = new ParseTree(B, leafs);
+                parent.add(child);
                 return;
             }
             case MINUS : {
                 rules.add("24 ");
                 match(LexicalUnit.MINUS, leafs);
                 B(leafs);
+                ParseTree child = new ParseTree(B, leafs);
+                parent.add(child);
                 return;
             }
             case NUMBER : {
                 rules.add("27 ");
                 match(LexicalUnit.NUMBER, leafs);
+                ParseTree child = new ParseTree(B, leafs);
+                parent.add(child);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
-        ParseTree child = new ParseTree(B, leafs);
-        parent.add(child);
     }
 
     void If(ArrayList<ParseTree> parent) throws Exception {
@@ -309,6 +337,8 @@ public class Parser {
             case ENDIF : {
                 rules.add("29 ");
                 match(LexicalUnit.ENDIF, leafs);
+                ParseTree child = new ParseTree(ifTail, leafs);
+                parent.add(child);
                 return;
             }
             case ELSE : {
@@ -316,12 +346,12 @@ public class Parser {
                 match(LexicalUnit.ELSE, leafs);
                 Code(leafs);
                 match(LexicalUnit.ENDIF, leafs);
+                ParseTree child = new ParseTree(ifTail, leafs);
+                parent.add(child);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
-        ParseTree child = new ParseTree(ifTail, leafs);
-        parent.add(child);
     }
 
     void Cond(ArrayList<ParseTree> parent) throws Exception {
@@ -332,6 +362,8 @@ public class Parser {
                 rules.add("31 ");
                 match(LexicalUnit.NOT, leafs);
                 Cond(leafs);
+                ParseTree child = new ParseTree(cond, leafs);
+                parent.add(child);
                 return;
             }
             case VARNAME:
@@ -340,12 +372,12 @@ public class Parser {
             case NUMBER: {
                 rules.add("32 ");
                 SimpleCond(leafs);
+                ParseTree child = new ParseTree(cond, leafs);
+                parent.add(child);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
-        ParseTree child = new ParseTree(cond, leafs);
-        parent.add(child);
     }
 
     void SimpleCond(ArrayList<ParseTree> parent) throws Exception {
@@ -366,22 +398,26 @@ public class Parser {
             case EQUAL : {
                 rules.add("34 ");
                 match(LexicalUnit.EQUAL, leafs);
+                ParseTree child = new ParseTree(comp, leafs);
+                parent.add(child);
                 return;
             }
             case GREATER : {
                 rules.add("35 ");
                 match(LexicalUnit.GREATER, leafs);
+                ParseTree child = new ParseTree(comp, leafs);
+                parent.add(child);
                 return;
             }
             case SMALLER : {
                 rules.add("36 ");
                 match(LexicalUnit.SMALLER, leafs);
+                ParseTree child = new ParseTree(comp, leafs);
+                parent.add(child);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
-        ParseTree child = new ParseTree(comp, leafs);
-        parent.add(child);
     }
 
     void While(ArrayList<ParseTree> parent) throws Exception {
