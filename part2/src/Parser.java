@@ -29,6 +29,7 @@ public class Parser {
             match(LexicalUnit.END, globalTree);
         }
         ParseTree parseTree = new ParseTree(program, globalTree);
+        parseTree.toLaTeX();
     }
 
     void Code(ArrayList<ParseTree> parent) throws Exception {
@@ -53,11 +54,18 @@ public class Parser {
     }
 
     void InstList(ArrayList<ParseTree> parent) throws Exception {
+        Symbol instList = new Symbol(null, "<InstList>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("4 ");
-        Instruction(); InstListTail();
+        Instruction(leafs);
+        InstListTail(leafs);
+        ParseTree child = new ParseTree(instList, leafs);
+        parent.add(child);
     }
 
-    void InstListTail() throws Exception {
+    void InstListTail(ArrayList<ParseTree> parent) throws Exception {
+        Symbol instListTail = new Symbol(null, "<InstListTail>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
             case ENDIF:
@@ -65,65 +73,93 @@ public class Parser {
             case ENDWHILE:
             case ENDFOR: {
                 rules.add("6 ");
+                ParseTree leaf = new ParseTree(epsilon);
+                leafs.add(leaf);
                 return;
             }
         }
         rules.add("5 ");
-        match(LexicalUnit.SEMICOLON); InstList();
+        match(LexicalUnit.SEMICOLON, parent);
+        InstList(leafs);
+        ParseTree child = new ParseTree(instListTail, leafs);
+        parent.add(child);
     }
 
-    void Instruction() throws Exception {
+    void Instruction(ArrayList<ParseTree> parent) throws Exception {
+        Symbol instruction = new Symbol(null, "<Instruction>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case VARNAME : {
                 rules.add("7 ");
-                Assign();
+                Assign(leafs);
                 return;
             }
             case IF : {
                 rules.add("8 ");
-                If();
+                If(leafs);
                 return;
             }
             case WHILE : {
                 rules.add("9 ");
-                While();
+                ParseTree leaf = new ParseTree(instruction);
+                leafs.add(leaf);
+                While(leafs);
                 return;
             }
             case FOR : {
                 rules.add("10 ");
-                For();
+                For(leafs);
                 return;
             }
             case PRINT : {
                 rules.add("11 ");
-                Print();
+                Print(leafs);
                 return;
             }
             case READ : {
                 rules.add("12 ");
-                Read();
+                Read(leafs);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
+        ParseTree child = new ParseTree(instruction, leafs);
+        parent.add(child);
     }
 
-    void Assign() throws Exception {
+    void Assign(ArrayList<ParseTree> parent) throws Exception {
+        Symbol assign = new Symbol(null, "<Assign>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("13 ");
-        match(LexicalUnit.VARNAME); match(LexicalUnit.ASSIGN); ExprArith();
+        match(LexicalUnit.VARNAME, leafs);
+        match(LexicalUnit.ASSIGN, leafs);
+        ExprArith(leafs);
+        ParseTree child = new ParseTree(assign, leafs);
+        parent.add(child);
     }
 
-    void ExprArith() throws Exception {
+    void ExprArith(ArrayList<ParseTree> parent) throws Exception {
+        Symbol exprArith = new Symbol(null, "<ExprArith>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("14 ");
-        C(); D();
+        C(leafs);
+        D(leafs);
+        ParseTree child = new ParseTree(exprArith, leafs);
+        parent.add(child);
     }
 
-    void C() throws Exception {
+    void C(ArrayList<ParseTree> parent) throws Exception {
+        Symbol C = new Symbol(null, "C");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("15 ");
-        A();
+        A(leafs);
+        ParseTree child = new ParseTree(C, leafs);
+        parent.add(child);
     }
 
-    void D() throws Exception {
+    void D(ArrayList<ParseTree> parent) throws Exception {
+        Symbol D = new Symbol(null, "D");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
             case SEMICOLON:
@@ -135,35 +171,50 @@ public class Parser {
             case BY:
             case TO: {
                 rules.add("18 ");
+                ParseTree leaf = new ParseTree(epsilon);
+                leafs.add(leaf);
                 return;
             }
             case PLUS : {
                 rules.add("16 ");
-                match(LexicalUnit.PLUS);
-                A();
-                D();
+                match(LexicalUnit.PLUS, leafs);
+                A(leafs);
+                D(leafs);
                 return;
             }
             case MINUS : {
                 rules.add("17 ");
-                match(LexicalUnit.MINUS);
-                A();
-                D();
+                match(LexicalUnit.MINUS, leafs);
+                A(leafs);
+                D(leafs);
             }
         }
+        ParseTree child = new ParseTree(D, leafs);
+        parent.add(child);
     }
 
-    void A() throws Exception {
+    void A(ArrayList<ParseTree> parent) throws Exception {
+        Symbol A = new Symbol(null, "A");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("19 ");
-        E(); F();
+        E(leafs);
+        F(leafs);
+        ParseTree child = new ParseTree(A, leafs);
+        parent.add(child);
     }
 
-    void E() throws Exception {
+    void E(ArrayList<ParseTree> parent) throws Exception {
+        Symbol E = new Symbol(null, "E");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("20 ");
-        B();
+        B(leafs);
+        ParseTree child = new ParseTree(E, leafs);
+        parent.add(child);
     }
 
-    void F() throws Exception {
+    void F(ArrayList<ParseTree> parent) throws Exception {
+        Symbol F = new Symbol(null, "F");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
             case PLUS:
@@ -177,82 +228,104 @@ public class Parser {
             case BY:
             case TO: {
                 rules.add("23 ");
+                ParseTree leaf = new ParseTree(epsilon);
+                leafs.add(leaf);
                 return;
             }
             case TIMES: {
                 rules.add("21 ");
-                match(LexicalUnit.TIMES);
-                B();
-                F();
+                match(LexicalUnit.TIMES, leafs);
+                B(leafs);
+                F(leafs);
                 return;
             }
             case DIVIDE: {
                 rules.add("22 ");
-                match(LexicalUnit.DIVIDE);
-                B();
-                F();
+                match(LexicalUnit.DIVIDE, leafs);
+                B(leafs);
+                F(leafs);
             }
         }
+        ParseTree child = new ParseTree(F, leafs);
+        parent.add(child);
     }
 
-    void B() throws Exception {
+    void B(ArrayList<ParseTree> parent) throws Exception {
+        Symbol B = new Symbol(null, "B");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case VARNAME : {
                 rules.add("26 ");
-                match(LexicalUnit.VARNAME);
+                match(LexicalUnit.VARNAME, leafs);
                 return;
             }
             case LPAREN : {
                 rules.add("25 ");
-                match(LexicalUnit.LPAREN);
-                B();
-                match(LexicalUnit.RPAREN);
+                match(LexicalUnit.LPAREN, leafs);
+                B(leafs);
+                match(LexicalUnit.RPAREN, leafs);
                 return;
             }
             case MINUS : {
                 rules.add("24 ");
-                match(LexicalUnit.MINUS);
-                B();
+                match(LexicalUnit.MINUS, leafs);
+                B(leafs);
                 return;
             }
             case NUMBER : {
                 rules.add("27 ");
-                match(LexicalUnit.NUMBER);
+                match(LexicalUnit.NUMBER, leafs);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
+        ParseTree child = new ParseTree(B, leafs);
+        parent.add(child);
     }
 
-    void If() throws Exception {
+    void If(ArrayList<ParseTree> parent) throws Exception {
+        Symbol If = new Symbol(null, "<If>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("28 ");
-        match(LexicalUnit.IF); Cond(); match(LexicalUnit.THEN); Code(); IfTail();
+        match(LexicalUnit.IF, leafs);
+        Cond(leafs);
+        match(LexicalUnit.THEN, leafs);
+        Code(leafs);
+        IfTail(leafs);
+        ParseTree child = new ParseTree(If, leafs);
+        parent.add(child);
     }
 
-    void IfTail() throws Exception {
+    void IfTail(ArrayList<ParseTree> parent) throws Exception {
+        Symbol ifTail = new Symbol(null, "<IfTail>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case ENDIF : {
                 rules.add("29 ");
-                match(LexicalUnit.ENDIF);
+                match(LexicalUnit.ENDIF, leafs);
                 return;
             }
             case ELSE : {
                 rules.add("30 ");
-                match(LexicalUnit.ELSE);
-                Code();
-                match(LexicalUnit.ENDIF);
+                match(LexicalUnit.ELSE, leafs);
+                Code(leafs);
+                match(LexicalUnit.ENDIF, leafs);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
+        ParseTree child = new ParseTree(ifTail, leafs);
+        parent.add(child);
     }
 
-    void Cond() throws Exception {
+    void Cond(ArrayList<ParseTree> parent) throws Exception {
+        Symbol cond = new Symbol(null, "<Cond>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case NOT : {
                 rules.add("31 ");
-                match(LexicalUnit.NOT);
-                Cond();
+                match(LexicalUnit.NOT, leafs);
+                Cond(leafs);
                 return;
             }
             case VARNAME:
@@ -260,63 +333,109 @@ public class Parser {
             case MINUS:
             case NUMBER: {
                 rules.add("32 ");
-                SimpleCond();
+                SimpleCond(leafs);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
+        ParseTree child = new ParseTree(cond, leafs);
+        parent.add(child);
     }
 
-    void SimpleCond() throws Exception {
+    void SimpleCond(ArrayList<ParseTree> parent) throws Exception {
+        Symbol simpleCond = new Symbol(null, "<SimpleCond>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("33 ");
-        ExprArith(); Comp(); ExprArith();
+        ExprArith(leafs);
+        Comp(leafs);
+        ExprArith(leafs);
+        ParseTree child = new ParseTree(simpleCond, leafs);
+        parent.add(child);
     }
 
-    void Comp() throws Exception {
+    void Comp(ArrayList<ParseTree> parent) throws Exception {
+        Symbol comp = new Symbol(null, "<Comp>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case EQUAL : {
                 rules.add("34 ");
-                match(LexicalUnit.EQUAL);
+                match(LexicalUnit.EQUAL, leafs);
                 return;
             }
             case GREATER : {
                 rules.add("35 ");
-                match(LexicalUnit.GREATER);
+                match(LexicalUnit.GREATER, leafs);
                 return;
             }
             case SMALLER : {
                 rules.add("36 ");
-                match(LexicalUnit.SMALLER);
+                match(LexicalUnit.SMALLER, leafs);
                 return;
             }
             default : syntax_error(currentToken.getType());
         }
+        ParseTree child = new ParseTree(comp, leafs);
+        parent.add(child);
     }
 
-    void While() throws Exception {
+    void While(ArrayList<ParseTree> parent) throws Exception {
+        Symbol While = new Symbol(null, "<While>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("37 ");
-        match(LexicalUnit.WHILE); Cond(); match(LexicalUnit.DO); Code(); match(LexicalUnit.ENDWHILE);
+        match(LexicalUnit.WHILE, leafs);
+        Cond(leafs);
+        match(LexicalUnit.DO, leafs);
+        Code(leafs);
+        match(LexicalUnit.ENDWHILE, leafs);
+        ParseTree child = new ParseTree(While, leafs);
+        parent.add(child);
     }
 
-    void For() throws Exception {
+    void For(ArrayList<ParseTree> parent) throws Exception {
+        Symbol For = new Symbol(null, "<For>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("38 ");
-        match(LexicalUnit.FOR); match(LexicalUnit.VARNAME); match(LexicalUnit.FROM); ExprArith(); match(LexicalUnit.BY);
-        ExprArith(); match(LexicalUnit.TO); ExprArith(); match(LexicalUnit.DO); Code(); match(LexicalUnit.ENDFOR);
+        match(LexicalUnit.FOR, leafs);
+        match(LexicalUnit.VARNAME, leafs);
+        match(LexicalUnit.FROM, leafs);
+        ExprArith(leafs);
+        match(LexicalUnit.BY, leafs);
+        ExprArith(leafs);
+        match(LexicalUnit.TO, leafs);
+        ExprArith(leafs);
+        match(LexicalUnit.DO, leafs);
+        Code(leafs);
+        match(LexicalUnit.ENDFOR, leafs);
+        ParseTree child = new ParseTree(For, leafs);
+        parent.add(child);
     }
 
-    void Print(){
+    void Print(ArrayList<ParseTree> parent){
+        Symbol print = new Symbol(null, "<Print>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("39 ");
-        match(LexicalUnit.PRINT); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
+        match(LexicalUnit.PRINT, leafs);
+        match(LexicalUnit.LPAREN, leafs);
+        match(LexicalUnit.VARNAME, leafs);
+        match(LexicalUnit.RPAREN, leafs);
+        ParseTree child = new ParseTree(print, leafs);
+        parent.add(child);
     }
 
-    void Read(){
+    void Read(ArrayList<ParseTree> parent){
+        Symbol read = new Symbol(null, "<Read>");
+        ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("40 ");
-        match(LexicalUnit.READ); match(LexicalUnit.LPAREN); match(LexicalUnit.VARNAME); match(LexicalUnit.RPAREN);
+        match(LexicalUnit.READ, leafs);
+        match(LexicalUnit.LPAREN, leafs);
+        match(LexicalUnit.VARNAME, leafs);
+        match(LexicalUnit.RPAREN, leafs);
+        ParseTree child = new ParseTree(read, leafs);
+        parent.add(child);
     }
 
     void match(LexicalUnit token, ArrayList<ParseTree> tree) {
         if (currentToken.getType() == token) {
-            //faire fonctionner le parseTree
             ParseTree parseTree = new ParseTree(currentToken);
             tree.add(parseTree);
             getNextToken();
