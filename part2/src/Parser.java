@@ -5,8 +5,7 @@ public class Parser {
     private final Iterator<Symbol> nextToken;
     private Symbol currentToken;
     private final ArrayList<String> rules;
-    private Symbol epsilon = new Symbol(null, "Epsilon");
-
+    private Symbol epsilon = new Symbol(null, "\\epsilon");
 
     public Parser(ArrayList<Symbol> tokenSequence){
         nextToken = tokenSequence.iterator();
@@ -63,7 +62,7 @@ public class Parser {
     }
 
     void InstList(ArrayList<ParseTree> parent) throws Exception {
-        Symbol instList = new Symbol(null, "<InstList>");
+        Symbol instList = new Symbol(null, "$<$InstList$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("4 ");
         Instruction(leafs);
@@ -73,7 +72,7 @@ public class Parser {
     }
 
     void InstListTail(ArrayList<ParseTree> parent) throws Exception {
-        Symbol instListTail = new Symbol(null, "<InstListTail>");
+        Symbol instListTail = new Symbol(null, "$<$InstListTail$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
@@ -97,7 +96,7 @@ public class Parser {
     }
 
     void Instruction(ArrayList<ParseTree> parent) throws Exception {
-        Symbol instruction = new Symbol(null, "<Instruction>");
+        Symbol instruction = new Symbol(null, "$<$Instruction$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case VARNAME : {
@@ -149,7 +148,7 @@ public class Parser {
     }
 
     void Assign(ArrayList<ParseTree> parent) throws Exception {
-        Symbol assign = new Symbol(null, "<Assign>");
+        Symbol assign = new Symbol(null, "$<$Assign$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("13 ");
         match(LexicalUnit.VARNAME, leafs);
@@ -160,7 +159,7 @@ public class Parser {
     }
 
     void ExprArith(ArrayList<ParseTree> parent) throws Exception {
-        Symbol exprArith = new Symbol(null, "<ExprArith>");
+        Symbol exprArith = new Symbol(null, "$<$ExprArith$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("14 ");
         C(leafs);
@@ -319,7 +318,7 @@ public class Parser {
     }
 
     void If(ArrayList<ParseTree> parent) throws Exception {
-        Symbol If = new Symbol(null, "<If>");
+        Symbol If = new Symbol(null, "$<$If$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("28 ");
         match(LexicalUnit.IF, leafs);
@@ -332,7 +331,7 @@ public class Parser {
     }
 
     void IfTail(ArrayList<ParseTree> parent) throws Exception {
-        Symbol ifTail = new Symbol(null, "<IfTail>");
+        Symbol ifTail = new Symbol(null, "$<$IfTail$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case ENDIF : {
@@ -356,7 +355,7 @@ public class Parser {
     }
 
     void Cond(ArrayList<ParseTree> parent) throws Exception {
-        Symbol cond = new Symbol(null, "<Cond>");
+        Symbol cond = new Symbol(null, "$<$Cond$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case NOT : {
@@ -382,7 +381,7 @@ public class Parser {
     }
 
     void SimpleCond(ArrayList<ParseTree> parent) throws Exception {
-        Symbol simpleCond = new Symbol(null, "<SimpleCond>");
+        Symbol simpleCond = new Symbol(null, "$<$SimpleCond$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("33 ");
         ExprArith(leafs);
@@ -393,7 +392,7 @@ public class Parser {
     }
 
     void Comp(ArrayList<ParseTree> parent) throws Exception {
-        Symbol comp = new Symbol(null, "<Comp>");
+        Symbol comp = new Symbol(null, "$<$Comp$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case EQUAL : {
@@ -422,7 +421,7 @@ public class Parser {
     }
 
     void While(ArrayList<ParseTree> parent) throws Exception {
-        Symbol While = new Symbol(null, "<While>");
+        Symbol While = new Symbol(null, "$<$While$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("37 ");
         match(LexicalUnit.WHILE, leafs);
@@ -435,7 +434,7 @@ public class Parser {
     }
 
     void For(ArrayList<ParseTree> parent) throws Exception {
-        Symbol For = new Symbol(null, "<For>");
+        Symbol For = new Symbol(null, "$<$For$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("38 ");
         match(LexicalUnit.FOR, leafs);
@@ -454,7 +453,7 @@ public class Parser {
     }
 
     void Print(ArrayList<ParseTree> parent){
-        Symbol print = new Symbol(null, "<Print>");
+        Symbol print = new Symbol(null, "$<$Print$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("39 ");
         match(LexicalUnit.PRINT, leafs);
@@ -466,7 +465,7 @@ public class Parser {
     }
 
     void Read(ArrayList<ParseTree> parent){
-        Symbol read = new Symbol(null, "<Read>");
+        Symbol read = new Symbol(null, "$<$Read$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("40 ");
         match(LexicalUnit.READ, leafs);
