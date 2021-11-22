@@ -21,7 +21,7 @@ public class Parser {
     }
 
     String Program() throws Exception {
-        Symbol program = new Symbol(null, "<Program>");
+        Symbol program = new Symbol(null, "$<$Program$>$");
         ArrayList<ParseTree> globalTree = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
             rules.add("1 ");
@@ -29,6 +29,8 @@ public class Parser {
             Code(globalTree);
             match(LexicalUnit.END, globalTree);
         }
+        for (ParseTree i : globalTree){
+        	System.out.println(i.toLaTeX());}
         ParseTree parseTree = new ParseTree(program, globalTree);
 
         return parseTree.toLaTeX();	
@@ -37,7 +39,7 @@ public class Parser {
     }
 
     void Code(ArrayList<ParseTree> parent) throws Exception {
-        Symbol code = new Symbol(null, "<Code>");
+        Symbol code = new Symbol(null, "$<$Code$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
