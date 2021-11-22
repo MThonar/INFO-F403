@@ -7,6 +7,7 @@ public class Parser {
     private final ArrayList<String> rules;
     private Symbol epsilon = new Symbol(null, "Epsilon");
 
+
     public Parser(ArrayList<Symbol> tokenSequence){
         nextToken = tokenSequence.iterator();
         rules = new ArrayList<>();
@@ -19,7 +20,7 @@ public class Parser {
         }
     }
 
-    void Program() throws Exception {
+    String Program() throws Exception {
         Symbol program = new Symbol(null, "<Program>");
         ArrayList<ParseTree> globalTree = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
@@ -29,7 +30,10 @@ public class Parser {
             match(LexicalUnit.END, globalTree);
         }
         ParseTree parseTree = new ParseTree(program, globalTree);
-        parseTree.toLaTeX();
+
+        return parseTree.toLaTeX();	
+
+        
     }
 
     void Code(ArrayList<ParseTree> parent) throws Exception {
@@ -442,12 +446,13 @@ public class Parser {
         }
     }
 
-    public void startParsing() throws Exception {
-        Program();
+    public String startParsing() throws Exception {
+        String string = Program();
         for (String i : rules) {
             System.out.printf(i);
         }
         System.out.println(" ");
+        return string;
     }
 
     public void syntax_error(LexicalUnit token) throws Exception {
