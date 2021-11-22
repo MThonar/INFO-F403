@@ -27,8 +27,8 @@ class Main {
 		        System.out.println(i);
 		 }*/
                 Parser parser = new Parser(list);
-                parser.startParsing();
-                writer.write(parser.startParsing());
+                String str = parser.startParsing();
+                writer.write(str);
                 writer.close();
                 
             }
