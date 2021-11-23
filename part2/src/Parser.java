@@ -38,6 +38,7 @@ public class Parser {
      * @throws Exception calls syntaxError() if a syntax error is encountered
      */
     String Program() throws Exception {
+        System.out.println(currentToken.getLine());
         Symbol program = new Symbol(null, "$<$Program$>$");
         ArrayList<ParseTree> highestRoot = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
