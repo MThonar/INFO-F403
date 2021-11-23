@@ -42,11 +42,8 @@ public class Parser {
         ArrayList<ParseTree> highestRoot = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
             rules.add("1 ");
-            System.out.println("premier print" + currentToken.getLine());
             match(LexicalUnit.BEG, highestRoot);
-            System.out.println("deuxième print" + currentToken.getLine());
             Code(highestRoot);
-            System.out.println("troisième print" + currentToken.getLine());
             match(LexicalUnit.END, highestRoot);
         }
         else {
