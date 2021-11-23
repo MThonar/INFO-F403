@@ -515,8 +515,8 @@ public class Parser {
             getNextToken();
         }
         else {
-            syntax_error(currentToken);
             System.out.println("error du match");
+            syntax_error(currentToken);
         }
     }
 
