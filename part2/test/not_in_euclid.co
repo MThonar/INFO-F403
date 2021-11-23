@@ -14,9 +14,3 @@ begin
     print(1);
   endfor
 end
-
-
-
-
-
-
