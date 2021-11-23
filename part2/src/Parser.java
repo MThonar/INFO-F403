@@ -171,9 +171,6 @@ public class Parser {
                 subTree.add(child);
                 return;
             }
-            case BEG:{
-            	syntax_error1(currentToken);
-            }
             default : syntax_error(currentToken);
         }
     }
