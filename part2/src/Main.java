@@ -8,20 +8,17 @@ class Main {
     /**
      */
     public static void main (String[] args){
-        if(args.length == 3 && args[0].equals("-wt")){
+        if (args.length == 3 && args[0].equals("-wt")) {
             try {
-                System.out.println("PREMIERE CONDITION");
-            	System.out.println(args.length);
-            	System.out.println(args[0]);
                 final FileReader source=new FileReader(args [2]);
                 final FileWriter writer = new FileWriter(args[1]);
                 final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
                 Symbol s = lexAn.nextToken();
-                while(s.getType().toString() != "END") {
+                while (!s.getType().toString().equals("END")) {
 			        list.add(s);
 			        s = lexAn.nextToken();
                 }
-                if(s.getType().toString() == "END") {
+                if (s.getType().toString().equals("END")) {
                 	list.add(s);
                 }
                 Parser parser = new Parser(list);
@@ -34,16 +31,16 @@ class Main {
                 e.printStackTrace();
             }
         }
-        else if(args.length ==1) {
+        else if (args.length == 1) {
         	try {
                 final FileReader source=new FileReader(args [0]);
                 final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
                 Symbol s = lexAn.nextToken();
-                while(s.getType().toString() != "END") {
+                while (!s.getType().toString().equals("END")) {
 			        list.add(s);
 			        s = lexAn.nextToken();
                 }
-                if(s.getType().toString() == "END") {
+                if (s.getType().toString().equals("END")) {
                 	list.add(s);
                 }
                 Parser parser = new Parser(list);
@@ -58,6 +55,5 @@ class Main {
             for (String i:args){
             		System.out.println(i);}
         }
-        
     }
 }
