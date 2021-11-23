@@ -8,10 +8,8 @@ class Main {
     /**
      */
     public static void main (String[] args){
-        if(true){
+        if(args.length == 3 && args[0].equals("-wt")){
             try {
-                System.out.println(args.length == 3);
-                System.out.println(args[0].equals("-wt"));
                 System.out.println("PREMIERE CONDITION");
             	System.out.println(args.length);
             	System.out.println(args[0]);
