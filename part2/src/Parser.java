@@ -46,7 +46,7 @@ public class Parser {
             match(LexicalUnit.BEG, highestRoot);
             System.out.println("deuxième print" + currentToken.getLine());
             Code(highestRoot);
-            System.out.println("deuième print");
+            System.out.println("troisième print" + currentToken.getLine());
             match(LexicalUnit.END, highestRoot);
         }
         else {
