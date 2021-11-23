@@ -10,8 +10,8 @@ class Main {
     public static void main (String[] args){
         if(true){//args.length >= 3 && args[0] == "-wt"
             try {
-            	//System.out.println(args.length);
-            	
+            	System.out.println(args.length);
+            	System.out.println(args[0]);
                 final FileReader source=new FileReader(args [2]);
                 final FileWriter writer = new FileWriter(args[1]);
                 final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);

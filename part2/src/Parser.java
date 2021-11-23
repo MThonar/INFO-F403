@@ -5,7 +5,7 @@ public class Parser {
     private final Iterator<Symbol> nextToken;
     private Symbol currentToken;
     private final ArrayList<String> rules;
-    private Symbol epsilon = new Symbol(null, "$\\epsilon$");
+    private final Symbol epsilon = new Symbol(null, "$\\epsilon$");
 
     public Parser(ArrayList<Symbol> tokenSequence){
         nextToken = tokenSequence.iterator();
