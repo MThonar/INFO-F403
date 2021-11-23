@@ -480,7 +480,7 @@ public class Parser {
         subTree.add(child);
     }
 
-    void Print(ArrayList<ParseTree> subTree){
+    void Print(ArrayList<ParseTree> subTree) throws Exception {
         Symbol print = new Symbol(null, "$<$Print$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("39 ");
@@ -492,7 +492,7 @@ public class Parser {
         subTree.add(child);
     }
 
-    void Read(ArrayList<ParseTree> subTree){
+    void Read(ArrayList<ParseTree> subTree) throws Exception {
         Symbol read = new Symbol(null, "$<$Read$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("40 ");
