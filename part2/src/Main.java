@@ -8,7 +8,7 @@ class Main {
     /**
      */
     public static void main (String[] args){
-        if(args.length >= 3 && args[0] == "-wt"){
+        if(args.length >= 3 && Objects.equals(args[0], "-wt")){
             try {
                 System.out.println("PREMIERE CONDITION");
             	System.out.println(args.length);
