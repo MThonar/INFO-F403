@@ -577,6 +577,8 @@ public class Parser {
         }
         else if(labelToCheck.getValue() == read.getValue()){
             listToBuild.add(labelToCheck);
+            Symbol variable = parseTree.getChildren().get(2).getLabel();
+            listToBuild.add(variable);
         }
         else if(labelToCheck.getType() == LexicalUnit.PLUS){
             listToBuild.add(labelToCheck);
@@ -602,10 +604,6 @@ public class Parser {
         }
         if(parseTree.getLabel().getValue() == assign.getValue()){
             Symbol variable = parseTree.getChildren().get(0).getLabel();
-            listToBuild.add(variable);
-        }
-        if(parseTree.getLabel().getValue() == read.getValue()){
-            Symbol variable = parseTree.getChildren().get(2).getLabel();
             listToBuild.add(variable);
         }
     }
