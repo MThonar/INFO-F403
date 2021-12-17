@@ -554,6 +554,9 @@ public class Parser {
         if(labelToCheck.getValue() == program.getValue()){
             listToBuild.add(labelToCheck);
         }
+        else if(labelToCheck.getValue() == cond.getValue()){
+            listToBuild.add(labelToCheck);
+        }
         else if(labelToCheck.getValue() == code.getValue()){
             listToBuild.add(labelToCheck);
         }
@@ -583,6 +586,9 @@ public class Parser {
             listToBuild.add(lparen);
             listToBuild.add(variable);
             listToBuild.add(rparen);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.NOT){
+            listToBuild.add(labelToCheck);
         }
         else if(labelToCheck.getType() == LexicalUnit.PLUS){
             listToBuild.add(labelToCheck);
