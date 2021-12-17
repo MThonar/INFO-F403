@@ -7,7 +7,28 @@ public class Parser {
     private Symbol currentToken;
     private final ArrayList<String> rules;
     private final Symbol epsilon = new Symbol(null, "$\\epsilon$");
-
+    private final Symbol code = new Symbol(null, "$<$Code$>$");
+    private final Symbol program = new Symbol(null, "$<$Program$>$");
+    private final Symbol instList = new Symbol(null, "$<$InstList$>$");
+    private final Symbol instListTail = new Symbol(null, "$<$InstListTail$>$");
+    private final Symbol instruction = new Symbol(null, "$<$Instruction$>$");
+    private final Symbol assign = new Symbol(null, "$<$Assign$>$");
+    private final Symbol exprArith = new Symbol(null, "$<$ExprArith$>$");
+    private final Symbol C = new Symbol(null, "C");
+    private final Symbol D = new Symbol(null, "D");
+    private final Symbol A = new Symbol(null, "A");
+    private final Symbol E = new Symbol(null, "E");
+    private final Symbol F = new Symbol(null, "F");
+    private final Symbol B = new Symbol(null, "B");
+    private final Symbol If = new Symbol(null, "$<$If$>$");
+    private final Symbol ifTail = new Symbol(null, "$<$IfTail$>$");
+    private final Symbol cond = new Symbol(null, "$<$Cond$>$");
+    private final Symbol simpleCond = new Symbol(null, "$<$SimpleCond$>$");
+    private final Symbol comp = new Symbol(null, "$<$Comp$>$");
+    private final Symbol While = new Symbol(null, "$<$While$>$");
+    private final Symbol For = new Symbol(null, "$<$For$>$");
+    private final Symbol print = new Symbol(null, "$<$Print$>$");
+    private final Symbol read = new Symbol(null, "$<$Read$>$");
 
     /**
      * This is the only necessary constructor. It creates an iterator object on
@@ -39,7 +60,6 @@ public class Parser {
      * @throws Exception calls syntaxError() if a syntax error is encountered
      */
     ParseTree Program() throws Exception {
-        Symbol program = new Symbol(null, "$<$Program$>$");
         ArrayList<ParseTree> highestRoot = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
             rules.add("1 ");
@@ -62,7 +82,6 @@ public class Parser {
      * @param subTree the list of parse trees that will be added to the highest root
      */
     void Code(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol code = new Symbol(null, "$<$Code$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
@@ -88,7 +107,6 @@ public class Parser {
      * Functions corresponding to a variable of the grammar are all similar, cf. Code() doc
      */
     void InstList(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol instList = new Symbol(null, "$<$InstList$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("4 ");
         Instruction(leafs);
@@ -98,7 +116,6 @@ public class Parser {
     }
 
     void InstListTail(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol instListTail = new Symbol(null, "$<$InstListTail$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
@@ -122,7 +139,6 @@ public class Parser {
     }
 
     void Instruction(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol instruction = new Symbol(null, "$<$Instruction$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case VARNAME : {
@@ -174,7 +190,6 @@ public class Parser {
     }
 
     void Assign(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol assign = new Symbol(null, "$<$Assign$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("13 ");
         match(LexicalUnit.VARNAME, leafs);
@@ -185,7 +200,6 @@ public class Parser {
     }
 
     void ExprArith(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol exprArith = new Symbol(null, "$<$ExprArith$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("14 ");
         C(leafs);
@@ -195,7 +209,6 @@ public class Parser {
     }
 
     void C(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol C = new Symbol(null, "C");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("15 ");
         A(leafs);
@@ -204,7 +217,6 @@ public class Parser {
     }
 
     void D(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol D = new Symbol(null, "D");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
@@ -244,7 +256,6 @@ public class Parser {
     }
 
     void A(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol A = new Symbol(null, "A");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("19 ");
         E(leafs);
@@ -254,7 +265,6 @@ public class Parser {
     }
 
     void E(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol E = new Symbol(null, "E");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("20 ");
         B(leafs);
@@ -263,7 +273,6 @@ public class Parser {
     }
 
     void F(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol F = new Symbol(null, "F");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case END:
@@ -305,7 +314,6 @@ public class Parser {
     }
 
     void B(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol B = new Symbol(null, "B");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case VARNAME : {
@@ -344,7 +352,6 @@ public class Parser {
     }
 
     void If(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol If = new Symbol(null, "$<$If$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("28 ");
         match(LexicalUnit.IF, leafs);
@@ -357,7 +364,6 @@ public class Parser {
     }
 
     void IfTail(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol ifTail = new Symbol(null, "$<$IfTail$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case ENDIF : {
@@ -381,7 +387,6 @@ public class Parser {
     }
 
     void Cond(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol cond = new Symbol(null, "$<$Cond$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case NOT : {
@@ -407,7 +412,6 @@ public class Parser {
     }
 
     void SimpleCond(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol simpleCond = new Symbol(null, "$<$SimpleCond$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("33 ");
         ExprArith(leafs);
@@ -418,7 +422,6 @@ public class Parser {
     }
 
     void Comp(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol comp = new Symbol(null, "$<$Comp$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         switch (currentToken.getType()) {
             case EQUAL : {
@@ -447,7 +450,6 @@ public class Parser {
     }
 
     void While(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol While = new Symbol(null, "$<$While$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("37 ");
         match(LexicalUnit.WHILE, leafs);
@@ -460,7 +462,6 @@ public class Parser {
     }
 
     void For(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol For = new Symbol(null, "$<$For$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("38 ");
         match(LexicalUnit.FOR, leafs);
@@ -479,7 +480,6 @@ public class Parser {
     }
 
     void Print(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol print = new Symbol(null, "$<$Print$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("39 ");
         match(LexicalUnit.PRINT, leafs);
@@ -491,7 +491,6 @@ public class Parser {
     }
 
     void Read(ArrayList<ParseTree> subTree) throws Exception {
-        Symbol read = new Symbol(null, "$<$Read$>$");
         ArrayList<ParseTree> leafs = new ArrayList<>();
         rules.add("40 ");
         match(LexicalUnit.READ, leafs);
@@ -532,6 +531,7 @@ public class Parser {
         }
         System.out.println(" ");
         ArrayList<Symbol> symbolList = new ArrayList<>();
+        symbolList.add(program);
         extractNeededSymbols(parseTree, symbolList);
         for(int i = 0; i < symbolList.size(); i++){
             System.out.println(symbolList.get(i).getValue());
@@ -550,13 +550,47 @@ public class Parser {
     }
 
     public void buildSymbolList(Symbol labelToCheck, ArrayList<Symbol> listToBuild){
-        Symbol program = new Symbol(null, "$<$Program$>$");
-        Symbol code = new Symbol(null, "$<$Code$>$");
         if(labelToCheck.getValue() == program.getValue()){
-            listToBuild.add(program);
+            listToBuild.add(labelToCheck);
         }
         else if(labelToCheck.getValue() == code.getValue()){
-            listToBuild.add(code);
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == exprArith.getValue()){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == assign.getValue()){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == If.getValue()){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == While.getValue()){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == For.getValue()){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == LexicalUnit.ASSIGN){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.PLUS){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.MINUS){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.TIMES){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.DIVIDE){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.LPAREN){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.RPAREN){
+            listToBuild.add(labelToCheck);
         }
     }
 
