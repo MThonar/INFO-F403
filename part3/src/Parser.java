@@ -7,8 +7,6 @@ public class Parser {
     private Symbol currentToken;
     private final ArrayList<String> rules;
     private final Symbol epsilon = new Symbol(null, "$\\epsilon$");
-    private ParseTree parseTree;
-    private ArrayList<Symbol> symbolList;
 
 
     /**
@@ -40,7 +38,7 @@ public class Parser {
      * @return string of the parse tree in LaTeX format
      * @throws Exception calls syntaxError() if a syntax error is encountered
      */
-    String Program() throws Exception {
+    ParseTree Program() throws Exception {
         Symbol program = new Symbol(null, "$<$Program$>$");
         ArrayList<ParseTree> highestRoot = new ArrayList<>();
         if (currentToken.getType() == LexicalUnit.BEG) {
@@ -52,12 +50,8 @@ public class Parser {
         else {
         	syntax_error(currentToken);
         }
-        this.parseTree = new ParseTree(program, highestRoot);
-        extractNeededSymbols(parseTree, symbolList);
-        for(int i = 0; i < symbolList.size(); i++){
-            System.out.println(symbolList.get(i).getValue());
-        }
-        return parseTree.toLaTeX();
+        ParseTree parseTree = new ParseTree(program, highestRoot);
+        return parseTree;
     }
 
     /**
@@ -531,13 +525,18 @@ public class Parser {
      * @return
      * @throws Exception
      */
-    public String startParsing() throws Exception {
-        String string = Program();
+    public ParseTree startParsing() throws Exception {
+        ParseTree parseTree = Program();
         for (String i : rules) {
             System.out.printf(i);
         }
         System.out.println(" ");
-        return string;
+        ArrayList<Symbol> symbolList = new ArrayList<>();
+        extractNeededSymbols(parseTree, symbolList);
+        for(int i = 0; i < symbolList.size(); i++){
+            System.out.println(symbolList.get(i).getValue());
+        }
+        return parseTree;
     }
 
     /**

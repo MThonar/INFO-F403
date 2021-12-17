@@ -26,7 +26,8 @@ class Main {
                 	list.add(s);
                 }
                 Parser parser = new Parser(list);
-                String str = parser.startParsing();
+                ParseTree parseTree = parser.startParsing();
+                String str = parseTree.toLaTeX();
                 writer.write(str);
                 writer.close();
                 
