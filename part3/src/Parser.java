@@ -587,6 +587,9 @@ public class Parser {
             listToBuild.add(variable);
             listToBuild.add(rparen);
         }
+        else if(labelToCheck.getType() == LexicalUnit.EQUAL){
+            listToBuild.add(labelToCheck);
+        }
         else if(labelToCheck.getType() == LexicalUnit.NOT){
             listToBuild.add(labelToCheck);
         }
