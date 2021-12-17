@@ -577,8 +577,12 @@ public class Parser {
         }
         else if(labelToCheck.getValue() == read.getValue()){
             listToBuild.add(labelToCheck);
+            Symbol lparen = parseTree.getChildren().get(1).getLabel();
             Symbol variable = parseTree.getChildren().get(2).getLabel();
+            Symbol rparen = parseTree.getChildren().get(3).getLabel();
+            listToBuild.add(lparen);
             listToBuild.add(variable);
+            listToBuild.add(rparen);
         }
         else if(labelToCheck.getType() == LexicalUnit.PLUS){
             listToBuild.add(labelToCheck);
