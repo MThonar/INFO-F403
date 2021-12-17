@@ -1,8 +1,6 @@
-/*
 import java.util.List;
 import java.util.ArrayList;
 
-*/
 /**
  * A skeleton class to represent parse trees. The arity is not fixed: a node can
  * have 0, 1 or more children. Trees are represented in the following way: Tree
@@ -13,43 +11,44 @@ import java.util.ArrayList;
  * tree is simply represented as its root.
  *
  * @author Léo Exibard, Sarah Winter
- *//*
-
+ */
 
 public class ParseTree {
     private Symbol label; // The label of the root of the tree
     private List<ParseTree> children; // Its children, which are trees themselves
 
-    */
-/**
+    /**
      * Creates a singleton tree with only a root labeled by lbl.
      *
      * @param lbl The label of the root
-     *//*
-
+     */
     public ParseTree(Symbol lbl) {
         this.label = lbl;
         this.children = new ArrayList<ParseTree>(); // This tree has no children
     }
 
-    */
-/**
+    /**
      * Creates a tree with root labeled by lbl and children chdn.
      *
      * @param lbl  The label of the root
      * @param chdn Its children
-     *//*
-
+     */
     public ParseTree(Symbol lbl, List<ParseTree> chdn) {
         this.label = lbl;
         this.children = chdn;
     }
 
-    */
-/**
-     * Writes the tree as LaTeX code
-     *//*
+    public Symbol getLabel(){
+        return this.label;
+    }
 
+    public List<ParseTree> getChildren(){
+        return this.children;
+    }
+
+    /**
+     * Writes the tree as LaTeX code
+     */
     public String toLaTexTree() {
         StringBuilder treeTeX = new StringBuilder();
         treeTeX.append("[");
@@ -64,12 +63,10 @@ public class ParseTree {
         return treeTeX.toString();
     }
 
-    */
-/**
+    /**
      * Writes the tree as TikZ code. TikZ is a language to specify drawings in LaTeX
      * files.
-     *//*
-
+     */
     public String toTikZ() {
         StringBuilder treeTikZ = new StringBuilder();
         treeTikZ.append("node {");
@@ -83,29 +80,24 @@ public class ParseTree {
         return treeTikZ.toString();
     }
 
-    */
-/**
+    /**
      * Writes the tree as a TikZ picture. A TikZ picture embeds TikZ code so that
      * LaTeX undertands it.
-     *//*
-
+     */
     public String toTikZPicture() {
         return "\\begin{tikzpicture}[tree layout]\n\\" + toTikZ() + ";\n\\end{tikzpicture}";
     }
 
 
-    */
-/**
+    /**
      * Writes the tree as a forest picture. Returns the tree in forest enviroment
      * using the latex code of the tree
-     *//*
-
+     */
     public String toForestPicture() {
         return "\\begin{forest}for tree={rectangle, draw, l sep=20pt}" + toLaTexTree() + ";\n\\end{forest}";
     }
 
-    */
-/**
+    /**
      * Writes the tree as a LaTeX document which can be compiled using PDFLaTeX.
      * <br>
      * <br>
@@ -114,11 +106,9 @@ public class ParseTree {
      * <pre>
      * pdflatex some-file.tex
      * </pre>
-     *//*
-
+     */
     public String toLaTeX() {
         return "\\documentclass[border=5pt]{standalone}\n\n\\usepackage{tikz}\n\\usepackage{forest}\n\n\\begin{document}\n\n"
                 + toForestPicture() + "\n\n\\end{document}\n%% Local Variables:\n%% TeX-engine: pdflatex\n%% End:";
     }
 }
-*/

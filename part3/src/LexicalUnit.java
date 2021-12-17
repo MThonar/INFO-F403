@@ -1,4 +1,3 @@
-/*
 public enum LexicalUnit{
     VARNAME,
     NUMBER,
@@ -32,4 +31,3 @@ public enum LexicalUnit{
     READ,
 	END_OF_STREAM
 }
-*/

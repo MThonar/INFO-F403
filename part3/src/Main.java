@@ -1,4 +1,3 @@
-/*
 import java.io.*;
 import java.util.*;
 
@@ -6,14 +5,12 @@ class Main {
 
     private static final ArrayList<Symbol> list = new ArrayList<>();
 
-    */
-/**
+    /**
      * This function allows to extract a list of tokens from the input file.
      * It then creates a new Parser object with the list of tokens as an
      * argument. Lastly, it writes the ParseTree in LaTeX format in the
      * .tex file given as argument.
-     *//*
-
+     */
     public static void main (String[] args){
         if (args.length == 3 && args[0].equals("-wt")) {
             try {
@@ -63,4 +60,4 @@ class Main {
             		System.out.println(i);}
         }
     }
-}*/
+}

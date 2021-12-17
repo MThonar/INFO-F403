@@ -1,4 +1,3 @@
-/*
 %%// Options of the scanner
 
 %class LexicalAnalyzer	//Name
@@ -66,4 +65,4 @@ LongComments	= "CO" .* "CO"
 
 // Comments to be ignored
 {ShortComments}	  {}
-{LongComments}    {}*/
+{LongComments}    {}

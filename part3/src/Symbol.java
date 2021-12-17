@@ -1,4 +1,3 @@
-/*
 public class Symbol{
 	public static final int UNDEFINED_POSITION = -1;
 	public static final Object NO_VALUE = null;
@@ -74,4 +73,4 @@ public class Symbol{
 	public String toTexString() {
 		return this.value.toString();
 	}
-}*/
+}
