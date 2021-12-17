@@ -604,6 +604,10 @@ public class Parser {
         List<ParseTree> children = parseTree.getChildren();
         for(int i = 0; i < children.size(); i++){
             buildSymbolList(children.get(i).getLabel(), listToBuild);
+            if(children.get(i).getLabel().getValue() == "B"){
+                Symbol number = children.get(i).getChildren().get(0).getLabel();
+                listToBuild.add(number);
+            }
             if(children.get(i).getChildren().size() != 0){
                 extractNeededSymbols(children.get(i), listToBuild);
             }
