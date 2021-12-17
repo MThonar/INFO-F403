@@ -571,6 +571,12 @@ public class Parser {
         else if(labelToCheck.getValue() == For.getValue()){
             listToBuild.add(labelToCheck);
         }
+        else if(labelToCheck.getValue() == print.getValue()){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getValue() == read.getValue()){
+            listToBuild.add(labelToCheck);
+        }
         else if(labelToCheck.getValue() == LexicalUnit.ASSIGN){
             listToBuild.add(labelToCheck);
         }
