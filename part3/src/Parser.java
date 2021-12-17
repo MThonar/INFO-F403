@@ -596,15 +596,15 @@ public class Parser {
         else if(labelToCheck.getType() == LexicalUnit.RPAREN){
             listToBuild.add(labelToCheck);
         }
-        else if(parseTree.getLabel().getValue() == "B"){
+        if(parseTree.getLabel().getValue() == "B"){
             Symbol number = parseTree.getChildren().get(0).getLabel();
             listToBuild.add(number);
         }
-        else if(parseTree.getLabel().getValue() == assign.getValue()){
+        if(parseTree.getLabel().getValue() == assign.getValue()){
             Symbol variable = parseTree.getChildren().get(0).getLabel();
             listToBuild.add(variable);
         }
-        else if(parseTree.getLabel().getValue() == read.getValue()){
+        if(parseTree.getLabel().getValue() == read.getValue()){
             Symbol variable = parseTree.getChildren().get(2).getLabel();
             listToBuild.add(variable);
         }
