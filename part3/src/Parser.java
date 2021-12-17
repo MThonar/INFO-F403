@@ -605,6 +605,10 @@ public class Parser {
                 Symbol number = children.get(i).getChildren().get(0).getLabel();
                 listToBuild.add(number);
             }
+            else if(children.get(i).getLabel().getValue() == assign.getValue()){
+                Symbol variable = children.get(i).getChildren().get(0).getLabel();
+                listToBuild.add(variable);
+            }
             if(children.get(i).getChildren().size() != 0){
                 extractNeededSymbols(children.get(i), listToBuild);
             }
