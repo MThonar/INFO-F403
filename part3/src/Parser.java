@@ -646,6 +646,7 @@ public class Parser {
         for(int i = 0; i < symbols.size(); i++){
             if( symbols.get(i).getValue() == exprArith.getValue()
             && (isAnOperator(symbols.get(i+2))) ){
+                System.out.println("on a trouvé un exprarith");
                 ArrayList<Symbol> toShunt = new ArrayList<>();
                 toShunt.add(symbols.get(i+1));
                 toShunt.add(symbols.get(i+2));
