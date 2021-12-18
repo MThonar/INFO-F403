@@ -675,6 +675,7 @@ public class Parser {
                 while(stack.size() != 0){
                     for(Symbol symbol1 : stack){
                         if(getPriority(symbol, symbol1)){
+                            System.out.println("on retire du stack et on ajoute dans la queue");
                             stack.remove(symbol1);
                             queue.add(symbol1);
                             stack.add(symbol);
@@ -683,10 +684,12 @@ public class Parser {
                 }
             }
             else{
+                System.out.println("on ajoute simplement dans la queue");
                 queue.add(symbol);
             }
         }
         for(Symbol symbol : stack){
+            System.out.println("on vide le stack");
             stack.remove(symbol);
             queue.add(symbol);
         }
