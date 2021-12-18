@@ -613,7 +613,7 @@ public class Parser {
         }
         else if(parseTree.getLabel().getValue() == assign.getValue()){
             Symbol variable = parseTree.getChildren().get(0).getLabel();
-            System.out.println(variable);
+            System.out.println("COUCOU" + variable);
             listToBuild.add(variable);
         }
     }
