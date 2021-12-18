@@ -532,9 +532,10 @@ public class Parser {
         System.out.println(" ");
         ArrayList<Symbol> symbolList = new ArrayList<>();
         symbolList.add(program);
-        extractNeededSymbols(parseTree, symbolList);
+        parseTreePreProcessing(parseTree, symbolList);
         for(int i = 0; i < symbolList.size(); i++){
             System.out.println(symbolList.get(i).getValue());
+            System.out.println();
         }
         return parseTree;
     }
@@ -619,12 +620,49 @@ public class Parser {
         }
     }
 
-    public void extractNeededSymbols(ParseTree parseTree, ArrayList<Symbol> listToBuild){
+    public void parseTreePreProcessing(ParseTree parseTree, ArrayList<Symbol> listToBuild){
         List<ParseTree> children = parseTree.getChildren();
-        for(int i = 0; i < children.size(); i++){
-            buildSymbolList(children.get(i), listToBuild);
-            if(children.get(i).getChildren().size() != 0){
-                extractNeededSymbols(children.get(i), listToBuild);
+        for (ParseTree child : children) {
+            buildSymbolList(child, listToBuild);
+            if (child.getChildren().size() != 0) {
+                parseTreePreProcessing(child, listToBuild);
+            }
+        }
+    }
+
+    public boolean isAnOperator(Symbol symbol){
+        boolean res = false;
+        if(symbol.getType() == LexicalUnit.PLUS
+        || symbol.getType() == LexicalUnit.MINUS
+        || symbol.getType() == LexicalUnit.TIMES
+        || symbol.getType() == LexicalUnit.DIVIDE){
+            res = true;
+        }
+        return res;
+    }
+
+    public void createAST(ArrayList<Symbol> symbols){
+        ArrayList<Symbol> AST = new ArrayList<>();
+        for(int i = 0; i < symbols.size(); i++){
+            if( symbols.get(i).getValue() == exprArith.getValue()
+            && (isAnOperator(symbols.get(i+2))) ){
+                ArrayList<Symbol> toShunt = new ArrayList<>();
+                toShunt.add(symbols.get(i+1));
+                toShunt.add(symbols.get(i+2));
+                toShunt.add(symbols.get(i+3));
+                int j = i +2;
+                while(isAnOperator(symbols.get(j+2))){
+                    toShunt.add(symbols.get(j+2));
+                    toShunt.add(symbols.get(j+3));
+                    j += 2;
+                }
+                for(Symbol symbol : toShunt){
+                    System.out.println(symbol);
+                }
+                //shunt(toShunt);
+            }
+            else{
+                //AST.add();
             }
         }
     }
