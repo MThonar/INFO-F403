@@ -605,11 +605,17 @@ public class Parser {
         else if(labelToCheck.getType() == LexicalUnit.DIVIDE){
             listToBuild.add(labelToCheck);
         }
-        if(parseTree.getLabel().getValue() == "B"){
+        else if(labelToCheck.getType() == LexicalUnit.LPAREN){
+            listToBuild.add(labelToCheck);
+        }
+        else if(labelToCheck.getType() == LexicalUnit.RPAREN){
+            listToBuild.add(labelToCheck);
+        }
+        else if(parseTree.getLabel().getValue() == "B"){
             Symbol number = parseTree.getChildren().get(0).getLabel();
             listToBuild.add(number);
         }
-        if(parseTree.getLabel().getValue() == assign.getValue()){
+        else if(parseTree.getLabel().getValue() == assign.getValue()){
             Symbol variable = parseTree.getChildren().get(0).getLabel();
             listToBuild.add(variable);
         }
