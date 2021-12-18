@@ -565,6 +565,8 @@ public class Parser {
         }
         else if(labelToCheck.getValue() == assign.getValue()){
             listToBuild.add(labelToCheck);
+            Symbol variable = parseTree.getChildren().get(0).getLabel();
+            listToBuild.add(variable);
         }
         else if(labelToCheck.getValue() == If.getValue()){
             listToBuild.add(labelToCheck);
@@ -577,6 +579,8 @@ public class Parser {
         }
         else if(labelToCheck.getValue() == print.getValue()){
             listToBuild.add(labelToCheck);
+            Symbol variable = parseTree.getChildren().get(2).getLabel();
+            listToBuild.add(variable);
         }
         else if(labelToCheck.getValue() == read.getValue()){
             listToBuild.add(labelToCheck);
@@ -610,10 +614,6 @@ public class Parser {
         else if(parseTree.getLabel().getValue() == "B"){
             Symbol number = parseTree.getChildren().get(0).getLabel();
             listToBuild.add(number);
-        }
-        if(parseTree.getLabel().getValue() == assign.getValue()){
-            Symbol variable = parseTree.getChildren().get(0).getLabel();
-            listToBuild.add(variable);
         }
     }
 
