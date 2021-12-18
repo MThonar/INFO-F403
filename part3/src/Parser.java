@@ -642,12 +642,62 @@ public class Parser {
         return res;
     }
 
+    //return true if symbolLeft has higher or equal priority
+    //compared to symbolRight
+    public boolean getPriority(Symbol symbolLeft, Symbol symbolRight){
+        boolean res = false;
+        if( (symbolLeft.getType() == LexicalUnit.PLUS) && (symbolRight.getType() == LexicalUnit.MINUS) ){
+            res = true;
+        }
+        else if( (symbolLeft.getType() == LexicalUnit.PLUS) && (symbolRight.getType() == LexicalUnit.PLUS) ){
+            res = true;
+        }
+        else if( (symbolLeft.getType() == LexicalUnit.MINUS) && (symbolRight.getType() == LexicalUnit.PLUS) ){
+            res = true;
+        }
+        else if( (symbolLeft.getType() == LexicalUnit.MINUS) && (symbolRight.getType() == LexicalUnit.MINUS) ){
+            res = true;
+        }
+        else if(symbolLeft.getType() == LexicalUnit.TIMES){
+            res = true;
+        }
+        else if(symbolLeft.getType() == LexicalUnit.DIVIDE){
+            res = true;
+        }
+        return res;
+    }
+
+    public ArrayList<Symbol> shunt(ArrayList<Symbol> symbols){
+        ArrayList<Symbol> stack = new ArrayList<>();
+        ArrayList<Symbol> queue = new ArrayList<>();
+        for(Symbol symbol : symbols){
+            if(isAnOperator(symbol)){
+                while(stack.size() != 0){
+                    for(Symbol symbol1 : stack){
+                        if(getPriority(symbol, symbol1)){
+                            stack.remove(symbol1);
+                            queue.add(symbol1);
+                            stack.add(symbol);
+                        }
+                    }
+                }
+            }
+            else{
+                queue.add(symbol);
+            }
+        }
+        for(Symbol symbol : stack){
+            stack.remove(symbol);
+            queue.add(symbol);
+        }
+        return queue;
+    }
+
     public void createAST(ArrayList<Symbol> symbols){
         ArrayList<Symbol> AST = new ArrayList<>();
         for(int i = 0; i < symbols.size(); i++){
             if( symbols.get(i).getValue() == exprArith.getValue()
             && (isAnOperator(symbols.get(i+2))) ){
-                System.out.println("on a trouvé un exprarith");
                 ArrayList<Symbol> toShunt = new ArrayList<>();
                 toShunt.add(symbols.get(i+1));
                 toShunt.add(symbols.get(i+2));
@@ -658,12 +708,13 @@ public class Parser {
                     toShunt.add(symbols.get(j+3));
                     j += 2;
                 }
-                System.out.println("LA LISTE COMMENCE ICI");
-                for(Symbol symbol : toShunt){
+                ArrayList<Symbol> shunted = new ArrayList<>();
+                shunted = shunt(toShunt);
+                System.out.println("DEBUT DE LISTE");
+                for(Symbol symbol : shunted){
                     System.out.println(symbol);
                 }
-                System.out.println("LA LISTE TERMINE ICI");
-                //shunt(toShunt);
+                System.out.println("FIN DE LISTE");
             }
             else{
                 //AST.add();
