@@ -577,6 +577,7 @@ public class Parser {
         else if(labelToCheck.getValue() == For.getValue()){
             listToBuild.add(labelToCheck);
             Symbol variable = parseTree.getChildren().get(1).getLabel();
+            listToBuild.add(variable);
         }
         else if(labelToCheck.getValue() == print.getValue()){
             listToBuild.add(labelToCheck);
