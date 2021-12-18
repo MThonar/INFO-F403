@@ -656,9 +656,11 @@ public class Parser {
                     toShunt.add(symbols.get(j+3));
                     j += 2;
                 }
+                System.out.println("LA LISTE COMMENCE ICI");
                 for(Symbol symbol : toShunt){
                     System.out.println(symbol);
                 }
+                System.out.println("LA LISTE TERMINE ICI");
                 //shunt(toShunt);
             }
             else{
