@@ -537,6 +537,7 @@ public class Parser {
             System.out.println(symbolList.get(i).getValue());
             System.out.println();
         }
+        createAST(symbolList);
         return parseTree;
     }
 
