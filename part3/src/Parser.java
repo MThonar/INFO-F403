@@ -679,7 +679,8 @@ public class Parser {
                 }
                 else{
                     System.out.println("il y a déjà des opérateurs dans le stack: on regarde la priorité");
-                    while(stack.size() != 0){
+                    int size = stack.size();
+                    while(size != 0){
                         System.out.println("WHILE");
                         for(int i = 0; i < stack.size(); i++){
                             System.out.println("FOR");
@@ -690,6 +691,7 @@ public class Parser {
                                 stack.add(symbol);
                             }
                         }
+                        size = stack.size();
                     }
                 }
             }
