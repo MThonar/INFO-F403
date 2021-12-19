@@ -714,10 +714,11 @@ public class Parser {
                 toShunt.add(symbols.get(i+2));
                 toShunt.add(symbols.get(i+3));
                 int j = i +2;
-                if(j+2 < symbols.size()){
-                    while(isAnOperator(symbols.get(j+2))){
-                        toShunt.add(symbols.get(j+2));
-                        toShunt.add(symbols.get(j+3));
+
+                while(isAnOperator(symbols.get(j+2))){
+                    toShunt.add(symbols.get(j+2));
+                    toShunt.add(symbols.get(j+3));
+                    if(j+2 < symbols.size()) {
                         j += 2;
                     }
                 }
