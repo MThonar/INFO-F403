@@ -538,6 +538,7 @@ public class Parser {
             System.out.println();
         }
         createAST(symbolList);
+        System.out.println(symbolList);
         return parseTree;
     }
 
@@ -723,16 +724,16 @@ public class Parser {
                         break;
                     }
                 }
-                ArrayList<Symbol> shunted = new ArrayList<>();
-                shunted = shunt(toShunt);
+                ArrayList<Symbol> shunted = shunt(toShunt);
                 System.out.println("DEBUT DE LISTE");
                 for(Symbol symbol : shunted){
                     System.out.println(symbol);
+                    AST.add(symbol);
                 }
                 System.out.println("FIN DE LISTE");
             }
             else{
-                //AST.add();
+                AST.add(symbols.get(i));
             }
         }
     }
