@@ -745,7 +745,8 @@ public class Parser {
                 }
                 System.out.println("FIN DE LISTE");
                 for(Integer remover : toRemove){
-                    symbols.remove(symbols.get(remover));
+                    int remover_int = remover;
+                    symbols.remove(remover_int);
                 }
             }
             else{
