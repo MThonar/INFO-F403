@@ -673,14 +673,20 @@ public class Parser {
         for(Symbol symbol : symbols){
             if(isAnOperator(symbol)){
                 System.out.println("on a trouvé un opérateur");
-                while(stack.size() != 0){
-                    System.out.println("on a trouvé un opérateur, mais le stack était vide");
-                    for(Symbol symbol1 : stack){
-                        if(getPriority(symbol, symbol1)){
-                            System.out.println("on retire du stack et on ajoute dans la queue");
-                            stack.remove(symbol1);
-                            queue.add(symbol1);
-                            stack.add(symbol);
+                if(stack.size() == 0){
+                    System.out.println("on ajoute l'opérateur dans le stack");
+                    stack.add(symbol);
+                }
+                else{
+                    System.out.println("il y a déjà des opérateurs dans le stack: on regarde la priorité");
+                    while(stack.size() != 0){
+                        for(Symbol symbol1 : stack){
+                            if(getPriority(symbol, symbol1)){
+                                System.out.println("on retire du stack et on ajoute dans la queue");
+                                stack.remove(symbol1);
+                                queue.add(symbol1);
+                                stack.add(symbol);
+                            }
                         }
                     }
                 }
