@@ -744,10 +744,11 @@ public class Parser {
                     newList.add(symbol);
                 }
                 System.out.println("FIN DE LISTE");
-                for(Integer remover : toRemove){
-                    int remover_int = remover;
-                    System.out.println(symbols.get(remover_int).getValue().toString());
-                    //symbols.remove(remover_int);
+                int k = 0;
+                while(toRemove.size() > 0){
+                    symbols.remove(i+1);
+                    toRemove.remove(k);
+                    k++;
                 }
             }
             else{
