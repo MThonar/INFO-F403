@@ -715,7 +715,6 @@ public class Parser {
                 toShunt.add(symbols.get(i+3));
                 int j = i + 4;
                 while(isAnOperator(symbols.get(j))) {
-                    System.out.println("NIKITAAAA" + symbols.get(j + 2).getValue().toString());
                     toShunt.add(symbols.get(j));
                     toShunt.add(symbols.get(j + 1));
                     if(j+2 < symbols.size()){
