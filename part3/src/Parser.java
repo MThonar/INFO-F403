@@ -684,7 +684,7 @@ public class Parser {
                         System.out.println("WHILE");
                         for(int i = 0; i < stack.size(); i++){
                             System.out.println("FOR");
-                            if(getPriority(symbol, stack.get(i))){
+                            if(getPriority(stack.get(i), symbol)){
                                 System.out.println("on retire du stack et on ajoute dans la queue");
                                 queue.add(stack.get(i));
                                 stack.remove(i);
