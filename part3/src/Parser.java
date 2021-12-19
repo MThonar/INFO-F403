@@ -680,11 +680,11 @@ public class Parser {
                 else{
                     System.out.println("il y a déjà des opérateurs dans le stack: on regarde la priorité");
                     while(stack.size() != 0){
-                        for(Symbol symbol1 : stack){
-                            if(getPriority(symbol, symbol1)){
+                        for(int i = 0; i < stack.size(); i++){
+                            if(getPriority(symbol, stack.get(i))){
                                 System.out.println("on retire du stack et on ajoute dans la queue");
-                                queue.add(symbol1);
-                                stack.remove(symbol1);
+                                queue.add(stack.get(i));
+                                stack.remove(i);
                                 stack.add(symbol);
                             }
                         }
