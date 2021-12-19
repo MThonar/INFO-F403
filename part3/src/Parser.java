@@ -717,11 +717,11 @@ public class Parser {
                 newList.add(symbols.get(i));
                 ArrayList<Symbol> toShunt = new ArrayList<>();
                 toShunt.add(symbols.get(i+1));
-                symbols.remove(i+1);
+                //symbols.remove(i+1);
                 toShunt.add(symbols.get(i+2));
-                symbols.remove(i+2);
+                //symbols.remove(i+2);
                 toShunt.add(symbols.get(i+3));
-                symbols.remove(i+3);
+                //symbols.remove(i+3);
                 int j = i + 4;
                 while(isAnOperator(symbols.get(j))) {
                     toShunt.add(symbols.get(j));
