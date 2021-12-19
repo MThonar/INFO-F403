@@ -674,7 +674,7 @@ public class Parser {
             if(isAnOperator(symbol)){
                 System.out.println("on a trouvé un opérateur");
                 if(stack.size() == 0){
-                    System.out.println("on ajoute l'opérateur dans le stack");
+                    System.out.println("on ajoute l'opérateur dans le stack" + symbol.getValue().toString());
                     stack.add(symbol);
                 }
                 else{
