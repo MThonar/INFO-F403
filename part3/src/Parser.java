@@ -538,7 +538,11 @@ public class Parser {
             System.out.println();
         }
         createAST(symbolList);
-        System.out.println(symbolList);
+        System.out.println("DEBUT DU PRINT FINAL");
+        for(Symbol symbol : symbolList){
+            System.out.println(symbol);
+        }
+        System.out.println("FIN DU PRINT FINAL");
         return parseTree;
     }
 
