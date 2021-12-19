@@ -683,6 +683,9 @@ public class Parser {
                         System.out.println("on retire du stack et on ajoute dans la queue");
                         queue.add(stack.get(stack.size()-1));
                         stack.remove(stack.size()-1);
+                        if(stack.size() == 0){
+                            break;
+                        }
                     }
                     stack.add(symbol);
                 }
