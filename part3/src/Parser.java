@@ -688,11 +688,11 @@ public class Parser {
                                 System.out.println("on retire du stack et on ajoute dans la queue");
                                 queue.add(stack.get(i));
                                 stack.remove(i);
-                                stack.add(symbol);
                             }
                         }
                         size = stack.size();
                     }
+                    stack.add(symbol);
                 }
             }
             else{
