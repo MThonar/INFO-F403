@@ -726,6 +726,8 @@ public class Parser {
                 while(isAnOperator(symbols.get(j))) {
                     toShunt.add(symbols.get(j));
                     toShunt.add(symbols.get(j + 1));
+                    symbols.remove(j);
+                    symbols.remove(j+1);
                     if(j+2 < symbols.size()){
                         j += 2;
                     }
