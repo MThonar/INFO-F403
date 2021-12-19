@@ -714,20 +714,21 @@ public class Parser {
         for(int i = 0; i < symbols.size(); i++){
             if( symbols.get(i).getValue() == exprArith.getValue()
             && (isAnOperator(symbols.get(i+2))) ){
+                ArrayList<Integer> toRemove = new ArrayList<>();
                 newList.add(symbols.get(i));
                 ArrayList<Symbol> toShunt = new ArrayList<>();
                 toShunt.add(symbols.get(i+1));
-                //symbols.remove(i+1);
+                toRemove.add(i+1);
                 toShunt.add(symbols.get(i+2));
-                //symbols.remove(i+2);
+                toRemove.add(i+2);
                 toShunt.add(symbols.get(i+3));
-                //symbols.remove(i+3);
+                toRemove.add(i+3);
                 int j = i + 4;
                 while(isAnOperator(symbols.get(j))) {
                     toShunt.add(symbols.get(j));
+                    toRemove.add(j);
                     toShunt.add(symbols.get(j + 1));
-                    symbols.remove(j);
-                    symbols.remove(j+1);
+                    toRemove.add(j+1);
                     if(j+2 < symbols.size()){
                         j += 2;
                     }
@@ -735,9 +736,6 @@ public class Parser {
                         break;
                     }
                 }
-                symbols.remove(i+1);
-                symbols.remove(i+2);
-                symbols.remove(i+3);
                 ArrayList<Symbol> shunted = shunt(toShunt);
                 Collections.reverse(shunted);
                 System.out.println("DEBUT DE LISTE");
@@ -746,6 +744,9 @@ public class Parser {
                     newList.add(symbol);
                 }
                 System.out.println("FIN DE LISTE");
+                for(Integer remover : toRemove){
+                    symbols.remove(symbols.get(remover));
+                }
             }
             else{
                 newList.add(symbols.get(i));
