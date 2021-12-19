@@ -698,8 +698,8 @@ public class Parser {
         }
         for(int i = 0; i < stack.size(); i++){
             System.out.println("on vide le stack");
-            stack.remove(stack.get(i));
             queue.add(stack.get(i));
+            stack.remove(i);
         }
         return queue;
     }
