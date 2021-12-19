@@ -672,7 +672,9 @@ public class Parser {
         ArrayList<Symbol> queue = new ArrayList<>();
         for(Symbol symbol : symbols){
             if(isAnOperator(symbol)){
+                System.out.println("on a trouvé un opérateur");
                 while(stack.size() != 0){
+                    System.out.println("on a trouvé un opérateur, mais le stack était vide");
                     for(Symbol symbol1 : stack){
                         if(getPriority(symbol, symbol1)){
                             System.out.println("on retire du stack et on ajoute dans la queue");
