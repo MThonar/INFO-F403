@@ -744,11 +744,9 @@ public class Parser {
                     newList.add(symbol);
                 }
                 System.out.println("FIN DE LISTE");
-                int k = 0;
-                while(toRemove.size() > 0){
+                                while(toRemove.size() > 0){
                     symbols.remove(i+1);
-                    toRemove.remove(k);
-                    k++;
+                    toRemove.remove(0);
                 }
             }
             else{
