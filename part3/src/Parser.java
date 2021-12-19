@@ -679,22 +679,10 @@ public class Parser {
                 }
                 else{
                     System.out.println("il y a déjà des opérateurs dans le stack: on regarde la priorité");
-                    int size = stack.size();
-                    while(size != 0){
-                        System.out.println("WHILE");
-                        for(int i = 0; i < stack.size(); i++){
-                            System.out.println("FOR");
-                            if(getPriority(stack.get(i), symbol)){
-                                System.out.println("on retire du stack et on ajoute dans la queue");
-                                queue.add(stack.get(i));
-                                stack.remove(i);
-                            }
-                            else{
-                                System.out.println("ELSE on ajoute l'opérateur dans le stack" + symbol.getValue().toString());
-                                stack.add(symbol);
-                            }
-                        }
-                        size = stack.size();
+                    while(getPriority((stack.get(stack.size()-1)), symbol)){
+                        System.out.println("on retire du stack et on ajoute dans la queue");
+                        queue.add(stack.get(stack.size()-1));
+                        stack.remove(stack.size()-1);
                     }
                     stack.add(symbol);
                 }
