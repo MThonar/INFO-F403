@@ -696,11 +696,11 @@ public class Parser {
                 queue.add(symbol);
             }
         }
-        /*for(int i = 0; i < stack.size(); i++){
+        for(int i = 0; i < stack.size(); i++){
             System.out.println("on vide le stack");
-            stack.remove(symbols.get(i));
-            queue.add(symbols.get(i));
-        }*/
+            stack.remove(stack.get(i));
+            queue.add(stack.get(i));
+        }
         return queue;
     }
 
