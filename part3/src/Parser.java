@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -733,6 +734,7 @@ public class Parser {
                     }
                 }
                 ArrayList<Symbol> shunted = shunt(toShunt);
+                Collections.reverse(shunted);
                 System.out.println("DEBUT DE LISTE");
                 for(Symbol symbol : shunted){
                     System.out.println(symbol);
