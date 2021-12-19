@@ -683,8 +683,8 @@ public class Parser {
                         for(Symbol symbol1 : stack){
                             if(getPriority(symbol, symbol1)){
                                 System.out.println("on retire du stack et on ajoute dans la queue");
-                                stack.remove(symbol1);
                                 queue.add(symbol1);
+                                stack.remove(symbol1);
                                 stack.add(symbol);
                             }
                         }
@@ -724,16 +724,13 @@ public class Parser {
                         break;
                     }
                 }
-                for(Symbol symbol : toShunt){
-                    System.out.println(symbol);
-                }
-                /*ArrayList<Symbol> shunted = new ArrayList<>();
+                ArrayList<Symbol> shunted = new ArrayList<>();
                 shunted = shunt(toShunt);
                 System.out.println("DEBUT DE LISTE");
                 for(Symbol symbol : shunted){
                     System.out.println(symbol);
                 }
-                System.out.println("FIN DE LISTE");*/
+                System.out.println("FIN DE LISTE");
             }
             else{
                 //AST.add();
