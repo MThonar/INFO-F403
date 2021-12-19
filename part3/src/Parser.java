@@ -689,6 +689,10 @@ public class Parser {
                                 queue.add(stack.get(i));
                                 stack.remove(i);
                             }
+                            else{
+                                System.out.println("ELSE on ajoute l'opérateur dans le stack" + symbol.getValue().toString());
+                                stack.add(symbol);
+                            }
                         }
                         size = stack.size();
                     }
