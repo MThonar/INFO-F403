@@ -694,6 +694,7 @@ public class Parser {
                             break;
                         }
                     }
+                    System.out.println("on ajoute simplement dans le stack");
                     stack.add(symbol);
                 }
             }
