@@ -733,6 +733,9 @@ public class Parser {
                         break;
                     }
                 }
+                symbols.remove(i+1);
+                symbols.remove(i+2);
+                symbols.remove(i+3);
                 ArrayList<Symbol> shunted = shunt(toShunt);
                 Collections.reverse(shunted);
                 System.out.println("DEBUT DE LISTE");
