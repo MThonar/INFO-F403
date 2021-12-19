@@ -537,9 +537,10 @@ public class Parser {
             System.out.println(symbolList.get(i).getValue());
             System.out.println();
         }
-        createAST(symbolList);
+        ArrayList<Symbol> AST = new ArrayList<>();
+        createAST(symbolList, AST);
         System.out.println("DEBUT DU PRINT FINAL");
-        for(Symbol symbol : symbolList){
+        for(Symbol symbol : AST){
             System.out.println(symbol.getValue().toString());
         }
         System.out.println("FIN DU PRINT FINAL");
@@ -708,8 +709,7 @@ public class Parser {
         return queue;
     }
 
-    public void createAST(ArrayList<Symbol> symbols){
-        ArrayList<Symbol> AST = new ArrayList<>();
+    public void createAST(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
         for(int i = 0; i < symbols.size(); i++){
             if( symbols.get(i).getValue() == exprArith.getValue()
             && (isAnOperator(symbols.get(i+2))) ){
@@ -732,12 +732,12 @@ public class Parser {
                 System.out.println("DEBUT DE LISTE");
                 for(Symbol symbol : shunted){
                     System.out.println(symbol);
-                    AST.add(symbol);
+                    newList.add(symbol);
                 }
                 System.out.println("FIN DE LISTE");
             }
             else{
-                AST.add(symbols.get(i));
+                newList.add(symbols.get(i));
             }
         }
     }
