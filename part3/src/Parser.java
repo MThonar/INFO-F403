@@ -713,15 +713,16 @@ public class Parser {
                 toShunt.add(symbols.get(i+1));
                 toShunt.add(symbols.get(i+2));
                 toShunt.add(symbols.get(i+3));
-                int j = i +2;
-                if(j+2 < symbols.size()){
-                    while(isAnOperator(symbols.get(j+2))){
-                        System.out.println("NIKITAAAA" + symbols.get(j+2).getValue().toString());
-                        toShunt.add(symbols.get(j+2));
-                        toShunt.add(symbols.get(j+3));
-                        if(j+2 < symbols.size()) {
-                            j += 2;
-                        }
+                int j = i + 4;
+                while(isAnOperator(symbols.get(j))) {
+                    System.out.println("NIKITAAAA" + symbols.get(j + 2).getValue().toString());
+                    toShunt.add(symbols.get(j));
+                    toShunt.add(symbols.get(j + 1));
+                    if(j+2 < symbols.size()){
+                        j += 2;
+                    }
+                    else{
+                        break;
                     }
                 }
                 ArrayList<Symbol> shunted = new ArrayList<>();
