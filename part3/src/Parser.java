@@ -708,6 +708,9 @@ public class Parser {
                 toRemove.add(i+2);
                 toShunt.add(symbols.get(i+3));
                 toRemove.add(i+3);
+                for (Symbol symbol : toShunt){
+                    System.out.println(symbol.getValue().toString());
+                }
                 int j = i + 4;
                 while(isAnOperator(symbols.get(j))) {
                     toShunt.add(symbols.get(j));
