@@ -531,7 +531,7 @@ public class Parser {
         symbolList.add(program);
         parseTreePreProcessing(parseTree, symbolList);
         ArrayList<Symbol> AST = new ArrayList<>();
-        createAST2(symbolList, AST);
+        createAST(symbolList, AST);
         System.out.println("AST in form of a list:");
         for(Symbol symbol : AST){
             System.out.println(symbol.getValue().toString());
@@ -700,7 +700,8 @@ public class Parser {
 
     public boolean isInExprArith(Symbol symbol){
         boolean res = true;
-        if(symbol.getValue() == cond.getValue()
+        if(symbol.getType() == program.getValue()
+        || symbol.getValue() == cond.getValue()
         || symbol.getValue() == code.getValue()
         || symbol.getValue() == exprArith.getValue()
         || symbol.getValue() == assign.getValue()
@@ -709,13 +710,17 @@ public class Parser {
         || symbol.getValue() == For.getValue()
         || symbol.getValue() == print.getValue()
         || symbol.getValue() == read.getValue()
-        || symbol.getType() == LexicalUnit.END){
+        || symbol.getType() == LexicalUnit.END
+        || symbol.getType() == LexicalUnit.EQUAL
+        || symbol.getType() == LexicalUnit.NOT
+        || symbol.getType() == LexicalUnit.GREATER
+        || symbol.getType() == LexicalUnit.SMALLER){
             res = false;
         }
         return res;
     }
 
-    public void createAST2(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
+    public void createAST(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
         for(int i = 0; i < symbols.size(); i++){
             if(symbols.get(i).getValue() == exprArith.getValue()){
                 newList.add(symbols.get(i));
@@ -745,52 +750,4 @@ public class Parser {
             }
         }
     }
-
-    /*public void createAST(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
-        for(int i = 0; i < symbols.size(); i++){
-            if( symbols.get(i).getValue() == exprArith.getValue()
-            && (isAnOperator(symbols.get(i+2))) ){
-                ArrayList<Integer> toRemove = new ArrayList<>();
-                newList.add(symbols.get(i));
-                ArrayList<Symbol> toShunt = new ArrayList<>();
-                toShunt.add(symbols.get(i+1));
-                toRemove.add(i+1);
-                toShunt.add(symbols.get(i+2));
-                toRemove.add(i+2);
-                toShunt.add(symbols.get(i+3));
-                toRemove.add(i+3);
-                for (Symbol symbol : toShunt){
-                    System.out.println(symbol.getValue().toString());
-                }
-                int j = i + 4;
-                while(isAnOperator(symbols.get(j))) {
-                    toShunt.add(symbols.get(j));
-                    toRemove.add(j);
-                    toShunt.add(symbols.get(j + 1));
-                    toRemove.add(j+1);
-                    if(j+2 < symbols.size()){
-                        j += 2;
-                    }
-                    else{
-                        break;
-                    }
-                }
-                ArrayList<Symbol> shunted = shunt(toShunt);
-                Collections.reverse(shunted);
-                for(Symbol symbol : shunted){
-                    newList.add(symbol);
-                }
-                while(toRemove.size() > 0){
-                    symbols.remove(i+1);
-                    toRemove.remove(0);
-                }
-            }
-            else if(symbols.get(i).getType() == LexicalUnit.END){
-                break;
-            }
-            else{
-                newList.add(symbols.get(i));
-            }
-        }
-    }*/
 }
