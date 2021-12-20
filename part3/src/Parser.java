@@ -718,6 +718,7 @@ public class Parser {
     public void createAST2(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
         for(int i = 0; i < symbols.size(); i++){
             if(symbols.get(i).getValue() == exprArith.getValue()){
+                newList.add(symbols.get(i));
                 int j = i + 1;
                 ArrayList<Integer> toRemove = new ArrayList<>();
                 ArrayList<Symbol> toShunt = new ArrayList<>();
