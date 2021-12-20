@@ -532,11 +532,10 @@ public class Parser {
         parseTreePreProcessing(parseTree, symbolList);
         ArrayList<Symbol> AST = new ArrayList<>();
         createAST(symbolList, AST);
-        System.out.println("DEBUT DU PRINT FINAL");
+        System.out.println("AST in form of a list:");
         for(Symbol symbol : AST){
             System.out.println(symbol.getValue().toString());
         }
-        System.out.println("FIN DU PRINT FINAL");
         return parseTree;
     }
 
