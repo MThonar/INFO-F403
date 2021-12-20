@@ -720,8 +720,8 @@ public class Parser {
                 int j = i + 1;
                 ArrayList<Integer> toRemove = new ArrayList<>();
                 ArrayList<Symbol> toShunt = new ArrayList<>();
-                System.out.println(symbols.get(j).getValue().toString());
                 while(isInExprArith(symbols.get(j))){
+                    System.out.println(symbols.get(j).getValue().toString());
                     toShunt.add(symbols.get(j));
                     toRemove.add(j);
                     j++;
