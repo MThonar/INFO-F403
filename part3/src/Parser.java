@@ -679,32 +679,25 @@ public class Parser {
         ArrayList<Symbol> queue = new ArrayList<>();
         for(Symbol symbol : symbols){
             if(isAnOperator(symbol)){
-                System.out.println("on a trouvé un opérateur");
                 if(stack.size() == 0){
-                    System.out.println("on ajoute l'opérateur dans le stack" + symbol.getValue().toString());
                     stack.add(symbol);
                 }
                 else{
-                    System.out.println("il y a déjà des opérateurs dans le stack: on regarde la priorité");
                     while(getPriority((stack.get(stack.size()-1)), symbol)){
-                        System.out.println("on retire du stack et on ajoute dans la queue");
                         queue.add(stack.get(stack.size()-1));
                         stack.remove(stack.size()-1);
                         if(stack.size() == 0){
                             break;
                         }
                     }
-                    System.out.println("on ajoute simplement dans le stack");
                     stack.add(symbol);
                 }
             }
             else{
-                System.out.println("on ajoute simplement dans la queue");
                 queue.add(symbol);
             }
         }
         for(int i = 0; i < stack.size(); i++){
-            System.out.println("on vide le stack");
             queue.add(stack.get(i));
             stack.remove(i);
         }
@@ -739,13 +732,10 @@ public class Parser {
                 }
                 ArrayList<Symbol> shunted = shunt(toShunt);
                 Collections.reverse(shunted);
-                System.out.println("DEBUT DE LISTE");
                 for(Symbol symbol : shunted){
-                    System.out.println(symbol);
                     newList.add(symbol);
                 }
-                System.out.println("FIN DE LISTE");
-                                while(toRemove.size() > 0){
+                while(toRemove.size() > 0){
                     symbols.remove(i+1);
                     toRemove.remove(0);
                 }
