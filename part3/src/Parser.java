@@ -527,10 +527,6 @@ public class Parser {
      */
     public ParseTree startParsing() throws Exception {
         ParseTree parseTree = Program();
-        for (String i : rules) {
-            System.out.printf(i);
-        }
-        System.out.println(" ");
         ArrayList<Symbol> symbolList = new ArrayList<>();
         symbolList.add(program);
         parseTreePreProcessing(parseTree, symbolList);
