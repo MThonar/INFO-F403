@@ -589,6 +589,9 @@ public class Parser {
             Symbol variable = parseTree.getChildren().get(2).getLabel();
             listToBuild.add(variable);
         }
+        else if(labelToCheck.getType() == LexicalUnit.END){
+            listToBuild.add(labelToCheck);
+        }
         else if(labelToCheck.getType() == LexicalUnit.EQUAL){
             listToBuild.add(labelToCheck);
         }
@@ -694,6 +697,34 @@ public class Parser {
         }
         return queue;
     }
+
+    /*public boolean isInExprArith(Symbol symbol){
+        boolean res = true;
+        if(symbol.getValue() == cond.getValue()
+        || symbol.getValue() == code.getValue()
+        || symbol.getValue() == exprArith.getValue()
+        || symbol.getValue() == assign.getValue()
+        || symbol.getValue() == If.getValue()
+        || symbol.getValue() == While.getValue()
+        || symbol.getValue() == For.getValue()
+        || symbol.getValue() == print.getValue()
+        || symbol.getValue() == read.getValue()){
+            res = false;
+        }
+        return res;
+    }
+
+    public void createAST2(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
+        ArrayList<Symbol> toShunt = new ArrayList<>();
+        for(Symbol symbol: symbols){
+            if(symbol.getValue() == exprArith.getValue()){
+                newList.add(symbol);
+            }
+            else if(isInExprArith(symbol)){
+                toShunt.add(symbol);
+            }
+        }
+    }*/
 
     public void createAST(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
         for(int i = 0; i < symbols.size(); i++){
