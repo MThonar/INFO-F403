@@ -531,7 +531,7 @@ public class Parser {
         symbolList.add(program);
         parseTreePreProcessing(parseTree, symbolList);
         ArrayList<Symbol> AST = new ArrayList<>();
-        createAST(symbolList, AST);
+        createAST2(symbolList, AST);
         System.out.println("AST in form of a list:");
         for(Symbol symbol : AST){
             System.out.println(symbol.getValue().toString());
@@ -698,7 +698,7 @@ public class Parser {
         return queue;
     }
 
-    /*public boolean isInExprArith(Symbol symbol){
+    public boolean isInExprArith(Symbol symbol){
         boolean res = true;
         if(symbol.getValue() == cond.getValue()
         || symbol.getValue() == code.getValue()
@@ -715,18 +715,33 @@ public class Parser {
     }
 
     public void createAST2(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
-        ArrayList<Symbol> toShunt = new ArrayList<>();
-        for(Symbol symbol: symbols){
-            if(symbol.getValue() == exprArith.getValue()){
-                newList.add(symbol);
+        for(int i = 0; i < symbols.size(); i++){
+            if(symbols.get(i).getValue() == exprArith.getValue()){
+                int j = i + 1;
+                ArrayList<Integer> toRemove = new ArrayList<>();
+                ArrayList<Symbol> toShunt = new ArrayList<>();
+                while(isInExprArith(symbols.get(j))){
+                    toShunt.add(symbols.get(j));
+                    toRemove.add(j);
+                    j++;
+                }
+                ArrayList<Symbol> shunted = shunt(toShunt);
+                Collections.reverse(shunted);
+                for(Symbol symbol : shunted){
+                    newList.add(symbol);
+                }
+                while(toRemove.size() > 0){
+                    symbols.remove(i+1);
+                    toRemove.remove(0);
+                }
             }
-            else if(isInExprArith(symbol)){
-                toShunt.add(symbol);
+            else{
+                newList.add(symbols.get(i));
             }
         }
-    }*/
+    }
 
-    public void createAST(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
+    /*public void createAST(ArrayList<Symbol> symbols, ArrayList<Symbol> newList){
         for(int i = 0; i < symbols.size(); i++){
             if( symbols.get(i).getValue() == exprArith.getValue()
             && (isAnOperator(symbols.get(i+2))) ){
@@ -772,5 +787,5 @@ public class Parser {
                 newList.add(symbols.get(i));
             }
         }
-    }
+    }*/
 }
