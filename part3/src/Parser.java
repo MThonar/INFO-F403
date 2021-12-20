@@ -534,10 +534,6 @@ public class Parser {
         ArrayList<Symbol> symbolList = new ArrayList<>();
         symbolList.add(program);
         parseTreePreProcessing(parseTree, symbolList);
-        for(int i = 0; i < symbolList.size(); i++){
-            System.out.println(symbolList.get(i).getValue());
-            System.out.println();
-        }
         ArrayList<Symbol> AST = new ArrayList<>();
         createAST(symbolList, AST);
         System.out.println("DEBUT DU PRINT FINAL");
