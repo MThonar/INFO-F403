@@ -708,7 +708,8 @@ public class Parser {
         || symbol.getValue() == While.getValue()
         || symbol.getValue() == For.getValue()
         || symbol.getValue() == print.getValue()
-        || symbol.getValue() == read.getValue()){
+        || symbol.getValue() == read.getValue()
+        || symbol.getType() == LexicalUnit.END){
             res = false;
         }
         return res;
