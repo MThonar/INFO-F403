@@ -738,6 +738,9 @@ public class Parser {
                     toRemove.remove(0);
                 }
             }
+            else if(symbols.get(i).getType() == LexicalUnit.END){
+                break;
+            }
             else{
                 newList.add(symbols.get(i));
             }
