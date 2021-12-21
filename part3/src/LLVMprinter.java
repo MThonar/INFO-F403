@@ -130,9 +130,6 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
-            globalIncrement += 2;
-            intermediateIncrement += 2;
-            plusIncrement += 2;
             codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + "00000" +
                     ",%" + globalIncrement + "\n";
             globalIncrement--;
@@ -141,23 +138,25 @@ public class LLVMprinter {
             numberOfRecursion--;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
-            int localIncrement = globalIncrement;
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "COUCOU1%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    intermediateIncrement + "\n%" + localIncrement + " = load i32, i32* intermediate"
+                    intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
                     + intermediateIncrement + "\n";
-            localIncrement++;
-            codeFragment += "COUCOU2%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+            globalIncrement++;
+            plusIncrement++;
+            intermediateIncrement++;
+            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
-                    localIncrement + " = load i32, i32* %intermediate" +
+                    globalIncrement + " = load i32, i32* %intermediate" +
                     intermediateIncrement + "\n";
-            localIncrement++;
-            codeFragment += "%" + localIncrement + " = add i32 %" + localIncrement +
-                    ",%" + localIncrement + "\n";
+            globalIncrement++;
+            plusIncrement++;
+            intermediateIncrement++;
+            codeFragment += "%" + globalIncrement + " = add i32 %" + globalIncrement +
+                    ",%" + globalIncrement + "\n";
         }
-
         return codeFragment;
     }
 
