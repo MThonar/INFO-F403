@@ -120,7 +120,7 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
-            int localIncrement = numberOfRecursion;
+            int localIncrement = 0;
             codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
                     localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n" + rightTree;
