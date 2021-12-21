@@ -122,6 +122,9 @@ public class LLVMprinter {
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
         }
+        else{
+            System.out.println("on est pas rentré");
+        }
         codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                 " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                 intermediateIncrement + "\n";
