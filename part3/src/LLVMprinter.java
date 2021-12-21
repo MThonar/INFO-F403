@@ -125,16 +125,16 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + 10 + " = alloca i32\n%intermediate" + 10 +
+            codeFragment += "%plus" + 1 + " = alloca i32\n%intermediate" + 1 +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    10 + "\n%" + 10 + " = load i32, i32* intermediate"
-                    + 10 + "\n";
-            codeFragment += "%intermediate" + 20 + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + 20 + "\n%" +
-                    20 + " = load i32, i32* %intermediate" +
-                    20 + "\n";
-            codeFragment += "%" + 30 + " = add i32 %" + 10 +
-                    ",%" + 20 + "\n";
+                    1 + "\n%" + 1 + " = load i32, i32* intermediate"
+                    + 1 + "\n";
+            codeFragment += "%intermediate" + 2 + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + 2 + "\n%" +
+                    2 + " = load i32, i32* %intermediate" +
+                    2 + "\n";
+            codeFragment += "%" + 3 + " = add i32 %" + 1 +
+                    ",%" + 2 + "\n";
         }
         return codeFragment;
     }
