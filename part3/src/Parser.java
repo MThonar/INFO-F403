@@ -536,6 +536,7 @@ public class Parser {
         for(Symbol symbol : AST){
             System.out.println(symbol.getValue().toString());
         }
+        System.out.println("end AST");
         LLVMprinter llvm = new LLVMprinter(AST);
         String llvmCode = llvm.getLLVMcode();
         System.out.println(llvmCode);
