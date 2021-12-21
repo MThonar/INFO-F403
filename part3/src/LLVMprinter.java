@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
 public class LLVMprinter {
-    private int globalCounter = 0;
-    private int listSize = 0;
+    private int numberOfRecursion = 0:
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -97,7 +96,14 @@ public class LLVMprinter {
 
     public String exprArith(ArrayList<Symbol> exprArith){
         String codeFragment = "";
+        int counter = 0;
         if(exprArith.get(0).getType() == LexicalUnit.PLUS){
+            for(Symbol symbol : exprArith){
+                if(symbol.getType() == LexicalUnit.PLUS){
+                    counter++;
+                }
+            }
+            numberOfRecursion = counter - 2;
             codeFragment += plus(exprArith);
         }
         return codeFragment;
@@ -125,16 +131,16 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + 1 + " = alloca i32\n%intermediate" + 1 +
+            codeFragment += "%plus" + (1+numberOfRecursion) + " = alloca i32\n%intermediate" + (1+numberOfRecursion) +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    1 + "\n%" + 1 + " = load i32, i32* intermediate"
+                    (1+numberOfRecursion) + "\n%" + (1+numberOfRecursion) + " = load i32, i32* intermediate"
                     + 1 + "\n";
-            codeFragment += "%intermediate" + 2 + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + 2 + "\n%" +
-                    2 + " = load i32, i32* %intermediate" +
-                    2 + "\n";
-            codeFragment += "%" + 3 + " = add i32 %" + 1 +
-                    ",%" + 2 + "\n";
+            codeFragment += "%intermediate" + (2+numberOfRecursion) + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + (2+numberOfRecursion) + "\n%" +
+                    (2+numberOfRecursion) + " = load i32, i32* %intermediate" +
+                    (2+numberOfRecursion) + "\n";
+            codeFragment += "%" + (3+numberOfRecursion) + " = add i32 %" + (1+numberOfRecursion) +
+                    ",%" + (2+numberOfRecursion) + "\n";
         }
         return codeFragment;
     }
