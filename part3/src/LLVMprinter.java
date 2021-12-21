@@ -143,16 +143,16 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + (1+numberOfRecursion) + " = alloca i32\n%intermediate" + (1+numberOfRecursion) +
+            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    (1+numberOfRecursion) + "\n%" + (1+numberOfRecursion) + " = load i32, i32* intermediate"
-                    + (1+numberOfRecursion) + "\n";
-            codeFragment += "%intermediate" + (2+numberOfRecursion) + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + (2+numberOfRecursion) + "\n%" +
-                    (2+numberOfRecursion) + " = load i32, i32* %intermediate" +
-                    (2+numberOfRecursion) + "\n";
-            codeFragment += "%" + (3+numberOfRecursion) + " = add i32 %" + (1+numberOfRecursion) +
-                    ",%" + (2+numberOfRecursion) + "\n";
+                    intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
+                    + intermediateIncrement + "\n";
+            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* %intermediate" +
+                    intermediateIncrement + "\n";
+            codeFragment += "%" + globalIncrement + " = add i32 %" + globalIncrement +
+                    ",%" + globalIncrement + "\n";
         }
         return codeFragment;
     }
