@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class LLVMprinter {
+    private int globalCounter = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -102,7 +103,6 @@ public class LLVMprinter {
     }
 
     public String plus(ArrayList<Symbol> exprArith){
-        int localIncrement = 0;
         String codeFragment = "";
         String leftTree = "";
         String rightTree = "";
@@ -113,16 +113,16 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
-            codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
-                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
-                    localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n" + rightTree;
-            localIncrement += newExprArith.size();
-            codeFragment += "%intermediate" + localIncrement + " = alloca i32\nstore i32 %" + localIncrement +
-                    ", i32* %intermediate" + localIncrement + "\n%" + (localIncrement+1) +
-                    " = load i32, i32* %intermediate" + localIncrement + "\n";
-            localIncrement += 1;
-            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + 0 +
-                    ",%" + localIncrement + "\n";
+            codeFragment += "%plus" + globalCounter + " = alloca i32\n%intermediate" + globalCounter +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + globalCounter + "\n%" +
+                    globalCounter + " = load i32, i32* intermediate" + globalCounter + "\n" + rightTree;
+            globalCounter += newExprArith.size();
+            codeFragment += "%intermediate" + globalCounter + " = alloca i32\nstore i32 %" + globalCounter +
+                    ", i32* %intermediate" + globalCounter + "\n%" + (globalCounter+1) +
+                    " = load i32, i32* %intermediate" + globalCounter + "\n";
+            globalCounter += 1;
+            codeFragment += "%" + (globalCounter+1) + " = add i32 %" + 0 +
+                    ",%" + globalCounter + "\n";
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
