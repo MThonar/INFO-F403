@@ -124,8 +124,8 @@ public class LLVMprinter {
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
                     localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n";
             rightTree = plus(newExprArith);
-            codeFragment += rightTree;
             localIncrement++;
+            codeFragment += rightTree;
             codeFragment += "%" + (localIncrement+1) + " = add i32 %" + 0 +
                     ",%" + localIncrement + "\n";
         }
