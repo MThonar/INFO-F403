@@ -127,7 +127,8 @@ public class LLVMprinter {
             System.out.println("dans le else if");
             codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    intermediateIncrement + "\n";
+                    intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
+                    + intermediateIncrement;
             intermediateIncrement++;
             codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
