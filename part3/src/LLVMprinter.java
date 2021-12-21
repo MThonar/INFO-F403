@@ -101,15 +101,15 @@ public class LLVMprinter {
         if(exprArith.get(0).getType() == LexicalUnit.PLUS){
             if(!addAlreadyUsed){
                 codeFragment += "%add = alloca i32\nstore i32 " + leftTree + ", i32* %add\n" +
-                  "%" + globalIncrement + " = load i32, i32* %add";
+                  "%" + globalIncrement + " = load i32, i32* %add\n";
                 globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree;
+                codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree + "\n";
                 addAlreadyUsed = true;
             }
             else{
-                codeFragment += "store i32 " + leftTree + ", i32* %add\n" + "%" + globalIncrement + " = load i32, i32* %add";
+                codeFragment += "store i32 " + leftTree + ", i32* %add\n" + "%" + globalIncrement + " = load i32, i32* %add\n";
                 globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree;
+                codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree + "\n";
             }
         }
         return codeFragment;
