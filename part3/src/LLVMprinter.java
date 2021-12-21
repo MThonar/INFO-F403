@@ -130,6 +130,7 @@ public class LLVMprinter {
                     intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
                     + intermediateIncrement + "\n";
             intermediateIncrement++;
+            globalIncrement++;
             codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
                     globalIncrement + " = load i32, i32* %intermediate" +
