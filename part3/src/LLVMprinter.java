@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class LLVMprinter {
     private int globalCounter = 0;
+    private int localIncrement = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -113,7 +114,8 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
-            int localIncrement = 0;
+            globalCounter++;
+            localIncrement = 0;
             localIncrement += globalCounter;
             codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
@@ -125,7 +127,6 @@ public class LLVMprinter {
             localIncrement += 1;
             codeFragment += "%" + (localIncrement+1) + " = add i32 %" + 0 +
                     ",%" + localIncrement + "\n";
-            globalCounter++;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
