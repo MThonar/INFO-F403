@@ -100,7 +100,7 @@ public class LLVMprinter {
 
     public String exprArith(ArrayList<Symbol> exprArith){
         String codeFragment = "";
-        if(exprArith.size() == 3 && exprArith.get(0).getType() == LexicalUnit.PLUS){
+        if(exprArith.get(0).getType() == LexicalUnit.PLUS){
             codeFragment += plus(exprArith);
         }
         return codeFragment;
@@ -108,8 +108,20 @@ public class LLVMprinter {
 
     public String plus(ArrayList<Symbol> exprArith){
         String codeFragment = "";
-        String leftTree = exprArith.get(1).getValue().toString();
-        String rightTree = exprArith.get(2).getValue().toString();
+        String leftTree = "";
+        String rightTree = "";
+        if( (!isAnOperator(exprArith.get(1))) && (exprArith.get(2).getValue() == LexicalUnit.PLUS) ){
+            leftTree = exprArith.get(1).getValue().toString();
+            ArrayList<Symbol> newExprArith = new ArrayList<>();
+            for(int i = 2; i < exprArith.size(); i++){
+                newExprArith.add(exprArith.get(i));
+            }
+            rightTree = plus(newExprArith);
+        }
+        else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
+            leftTree = exprArith.get(1).getValue().toString();
+            rightTree = exprArith.get(2).getValue().toString();
+        }
         codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                 " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                 intermediateIncrement + "\n";
