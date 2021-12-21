@@ -111,6 +111,7 @@ public class LLVMprinter {
         String leftTree = "";
         String rightTree = "";
         System.out.println(!(isAnOperator(exprArith.get(1))));
+        System.out.println((exprArith.get(2).getValue() == LexicalUnit.PLUS));
         if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getValue() == LexicalUnit.PLUS) ){
             System.out.println("dans le if");
             leftTree = exprArith.get(1).getValue().toString();
