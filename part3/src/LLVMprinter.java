@@ -110,7 +110,7 @@ public class LLVMprinter {
         String codeFragment = "";
         String leftTree = "";
         String rightTree = "";
-        if( (!isAnOperator(exprArith.get(1))) && (exprArith.get(2).getValue() == LexicalUnit.PLUS) ){
+        if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getValue() == LexicalUnit.PLUS) ){
             System.out.println("dans le if");
             leftTree = exprArith.get(1).getValue().toString();
             ArrayList<Symbol> newExprArith = new ArrayList<>();
