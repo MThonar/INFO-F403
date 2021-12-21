@@ -134,7 +134,7 @@ public class LLVMprinter {
             codeFragment += "%plus" + (1+numberOfRecursion) + " = alloca i32\n%intermediate" + (1+numberOfRecursion) +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                     (1+numberOfRecursion) + "\n%" + (1+numberOfRecursion) + " = load i32, i32* intermediate"
-                    + 1 + "\n";
+                    + (1+numberOfRecursion) + "\n";
             codeFragment += "%intermediate" + (2+numberOfRecursion) + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + (2+numberOfRecursion) + "\n%" +
                     (2+numberOfRecursion) + " = load i32, i32* %intermediate" +
