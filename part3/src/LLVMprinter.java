@@ -130,6 +130,7 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
+            globalIncrement--;
             codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + numberOfRecursion +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
