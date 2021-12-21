@@ -99,34 +99,36 @@ public class LLVMprinter {
 
     public String exprArith(ArrayList<Symbol> exprArith){
         String codeFragment = "";
-        String leftTree = exprArith.get(1).getValue().toString();
-        String rightTree = exprArith.get(2).getValue().toString();
-        if(exprArith.get(0).getType() == LexicalUnit.PLUS){
-            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
-                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    intermediateIncrement + "\n";
-            intermediateIncrement++;
-            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
-                    globalIncrement + " = load i32, i32* %intermediate" +
-                    (intermediateIncrement-1) + "\n";
-            globalIncrement++;
-            codeFragment += "%" + globalIncrement + " = load i32, i32* %intermediate" +
-                    (intermediateIncrement) + "\n";
-            intermediateIncrement++;
-            globalIncrement++;
-            codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                    ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus"
-                    + plusIncrement + "\n";
-            globalIncrement++;
-            codeFragment += "%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement + "\n";
-            plusIncrement++;
+        if(exprArith.size() == 3 && exprArith.get(0).getType() == LexicalUnit.PLUS){
+            codeFragment += plus(exprArith);
         }
         return codeFragment;
     }
 
-    public void plus(ArrayList<Symbol> exprArith){
-
+    public String plus(ArrayList<Symbol> exprArith){
+        String codeFragment = "";
+        String leftTree = exprArith.get(1).getValue().toString();
+        String rightTree = exprArith.get(2).getValue().toString();
+        codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+                " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
+                intermediateIncrement + "\n";
+        intermediateIncrement++;
+        codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+                rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
+                globalIncrement + " = load i32, i32* %intermediate" +
+                (intermediateIncrement-1) + "\n";
+        globalIncrement++;
+        codeFragment += "%" + globalIncrement + " = load i32, i32* %intermediate" +
+                (intermediateIncrement) + "\n";
+        intermediateIncrement++;
+        globalIncrement++;
+        codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
+                ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus"
+                + plusIncrement + "\n";
+        globalIncrement++;
+        codeFragment += "%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement + "\n";
+        plusIncrement++;
+        return codeFragment;
     }
 
     public void If(){
