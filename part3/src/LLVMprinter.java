@@ -127,7 +127,7 @@ public class LLVMprinter {
             rightTree = exprArith.get(2).getValue().toString();
             codeFragment += "%plus" + 10 + " = alloca i32\n%intermediate" + 10 +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    10 + "\n%" + 1 + " = load i32, i32* intermediate"
+                    10 + "\n%" + 10 + " = load i32, i32* intermediate"
                     + 10 + "\n";
             codeFragment += "%intermediate" + 20 + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + 20 + "\n%" +
