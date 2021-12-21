@@ -141,18 +141,21 @@ public class LLVMprinter {
             numberOfRecursion--;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
+            int localIncrement = globalIncrement;
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
             codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
+                    intermediateIncrement + "\n%" + localIncrement + " = load i32, i32* intermediate"
                     + intermediateIncrement + "\n";
+            localIncrement++;
             codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
-                    globalIncrement + " = load i32, i32* %intermediate" +
+                    localIncrement + " = load i32, i32* %intermediate" +
                     intermediateIncrement + "\n";
-            codeFragment += "%" + globalIncrement + " = add i32 %" + globalIncrement +
-                    ",%" + globalIncrement + "\n";
+            localIncrement++;
+            codeFragment += "%" + localIncrement + " = add i32 %" + localIncrement +
+                    ",%" + localIncrement + "\n";
         }
 
         return codeFragment;
