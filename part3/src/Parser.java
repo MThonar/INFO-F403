@@ -536,6 +536,9 @@ public class Parser {
         for(Symbol symbol : AST){
             System.out.println(symbol.getValue().toString());
         }
+        LLVMprinter llvm = new LLVMprinter(AST);
+        String llvmCode = llvm.getLLVMcode();
+        System.out.println(llvmCode);
         return parseTree;
     }
 
@@ -741,9 +744,6 @@ public class Parser {
                     symbols.remove(i+1);
                     toRemove.remove(0);
                 }
-            }
-            else if(symbols.get(i).getType() == LexicalUnit.END){
-                break;
             }
             else{
                 newList.add(symbols.get(i));
