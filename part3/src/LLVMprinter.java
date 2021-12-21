@@ -125,27 +125,27 @@ public class LLVMprinter {
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
             System.out.println("dans le else if");
+            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
+                    intermediateIncrement + "\n";
+            intermediateIncrement++;
+            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* %intermediate" +
+                    (intermediateIncrement-1) + "\n";
+            globalIncrement++;
+            codeFragment += "%" + globalIncrement + " = load i32, i32* %intermediate" +
+                    (intermediateIncrement) + "\n";
+            intermediateIncrement++;
+            globalIncrement++;
+            codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
+                    ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus" + plusIncrement + "\n";
+            globalIncrement++;
+            codeFragment += "%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement;
         }
         else{
             System.out.println("on est pas rentré");
         }
-        codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
-                " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                intermediateIncrement + "\n";
-        intermediateIncrement++;
-        codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
-                rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
-                globalIncrement + " = load i32, i32* %intermediate" +
-                (intermediateIncrement-1) + "\n";
-        globalIncrement++;
-        codeFragment += "%" + globalIncrement + " = load i32, i32* %intermediate" +
-                (intermediateIncrement) + "\n";
-        intermediateIncrement++;
-        globalIncrement++;
-        codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus" + plusIncrement + "\n";
-        globalIncrement++;
-        codeFragment += "%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement;
         return codeFragment;
     }
 
