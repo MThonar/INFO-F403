@@ -120,7 +120,7 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
-            codeFragment += "\nNOUS SOMMES DANS LE IF, leftTree = " + leftTree + "\n" + "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+            codeFragment += "\nNOUS SOMMES DANS LE IF, leftTree = " + leftTree + "\nrightTree = " + rightTree + "\n" + "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                     intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
                     + intermediateIncrement + "\n";
