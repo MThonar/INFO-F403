@@ -127,7 +127,7 @@ public class LLVMprinter {
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
             localIncrement += 2;
-            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + 0 +
+            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + "boh" +
                     ",%" + localIncrement + "\n";
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
