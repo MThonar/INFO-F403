@@ -105,9 +105,6 @@ public class LLVMprinter {
                 }
             }
             numberOfRecursion = counter - 2;
-            if(numberOfRecursion < 0){
-                numberOfRecursion = 0;
-            }
             codeFragment += plus(exprArith);
         }
         return codeFragment;
@@ -148,6 +145,7 @@ public class LLVMprinter {
                     (2+numberOfRecursion) + "\n";
             codeFragment += "%" + (3+numberOfRecursion) + " = add i32 %" + (1+numberOfRecursion) +
                     ",%" + (2+numberOfRecursion) + "\n";
+            numberOfRecursion++;
         }
         return codeFragment;
     }
