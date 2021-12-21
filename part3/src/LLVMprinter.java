@@ -144,12 +144,12 @@ public class LLVMprinter {
             int localIncrement = globalIncrement;
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+            codeFragment += "COUCOU1%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                     intermediateIncrement + "\n%" + localIncrement + " = load i32, i32* intermediate"
                     + intermediateIncrement + "\n";
             localIncrement++;
-            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+            codeFragment += "COUCOU2%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
                     rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
                     localIncrement + " = load i32, i32* %intermediate" +
                     intermediateIncrement + "\n";
