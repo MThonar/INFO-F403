@@ -1,10 +1,7 @@
 import java.util.ArrayList;
 
 public class LLVMprinter {
-    private ArrayList<Symbol> AST;
-    private int globalIncrement = 0;
-    //private int intermediateIncrement = 1;
-    //private int plusIncrement = 0;
+    private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
     private final Symbol assign = new Symbol(null, "$<$Assign$>$");
@@ -109,10 +106,7 @@ public class LLVMprinter {
         String codeFragment = "";
         String leftTree = "";
         String rightTree = "";
-        System.out.println(!(isAnOperator(exprArith.get(1))));
-        System.out.println((exprArith.get(2).getType() == LexicalUnit.PLUS));
         if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getType() == LexicalUnit.PLUS) ){
-            System.out.println("dans le if");
             leftTree = exprArith.get(1).getValue().toString();
             ArrayList<Symbol> newExprArith = new ArrayList<>();
             for(int i = 2; i < exprArith.size(); i++){
@@ -133,7 +127,6 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            System.out.println("dans le else if");
             codeFragment += "%plus" + 1 + " = alloca i32\n%intermediate" + 1 +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                     1 + "\n%" + 1 + " = load i32, i32* intermediate"
@@ -144,9 +137,6 @@ public class LLVMprinter {
                     2 + "\n";
             codeFragment += "%" + 3 + " = add i32 %" + 1 +
                     ",%" + 2 + "\n";
-        }
-        else{
-            System.out.println("on est pas rentré");
         }
         return codeFragment;
     }
