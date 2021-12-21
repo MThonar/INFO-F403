@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class LLVMprinter {
-    private int numberOfPlus = 0;
+    private int numberOfOperators = 0;
     private int globalIncrement = 0;
     private int plusIncrement = 0;
     private int timesIncrement = 0;
@@ -104,11 +104,11 @@ public class LLVMprinter {
         int counter = 0;
         if(exprArith.get(0).getType() == LexicalUnit.PLUS){
             for(Symbol symbol : exprArith){
-                if(symbol.getType() == LexicalUnit.PLUS){
+                if(isAnOperator(symbol)){
                     counter++;
                 }
             }
-            numberOfPlus = counter - 2;
+            numberOfOperators = counter - 2;
             codeFragment += plus(exprArith);
         }
         return codeFragment;
@@ -132,10 +132,10 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + /*numberOfPlus*/ "JE NE SAIS PAS QUOI METTRE ICI" +
+            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + numberOfOperators +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
-            //numberOfPlus--;
+            numberOfOperators--;
         }
         else if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getType() == LexicalUnit.TIMES) ){
             leftTree = exprArith.get(1).getValue().toString();
@@ -151,9 +151,10 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = times(newExprArith);
             codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + /*numberOfPlus*/ "JE NE SAIS PAS QUOI METTRE ICI" +
+            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + numberOfOperators +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
+            numberOfOperators--;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
