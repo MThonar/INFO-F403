@@ -146,6 +146,7 @@ public class LLVMprinter {
         else{
             System.out.println("on est pas rentré");
         }
+        System.out.println("code fragment: " + codeFragment);
         return codeFragment;
     }
 
