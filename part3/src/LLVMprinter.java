@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
 public class LLVMprinter {
-    private int numberOfRecursion = 0;
+    private int numberOfPlus = 0;
     private int globalIncrement = 0;
     private int plusIncrement = 0;
+    private int timesIncrement = 0;
     private int intermediateIncrement = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
@@ -107,7 +108,7 @@ public class LLVMprinter {
                     counter++;
                 }
             }
-            numberOfRecursion = counter - 2;
+            numberOfPlus = counter - 2;
             codeFragment += plus(exprArith);
         }
         return codeFragment;
@@ -131,10 +132,28 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + numberOfRecursion +
+            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + /*numberOfPlus*/ "JE NE SAIS PAS QUOI METTRE ICI" +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
-            numberOfRecursion--;
+            //numberOfPlus--;
+        }
+        else if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getType() == LexicalUnit.TIMES) ){
+            leftTree = exprArith.get(1).getValue().toString();
+            ArrayList<Symbol> newExprArith = new ArrayList<>();
+            for(int i = 2; i < exprArith.size(); i++){
+                newExprArith.add(exprArith.get(i));
+            }
+            codeFragment += "%times" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* intermediate" + intermediateIncrement + "\n";
+            globalIncrement++;
+            intermediateIncrement++;
+            timesIncrement++;
+            rightTree = times(newExprArith);
+            codeFragment += rightTree;
+            codeFragment += "%" + (globalIncrement + 1) + " = mul i32 %" + "JE NE SAIS PAS QUOI METTRE ICI" +
+                    ",%" + globalIncrement + "\n";
+            globalIncrement++;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
@@ -157,6 +176,33 @@ public class LLVMprinter {
         }
         return codeFragment;
     }
+
+    public String times(ArrayList<Symbol> exprArith){
+        String codeFragment = "";
+        String leftTree = "";
+        String rightTree = "";
+        if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
+            leftTree = exprArith.get(1).getValue().toString();
+            rightTree = exprArith.get(2).getValue().toString();
+            codeFragment += "%times" + timesIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
+                    intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* intermediate"
+                    + intermediateIncrement + "\n";
+            globalIncrement++;
+            timesIncrement++;
+            intermediateIncrement++;
+            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* %intermediate" +
+                    intermediateIncrement + "\n";
+            globalIncrement++;
+            intermediateIncrement++;
+            codeFragment += "%" + globalIncrement + " = mul i32 %" + (globalIncrement-2) +
+                    ",%" + (globalIncrement-1) + "\n";
+        }
+        return codeFragment;
+    }
+
 
     public void If(){
 
