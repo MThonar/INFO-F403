@@ -13,7 +13,6 @@ public class LLVMprinter {
     private final Symbol For = new Symbol(null, "$<$For$>$");
     private final Symbol print = new Symbol(null, "$<$Print$>$");
     private final Symbol read = new Symbol(null, "$<$Read$>$");
-    private int increment = 0;
 
     public LLVMprinter(ArrayList<Symbol> AST){
         this.AST = AST;
@@ -103,6 +102,7 @@ public class LLVMprinter {
     }
 
     public String plus(ArrayList<Symbol> exprArith){
+        int localIncrement = 0;
         String codeFragment = "";
         String leftTree = "";
         String rightTree = "";
@@ -113,16 +113,16 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
-            codeFragment += "%plus" + increment + " = alloca i32\n%intermediate" + increment +
-                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + increment + "\n%" +
-                    increment + " = load i32, i32* intermediate" + increment + "\n" + rightTree;
-            increment += newExprArith.size();
-            codeFragment += "%intermediate" + increment + " = alloca i32\nstore i32 %" + increment +
-                    ", i32* %intermediate" + increment + "\n%" + (increment+1) +
-                    " = load i32, i32* %intermediate" + increment + "\n";
-            increment += 1;
-            codeFragment += "%" + (increment+1) + " = add i32 %" + 0 +
-                    ",%" + increment + "\n";
+            codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
+                    localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n" + rightTree;
+            localIncrement += newExprArith.size();
+            codeFragment += "%intermediate" + localIncrement + " = alloca i32\nstore i32 %" + localIncrement +
+                    ", i32* %intermediate" + localIncrement + "\n%" + (localIncrement+1) +
+                    " = load i32, i32* %intermediate" + localIncrement + "\n";
+            localIncrement += 1;
+            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + 0 +
+                    ",%" + localIncrement + "\n";
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
