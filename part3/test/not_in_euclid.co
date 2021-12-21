@@ -6,11 +6,11 @@ begin
   read(c);
   read(d);
   if c < d then
-    print(c);
+    print(c)
   else
-    print(d);
-  endif
+    print(d)
+  endif;
   for i from 1 by 2 to 3 do
-    print(1);
+    print(a)
   endfor
 end
