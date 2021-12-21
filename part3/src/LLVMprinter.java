@@ -152,6 +152,7 @@ public class LLVMprinter {
             intermediateIncrement++;
             codeFragment += "%" + globalIncrement + " = add i32 %" + globalIncrement +
                     ",%" + globalIncrement + "\n";
+            globalIncrement++;
         }
         return codeFragment;
     }
