@@ -120,10 +120,11 @@ public class LLVMprinter {
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
             }
-            rightTree = plus(newExprArith);
             codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
-                    localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n" + rightTree;
+                    localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n";
+            rightTree = plus(newExprArith);
+            codeFragment += rightTree;
             localIncrement += newExprArith.size();
             codeFragment += "%" + (localIncrement+1) + " = add i32 %" + 0 +
                     ",%" + localIncrement + "\n";
