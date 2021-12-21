@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class LLVMprinter {
     private int globalCounter = 0;
     private int listSize = 0;
+    private int counter = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -97,7 +98,14 @@ public class LLVMprinter {
 
     public String exprArith(ArrayList<Symbol> exprArith){
         String codeFragment = "";
+        int numberOfPlus = 0;
         if(exprArith.get(0).getType() == LexicalUnit.PLUS){
+            for(Symbol symbol : exprArith){
+                if(symbol.getType() == LexicalUnit.PLUS){
+                    numberOfPlus++;
+                }
+                counter = numberOfPlus - exprArith.size() - 2;
+            }
             codeFragment += plus(exprArith);
         }
         return codeFragment;
@@ -125,16 +133,17 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + 10 + " = alloca i32\n%intermediate" + 10 +
+            codeFragment += "%plus" + counter + " = alloca i32\n%intermediate" + counter +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    10 + "\n%" + 10 + " = load i32, i32* intermediate"
-                    + 10 + "\n";
-            codeFragment += "%intermediate" + 20 + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + 20 + "\n%" +
-                    20 + " = load i32, i32* %intermediate" +
-                    20 + "\n";
-            codeFragment += "%" + 30 + " = add i32 %" + 10 +
-                    ",%" + 20 + "\n";
+                    counter + "\n%" + counter + " = load i32, i32* intermediate" +
+                    counter + "\n";
+            counter++;
+            codeFragment += "%intermediate" + counter + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + counter + "\n%" +
+                    counter + " = load i32, i32* %intermediate" +
+                    counter + "\n";
+            codeFragment += "%" + (counter+1) + " = add i32 %" + (counter-1) +
+                    ",%" + counter + "\n";
         }
         return codeFragment;
     }
