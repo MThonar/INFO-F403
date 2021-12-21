@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class LLVMprinter {
     private int numberOfRecursion = 0;
-    private int localIncrement = 0;
+    private int globalIncrement = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -120,15 +120,16 @@ public class LLVMprinter {
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
             }
-            codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
-                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
-                    localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n";
-            localIncrement++;
+            codeFragment += "%plus" + globalIncrement + " = alloca i32\n%intermediate" + globalIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + globalIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* intermediate" + globalIncrement + "\n";
+            globalIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
-            localIncrement += numberOfRecursion+1;
-            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + numberOfRecursion +
-                    ",%" + localIncrement + "\n";
+            globalIncrement += numberOfRecursion+1;
+            codeFragment += "%" + (globalIncrement +1) + " = add i32 %" + numberOfRecursion +
+                    ",%" + globalIncrement + "\n";
+            globalIncrement--;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
