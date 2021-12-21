@@ -124,9 +124,9 @@ public class LLVMprinter {
         intermediateIncrement++;
         globalIncrement++;
         codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus" + plusIncrement + "\n"
-                + globalIncrement + " = load i32, i32* %plus" + plusIncrement +
-                globalIncrement++;
+                ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus" + plusIncrement + "\n";
+        globalIncrement++;
+        codeFragment += "%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement;
         return codeFragment;
     }
 
