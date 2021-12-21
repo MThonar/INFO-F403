@@ -130,9 +130,10 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + "00000" +
+            codeFragment += "%" + (globalIncrement + 1) + numberOfRecursion + "00000" +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
+            numberOfRecursion--;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
