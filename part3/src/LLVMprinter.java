@@ -4,7 +4,7 @@ public class LLVMprinter {
     private ArrayList<Symbol> AST;
     private int globalIncrement = 0;
     private int intermediateIncrement = 1;
-    private boolean plusAlreadyUsed = false;
+    private int plusIncrement = 0;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
     private final Symbol assign = new Symbol(null, "$<$Assign$>$");
@@ -102,30 +102,22 @@ public class LLVMprinter {
         String leftTree = exprArith.get(1).getValue().toString();
         String rightTree = exprArith.get(2).getValue().toString();
         if(exprArith.get(0).getType() == LexicalUnit.PLUS){
-            if(!plusAlreadyUsed){
-                codeFragment += "%plus = alloca i32\n%intermediate" + intermediateIncrement +
-                        " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                        intermediateIncrement + "\n";
-                intermediateIncrement++;
-                codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
-                        rightTree + ", i32* intermediate" + intermediateIncrement + "\n%" +
-                        globalIncrement + " = load i32, i32* %intermediate" +
-                        (intermediateIncrement-1) + "\n";
-                globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = load i32, i32* %intermediate" +
-                        (intermediateIncrement) + "\n";
-                globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                        ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus\n";
-                globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = load i32, i32* %plus\n";
-                plusAlreadyUsed = true;
-            }
-            else{
-                codeFragment += "store i32 " + leftTree + ", i32* %add\n" + "%" + globalIncrement + " = load i32, i32* %add\n";
-                globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree + "\n";
-            }
+            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
+                    intermediateIncrement + "\n";
+            intermediateIncrement++;
+            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* intermediate" + intermediateIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* %intermediate" +
+                    (intermediateIncrement-1) + "\n";
+            globalIncrement++;
+            codeFragment += "%" + globalIncrement + " = load i32, i32* %intermediate" +
+                    (intermediateIncrement) + "\n";
+            globalIncrement++;
+            codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
+                    ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus\n";
+            globalIncrement++;
+            codeFragment += "%" + globalIncrement + " = load i32, i32* %plus\n";
         }
         return codeFragment;
     }
