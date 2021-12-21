@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class LLVMprinter {
     private int globalCounter = 0;
+    private int listSize = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -124,16 +125,16 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + 1 + " = alloca i32\n%intermediate" + 1 +
+            codeFragment += "%plus" + 10 + " = alloca i32\n%intermediate" + 10 +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    1 + "\n%" + 1 + " = load i32, i32* intermediate"
-                    + 1 + "\n";
-            codeFragment += "%intermediate" + 2 + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + 2 + "\n%" +
-                    2 + " = load i32, i32* %intermediate" +
-                    2 + "\n";
-            codeFragment += "%" + 3 + " = add i32 %" + 1 +
-                    ",%" + 2 + "\n";
+                    10 + "\n%" + 1 + " = load i32, i32* intermediate"
+                    + 10 + "\n";
+            codeFragment += "%intermediate" + 20 + " = alloca i32\nstore i32 " +
+                    rightTree + ", i32* %intermediate" + 20 + "\n%" +
+                    20 + " = load i32, i32* %intermediate" +
+                    20 + "\n";
+            codeFragment += "%" + 30 + " = add i32 %" + 10 +
+                    ",%" + 20 + "\n";
         }
         return codeFragment;
     }
