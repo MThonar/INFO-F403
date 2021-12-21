@@ -26,15 +26,12 @@ public class LLVMprinter {
         for(int i = 0; i < AST.size(); i++){
             if(AST.get(i).getValue() == program.getValue()){
                 LLVMcode += "define i32 @main() {\nentry:\n";
-                System.out.println(LLVMcode);
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
-                System.out.println(LLVMcode);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
-                System.out.println(LLVMcode);
             }
         }
         return LLVMcode;
@@ -90,15 +87,8 @@ public class LLVMprinter {
             j++;
         }
         String rightTree = exprArith(inExprArith);
-        codeFragment += "%" + leftTree + " = alloca i32\n";
-        System.out.println(codeFragment);
-        System.out.println("enter in exprArith");
-        codeFragment += rightTree;
-        System.out.println(codeFragment);
-        System.out.println("leave exprArith");
-        codeFragment += "store i32 %" + globalIncrement + ", i32* %"
+        codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %" + globalIncrement + ", i32* %"
                 + leftTree + "\n%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement + "\n";
-        System.out.println(codeFragment);
         plusIncrement++;
         globalIncrement++;
         return codeFragment;
@@ -111,10 +101,7 @@ public class LLVMprinter {
     public String exprArith(ArrayList<Symbol> exprArith){
         String codeFragment = "";
         if(exprArith.size() == 3 && exprArith.get(0).getType() == LexicalUnit.PLUS){
-            System.out.println("enter in +");
             codeFragment += plus(exprArith);
-            System.out.println(codeFragment);
-            System.out.println("leave +");
         }
         return codeFragment;
     }
@@ -139,7 +126,6 @@ public class LLVMprinter {
         codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
                 ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus"
                 + plusIncrement + "\n";
-        System.out.println(codeFragment);
         globalIncrement++;
         return codeFragment;
     }
