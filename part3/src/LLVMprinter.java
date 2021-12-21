@@ -154,6 +154,7 @@ public class LLVMprinter {
             codeFragment += "%" + globalIncrement + " = add i32 %" + globalIncrement +
                     ",%" + globalIncrement + "\n";
         }
+
         return codeFragment;
     }
 
