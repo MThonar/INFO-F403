@@ -111,6 +111,7 @@ public class LLVMprinter {
 
     public String plus(ArrayList<Symbol> exprArith){
         String codeFragment = "";
+        int localIncrement = 0;
         String leftTree = "";
         String rightTree = "";
         if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getType() == LexicalUnit.PLUS) ){
@@ -120,7 +121,6 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
-            int localIncrement = 0;
             codeFragment += "%plus" + localIncrement + " = alloca i32\n%intermediate" + localIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + localIncrement + "\n%" +
                     localIncrement + " = load i32, i32* intermediate" + localIncrement + "\n" + rightTree;
