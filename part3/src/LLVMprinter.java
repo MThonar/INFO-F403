@@ -87,7 +87,11 @@ public class LLVMprinter {
             j++;
         }
         String rightTree = exprArith(inExprArith);
-        codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %" + globalIncrement + ", i32* %"
+        codeFragment += "%" + leftTree + " = alloca i32\n";
+        System.out.println("enter in exprArith");
+        codeFragment += rightTree;
+        System.out.println("leave exprArith");
+        codeFragment += "store i32 %" + globalIncrement + ", i32* %"
                 + leftTree + "\n%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement + "\n";
         plusIncrement++;
         globalIncrement++;
@@ -101,7 +105,9 @@ public class LLVMprinter {
     public String exprArith(ArrayList<Symbol> exprArith){
         String codeFragment = "";
         if(exprArith.size() == 3 && exprArith.get(0).getType() == LexicalUnit.PLUS){
+            System.out.println("enter in +");
             codeFragment += plus(exprArith);
+            System.out.println("leave +");
         }
         return codeFragment;
     }
