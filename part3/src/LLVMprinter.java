@@ -133,7 +133,7 @@ public class LLVMprinter {
             globalIncrement += 2;
             intermediateIncrement += 2;
             plusIncrement += 2;
-            codeFragment += "%" + (globalIncrement +1) + " = add i32 %" + numberOfRecursion +
+            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + "00000" +
                     ",%" + globalIncrement + "\n";
             globalIncrement--;
             intermediateIncrement--;
