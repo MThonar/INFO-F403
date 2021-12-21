@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class LLVMprinter {
     private int numberOfRecursion = 0;
     private int globalIncrement = 0;
+    private int plusIncrement = 0;
+    private int intermediateIncrement = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -120,16 +122,22 @@ public class LLVMprinter {
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
             }
-            codeFragment += "%plus" + globalIncrement + " = alloca i32\n%intermediate" + globalIncrement +
-                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + globalIncrement + "\n%" +
-                    globalIncrement + " = load i32, i32* intermediate" + globalIncrement + "\n";
+            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
+                    globalIncrement + " = load i32, i32* intermediate" + intermediateIncrement + "\n";
             globalIncrement++;
+            intermediateIncrement++;
+            plusIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
             globalIncrement += 2;
+            intermediateIncrement += 2;
+            plusIncrement += 2;
             codeFragment += "%" + (globalIncrement +1) + " = add i32 %" + numberOfRecursion +
                     ",%" + globalIncrement + "\n";
             globalIncrement--;
+            intermediateIncrement--;
+            plusIncrement--;
             numberOfRecursion--;
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
@@ -145,7 +153,6 @@ public class LLVMprinter {
                     (2+numberOfRecursion) + "\n";
             codeFragment += "%" + (3+numberOfRecursion) + " = add i32 %" + (1+numberOfRecursion) +
                     ",%" + (2+numberOfRecursion) + "\n";
-            numberOfRecursion++;
         }
         return codeFragment;
     }
