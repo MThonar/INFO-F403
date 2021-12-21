@@ -117,10 +117,12 @@ public class LLVMprinter {
                 newExprArith.add(exprArith.get(i));
             }
             rightTree = plus(newExprArith);
+            System.out.println("dans le if");
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
+            System.out.println("dans le else if");
         }
         else{
             System.out.println("on est pas rentré");
