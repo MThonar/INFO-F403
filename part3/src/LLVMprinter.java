@@ -26,12 +26,15 @@ public class LLVMprinter {
         for(int i = 0; i < AST.size(); i++){
             if(AST.get(i).getValue() == program.getValue()){
                 LLVMcode += "define i32 @main() {\nentry:\n";
+                System.out.println(LLVMcode);
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
+                System.out.println(LLVMcode);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
+                System.out.println(LLVMcode);
             }
         }
         return LLVMcode;
