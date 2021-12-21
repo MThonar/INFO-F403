@@ -87,7 +87,7 @@ public class LLVMprinter {
             j++;
         }
         String rightTree = exprArith(inExprArith);
-        codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "\nstore i32 %"
+        codeFragment += "%" + leftTree + " = alloca i32\n" + "\n\nNOUS SOMMES DANS LE ASSIGN, rightTree = " + rightTree + "\n\n\n" + "\nstore i32 %"
                 + globalIncrement + ", i32* %" + leftTree + "\n";
         plusIncrement++;
         globalIncrement++;
