@@ -87,8 +87,8 @@ public class LLVMprinter {
             j++;
         }
         String rightTree = exprArith(inExprArith);
-        codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %" + globalIncrement + ", i32* %"
-                + leftTree + "\n%" + globalIncrement + " = load i32, i32* %plus" + plusIncrement + "\nstore i32 %"
+        codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "\n" + leftTree + "\n%"
+                + globalIncrement + " = load i32, i32* %plus" + plusIncrement + "\nstore i32 %"
                 + globalIncrement + ", i32* %plus" + plusIncrement + "\n";
         plusIncrement++;
         globalIncrement++;
@@ -125,7 +125,7 @@ public class LLVMprinter {
         intermediateIncrement++;
         globalIncrement++;
         codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                ",%" + (globalIncrement-1);
+                ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %";
         globalIncrement++;
         return codeFragment;
     }
