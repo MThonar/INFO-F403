@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class LLVMprinter {
     private int numberOfRecursion = 0;
+    private int localIncrement = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -111,7 +112,6 @@ public class LLVMprinter {
 
     public String plus(ArrayList<Symbol> exprArith){
         String codeFragment = "";
-        int localIncrement = 0;
         String leftTree = "";
         String rightTree = "";
         if( !(isAnOperator(exprArith.get(1))) && (exprArith.get(2).getType() == LexicalUnit.PLUS) ){
