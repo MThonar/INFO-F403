@@ -126,8 +126,8 @@ public class LLVMprinter {
             localIncrement++;
             rightTree = plus(newExprArith);
             codeFragment += rightTree;
-            localIncrement += 2;
-            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + "boh" +
+            localIncrement += numberOfRecursion+1;
+            codeFragment += "%" + (localIncrement+1) + " = add i32 %" + numberOfRecursion +
                     ",%" + localIncrement + "\n";
         }
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
