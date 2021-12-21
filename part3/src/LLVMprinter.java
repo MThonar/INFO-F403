@@ -103,11 +103,11 @@ public class LLVMprinter {
         String rightTree = exprArith.get(2).getValue().toString();
         if(exprArith.get(0).getType() == LexicalUnit.PLUS){
             if(!plusAlreadyUsed){
-                codeFragment += "%plus = alloca i32\nintermediate" + intermediateIncrement +
+                codeFragment += "%plus = alloca i32\n%intermediate" + intermediateIncrement +
                         " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                         intermediateIncrement + "\n";
                 intermediateIncrement++;
-                codeFragment += "intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
+                codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
                         rightTree + ", i32* intermediate" + intermediateIncrement + "\n%" +
                         globalIncrement + " = load i32, i32* %intermediate" +
                         (intermediateIncrement-1) + "\n";
@@ -118,7 +118,7 @@ public class LLVMprinter {
                 codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
                         ",%" + (globalIncrement-1) + "\nstore i32 %" + globalIncrement + ", i32* %plus\n";
                 globalIncrement++;
-                codeFragment += "%" + globalIncrement + " = load i32, i32* %plus";
+                codeFragment += "%" + globalIncrement + " = load i32, i32* %plus\n";
                 plusAlreadyUsed = true;
             }
             else{
