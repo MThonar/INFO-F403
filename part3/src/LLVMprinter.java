@@ -143,15 +143,15 @@ public class LLVMprinter {
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
             }
-            codeFragment += "%times" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
                     globalIncrement + " = load i32, i32* intermediate" + intermediateIncrement + "\n";
             globalIncrement++;
             intermediateIncrement++;
-            timesIncrement++;
+            plusIncrement++;
             rightTree = times(newExprArith);
             codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = mul i32 %" + "JE NE SAIS PAS QUOI METTRE ICI" +
+            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + /*numberOfPlus*/ "JE NE SAIS PAS QUOI METTRE ICI" +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
         }
