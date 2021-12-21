@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class LLVMprinter {
-    private int numberOfRecursion = 0:
+    private int numberOfRecursion = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
