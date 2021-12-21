@@ -104,12 +104,14 @@ public class LLVMprinter {
                   "%" + globalIncrement + " = load i32, i32* %add\n";
                 globalIncrement++;
                 codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree + "\n";
+                globalIncrement++;
                 addAlreadyUsed = true;
             }
             else{
                 codeFragment += "store i32 " + leftTree + ", i32* %add\n" + "%" + globalIncrement + " = load i32, i32* %add\n";
                 globalIncrement++;
                 codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-1) + "," + rightTree + "\n";
+                globalIncrement++;
             }
         }
         return codeFragment;
