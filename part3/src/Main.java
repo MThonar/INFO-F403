@@ -42,6 +42,7 @@ class Main {
         else if (args.length == 2){
             try {
                 final FileReader source = new FileReader(args[0]);
+                final FileWriter writer = new FileWriter(args[1]);
                 final LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(source);
                 Symbol symbol = lexicalAnalyzer.nextToken();
                 while (!symbol.getType().toString().equals("END")){
@@ -52,7 +53,17 @@ class Main {
                     list.add(symbol);
                 }
                 Parser parser = new Parser(list);
-                parser.startParsing();
+                ArrayList<Symbol> AST = parser.startParsing();
+                System.out.println("AST in form of a list:");
+                for(Symbol node : AST){
+                    System.out.println(node.getValue().toString());
+                }
+                System.out.println("end AST");
+                LLVMprinter llvm = new LLVMprinter(AST);
+                String llvmCode = llvm.getLLVMcode();
+                System.out.println(llvmCode);
+                writer.write(llvmCode);
+                writer.close();
             }
             catch (Exception e){
                 e.printStackTrace();
