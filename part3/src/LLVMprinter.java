@@ -108,6 +108,23 @@ public class LLVMprinter {
                         "ret void\n" +
                         "}\n" +
                         "\n" +
+                        "define void @while(i32 %x, i32 %y, i32 %z){\n" +
+                        "%a = alloca i32\n" +
+                        "store i32 %x, i32* %a\n" +
+                        "br label %whileLoop\n" +
+                        "whileLoop:\n" +
+                        "%1 = load i32, i32* %a\n" +
+                        "%2 = icmp slt i32 %1, %y\n" +
+                        "br i1 %2, label %continue, label %end\n" +
+                        "continue:\n" +
+                        "%3 = add i32 %1,%z\n" +
+                        "store i32 %3, i32* %a\n" +
+                        "call void @println(i32 %3)\n" +
+                        "br label %whileLoop\n" +
+                        "end:\n" +
+                        "ret void\n" +
+                        "}\n" +
+                        "\n" +
                         "define i32 @main(){\n";
             }
             else if(AST.get(i).getValue() == read.getValue()){
@@ -121,7 +138,7 @@ public class LLVMprinter {
                 LLVMcode += assign(i);
             }
             else if(AST.get(i).getValue() == If.getValue()){
-                LLVMcode += If(i);
+                LLVMcode += If();
                 i += 12;
                 System.out.println("COUCOU LE I" + i);
             }
@@ -170,13 +187,6 @@ public class LLVMprinter {
         return res;
     }
 
-    /*public String program(){
-    }*/
-
-    /*public void code(){
-        //sert à rien
-    }*/
-
     public String assign(int i){
         String codeFragment = "";
         String leftTree = AST.get(i+1).getValue().toString();
@@ -205,10 +215,6 @@ public class LLVMprinter {
             globalIncrement++;
         }
         return codeFragment;
-    }
-
-    public void cond(){
-
     }
 
     public String exprArith(ArrayList<Symbol> exprArith){
@@ -276,40 +282,10 @@ public class LLVMprinter {
             globalIncrement++;
             numberOfOperators--;
         }
-        /*else if( (exprArith.get(1).getType() == LexicalUnit.TIMES) && (exprArith.get(4).getType() == LexicalUnit.PLUS) ){
-            ArrayList<Symbol> newExprArith = new ArrayList<>();
-            for(int i = 2; i < exprArith.size(); i++){
-                newExprArith.add(exprArith.get(i));
-            }
-            codeFragment += "%plus" + plusIncrement + " = alloca i32\n";
-            leftTree = exprArith.get(1).getValue().toString();
-            codeFragment += leftTree;
-            rightTree = times(newExprArith);
-            codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + numberOfOperators +
-                    ",%" + globalIncrement + "\n";
-            globalIncrement++;
-            numberOfOperators--;
-        }*/
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
             codeFragment += "%plus" + plusIncrement + " = call i32 @plus(i32 " + leftTree + ", i32 " + rightTree + ")\n";
-            /*codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
-                    " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
-                    intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* %intermediate"
-                    + intermediateIncrement + "\n";
-            globalIncrement++;
-            plusIncrement++;
-            intermediateIncrement++;
-            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 " +
-                    rightTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
-                    globalIncrement + " = load i32, i32* %intermediate" +
-                    intermediateIncrement + "\n";
-            globalIncrement++;
-            intermediateIncrement++;
-            codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                    ",%" + (globalIncrement-1) + "\n";*/
         }
         return codeFragment;
     }
@@ -340,20 +316,18 @@ public class LLVMprinter {
         return codeFragment;
     }
 
-    public String If(int i){
-        String codeFragment = "call void @if(i32 %" + (readIncrement-1) + ", i32 %" + readIncrement + ")\n";
-
-        return codeFragment;
+    public String If(){
+        return "call void @if(i32 %" + (readIncrement-1) + ", i32 %" + readIncrement + ")\n";
     }
 
-    public void While(){
-
+    public String While(int i){
+        String codeFragment = "call void @while(i32 %" + (globalIncrement-1) + ", i32 " + i+6 + ", i32 " + i+12 + ")\n";
+        return codeFragment;
     }
 
     public String For(int i){
-        String codeFragment = "call void @for(i32 " + AST.get(i+3).getValue().toString() + ", i32 " +
+        return "call void @for(i32 " + AST.get(i+3).getValue().toString() + ", i32 " +
                 AST.get(i+5).getValue().toString() + ", i32 " + AST.get(i+7).getValue().toString() + ")\n";
-        return codeFragment;
     }
 
     public String print(int i){
