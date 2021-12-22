@@ -12,46 +12,22 @@ class Main {
      * .tex file given as argument.
      */
     public static void main (String[] args){
-        if (args.length == 3 && args[0].equals("-wt")) {
+        if (args.length == 1){
             try {
-                final FileReader source=new FileReader(args [2]);
-                final FileWriter writer = new FileWriter(args[1]);
-                final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
-                Symbol s = lexAn.nextToken();
-                while (!s.getType().toString().equals("END")) {
-			        list.add(s);
-			        s = lexAn.nextToken();
+                final FileReader source = new FileReader(args[0]);
+                final LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(source);
+                Symbol symbol = lexicalAnalyzer.nextToken();
+                while (!symbol.getType().toString().equals("END")){
+                    list.add(symbol);
+                    symbol = lexicalAnalyzer.nextToken();
                 }
-                if (s.getType().toString().equals("END")) {
-                	list.add(s);
-                }
-                Parser parser = new Parser(list);
-                ParseTree parseTree = parser.startParsing();
-                String str = parseTree.toLaTeX();
-                writer.write(str);
-                writer.close();
-                
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else if (args.length == 1) {
-        	try {
-                final FileReader source=new FileReader(args [0]);
-                final LexicalAnalyzer lexAn = new LexicalAnalyzer(source);
-                Symbol s = lexAn.nextToken();
-                while (!s.getType().toString().equals("END")) {
-			        list.add(s);
-			        s = lexAn.nextToken();
-                }
-                if (s.getType().toString().equals("END")) {
-                	list.add(s);
+                if(symbol.getType().toString().equals("END")){
+                    list.add(symbol);
                 }
                 Parser parser = new Parser(list);
                 parser.startParsing();
             }
-            catch(Exception e) {
+            catch (Exception e){
                 e.printStackTrace();
             }
         }
