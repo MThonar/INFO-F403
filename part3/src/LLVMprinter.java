@@ -135,18 +135,19 @@ public class LLVMprinter {
             inExprArith.add(AST.get(j));
             j++;
         }
+        String rightTree = exprArith(inExprArith);
         if(isAnOperator(AST.get(i+3))){
-            String rightTree = exprArith(inExprArith);
             globalIncrement++;
             codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %"
                     + inExprArith.size() + ", i32* %" + leftTree + "\n";
         }
         else if(isNumeric(AST.get(i+3).getValue().toString())){
-            String rightTree = exprArith(inExprArith);
-            codeFragment += "UN NOMBRE\n";
+            codeFragment += "%" + leftTree + " = call i32* @assign1(i32 " + rightTree + ")\n%" + globalIncrement;
+            globalIncrement++;
         }
         else if(!isNumeric(AST.get(i+3).getValue().toString())){
-            codeFragment += "UN STRING\n";
+            codeFragment += "%" + leftTree + " = call i32* @assign1(i32 " + rightTree + ")\n%" + globalIncrement;
+            globalIncrement++;
         }
         return codeFragment;
     }
