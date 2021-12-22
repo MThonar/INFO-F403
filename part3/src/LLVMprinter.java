@@ -156,7 +156,7 @@ public class LLVMprinter {
             globalIncrement++;
             numberOfOperators--;
         }
-        else if( (exprArith.get(1).getType() == LexicalUnit.TIMES) && (exprArith.get(2).getType() == LexicalUnit.PLUS) ){
+        else if( (exprArith.get(1).getValue() == LexicalUnit.TIMES) && (exprArith.get(2).getValue() == LexicalUnit.PLUS) ){
             ArrayList<Symbol> newExprArith = new ArrayList<>();
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
@@ -192,6 +192,7 @@ public class LLVMprinter {
         }
         else{
             System.out.println("ON EST PAS DEDANS");
+
         }
         return codeFragment;
     }
