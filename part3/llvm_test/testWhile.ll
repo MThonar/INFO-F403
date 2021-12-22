@@ -19,33 +19,27 @@ define void @println(i32 %x) {
   ret void
 }
 
+declare i32 @printf(i8*, ...)
+
 define i32 @main() {
 %a = alloca i32
-store i32 1, i32* %a
+store i32 3, i32* %a
 %b = alloca i32
 store i32 2, i32* %b
 br label %whileLoop
-
-
 
 whileLoop:
 %1 = load i32, i32* %b
 %2 = icmp ne i32 %1, 0
 br i1 %2, label %innerWhile, label %afterWhile
 
-
-
 ;1er while
 innerWhile:
 %c = alloca i32
 store i32 %1, i32* %c
 %3 = load i32, i32* %c
-call void @println(i32 %c) ;doit print: 1
+call void @println(i32 %3) ;doit print: 1
 br label %secWhile
-
-
-
-
 
 secWhile:
 %4 = load i32, i32* %a
@@ -54,22 +48,14 @@ secWhile:
 %7 = icmp sgt i32 %6, %5
 br i1 %7, label %innerSecWhile, label %endsecWhile
 
-
-
-
-
 ;deuxieme while
 innerSecWhile:
 %8 = load i32, i32* %a
 %9 = load i32, i32* %b
 %10 = sub i32 %8, %9
-call void @println(i32 %a) ;ou %8
-call void @println(i32 %b) ;ou %9
+call void @println(i32 %10) ;ou %8
+call void @println(i32 %9) ;ou %9
 br label %secWhile
-
-
-
-
 
 ;1er while
 endsecWhile:
@@ -79,10 +65,6 @@ endsecWhile:
 store i32 %11, i32* %b
 store i32 %13, i32* %a
 br label %innerWhile
-
-
-
-
 
 afterWhile:
 ret i32 0

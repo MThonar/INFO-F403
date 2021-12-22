@@ -22,6 +22,9 @@ define void @println(i32 %x) {
 declare i32 @printf(i8*, ...)
 
 define i32 @main(){
-%a = call i32 @readInt()
+%a = alloca i32
+store i32 %1, i32* %a
+%b = alloca i32
+store i32 %1, i32* %b
 ret i32 0
 }
