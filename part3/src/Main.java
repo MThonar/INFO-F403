@@ -25,6 +25,33 @@ class Main {
                     list.add(symbol);
                 }
                 Parser parser = new Parser(list);
+                ArrayList<Symbol> AST = parser.startParsing();
+                System.out.println("AST in form of a list:");
+                for(Symbol node : AST){
+                    System.out.println(node.getValue().toString());
+                }
+                System.out.println("end AST");
+                LLVMprinter llvm = new LLVMprinter(AST);
+                String llvmCode = llvm.getLLVMcode();
+                System.out.println(llvmCode);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else if (args.length == 2){
+            try {
+                final FileReader source = new FileReader(args[0]);
+                final LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(source);
+                Symbol symbol = lexicalAnalyzer.nextToken();
+                while (!symbol.getType().toString().equals("END")){
+                    list.add(symbol);
+                    symbol = lexicalAnalyzer.nextToken();
+                }
+                if(symbol.getType().toString().equals("END")){
+                    list.add(symbol);
+                }
+                Parser parser = new Parser(list);
                 parser.startParsing();
             }
             catch (Exception e){

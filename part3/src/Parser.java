@@ -525,22 +525,14 @@ public class Parser {
      * @return
      * @throws Exception
      */
-    public ParseTree startParsing() throws Exception {
+    public ArrayList<Symbol> startParsing() throws Exception {
         ParseTree parseTree = Program();
         ArrayList<Symbol> symbolList = new ArrayList<>();
         symbolList.add(program);
         parseTreePreProcessing(parseTree, symbolList);
         ArrayList<Symbol> AST = new ArrayList<>();
         createAST(symbolList, AST);
-        System.out.println("AST in form of a list:");
-        for(Symbol symbol : AST){
-            System.out.println(symbol.getValue().toString());
-        }
-        System.out.println("end AST");
-        LLVMprinter llvm = new LLVMprinter(AST);
-        String llvmCode = llvm.getLLVMcode();
-        System.out.println(llvmCode);
-        return parseTree;
+        return AST;
     }
 
     /**
