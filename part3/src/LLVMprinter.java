@@ -28,6 +28,10 @@ public class LLVMprinter {
         return str != null && str.matches("[0-9.]+");
     }
 
+    /**
+     * The first if prints the preamble of the llvm code, i.e. all the necessary functions
+     * @return The llvm code corresponding to the AST given as attribute of this class
+     */
     public String getLLVMcode(){
         String LLVMcode = "";
         for(int i = 0; i < AST.size(); i++){
@@ -132,7 +136,6 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == print.getValue()){
                 LLVMcode += print(i);
-                System.out.println("ICIIIIII");
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
@@ -140,17 +143,14 @@ public class LLVMprinter {
             else if(AST.get(i).getValue() == If.getValue()){
                 LLVMcode += If();
                 i += 12;
-                System.out.println("COUCOU LE I" + i);
             }
             else if(AST.get(i).getValue() == For.getValue()){
                 LLVMcode += For(i);
                 i += 10;
-                System.out.println("RECOUCOU LE I" + i);
             }
             else if(AST.get(i).getValue() == While.getValue()){
                 LLVMcode += While(i);
                 i += 15;
-                System.out.println("VALEUR DE I" + i);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
@@ -326,7 +326,6 @@ public class LLVMprinter {
     }
 
     public String While(int i){
-        System.out.println("Valeur de i" + i);
         String codeFragment = "call void @while(i32 %" + (globalIncrement-1) + ", i32 " +
                 AST.get(i+6).getValue().toString() + ", i32 " + AST.get(i+12).getValue().toString() + ")\n";
         return codeFragment;
