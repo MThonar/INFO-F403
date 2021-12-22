@@ -22,6 +22,10 @@ define void @println(i32 %x) {
 declare i32 @printf(i8*, ...)
 
 define i32 @main() {
+a = alloca i32
+store i32 1, i32* %a
+b = alloca i32
+store i32 2, i32* %b
 br label %whileLoop
 whileLoop:
 %1 = load i32, i32* %b
@@ -30,11 +34,15 @@ br i1 %2, label %innerWhile, label %afterWhile
 
 
 
+
+
 ;1er while
 innerWhile:
 %c = alloca i32
 store i32 %1, i32* %c
 br label %secWhile
+
+
 
 
 
@@ -47,6 +55,8 @@ br i1 %6, label %innerSecWhile, label %endsecWhile
 
 
 
+
+
 ;deuxieme while
 innerSecWhile:
 %7 = load i32, i32* %a
@@ -56,12 +66,16 @@ br label %secWhile
 
 
 
+
+
 ;1er while
 endsecWhile:
 %10 = load i32, i32* %c
 store i32 %7, i32* %b
 store i32 %10, i32* %a
 br label %innerWhile
+
+
 
 
 
