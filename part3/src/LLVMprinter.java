@@ -334,7 +334,7 @@ public class LLVMprinter {
     }
 
     public String If(int i){
-        String codeFragment = "";
+        String codeFragment = "SALE MERDE";
 
         return codeFragment;
     }
