@@ -51,7 +51,7 @@ public class LLVMprinter {
                         "\n" +
                         "declare i32 @printf(i8*, ...)\n" +
                         "\n" +
-                        "define i32 @main(){";
+                        "define i32 @main(){\n";
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
