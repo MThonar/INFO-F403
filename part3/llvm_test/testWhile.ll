@@ -24,46 +24,47 @@ declare i32 @printf(i8*, ...)
 define i32 @main() {
 br label %whileLoop
 whileLoop:
-%0 = load i32, i32* %b
-%1 = icmp ne i32 %0, 0
-br i1 %1, label %innerWhile, label %afterWhile
+%1 = load i32, i32* %b
+%2 = icmp ne i32 %1, 0
+br i1 %2, label %innerWhile, label %afterWhile
 
 
 
 ;1er while
 innerWhile:
 %c = alloca i32
-store i32 %b, i32* %c
+store i32 %1, i32* %c
 br label %secWhile
 
 
 
-secWhile
-%2 = load i32, i32* %a
-%3 = load i32, i32* %b
-%4 = add i32 %2, 1
-%5 = icmp sgt i32 %4, %3
-br i1 %5, label %innerSecWhile, label %endsecWhile
+secWhile:
+%3 = load i32, i32* %a
+%4 = load i32, i32* %b
+%5 = add i32 %3, 1
+%6 = icmp sgt i32 %5, %4
+br i1 %6, label %innerSecWhile, label %endsecWhile
 
 
 
 ;deuxieme while
 innerSecWhile:
-%6 = load i32, i32* %a
-%7 = load i32, i32* %b
-%8 = sub i32 %6, %7
+%7 = load i32, i32* %a
+%8 = load i32, i32* %b
+%9 = sub i32 %7, %8
 br label %secWhile
 
 
 
 ;1er while
-endsecWhile
-store i32 %a, i32* %b
-store i32 %c, i32* %a
+endsecWhile:
+%10 = load i32, i32* %c
+store i32 %7, i32* %b
+store i32 %10, i32* %a
 br label %innerWhile
 
 
 
-%afterWhile
+afterWhile:
 ret i32 0
 }
