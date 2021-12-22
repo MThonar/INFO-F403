@@ -695,10 +695,14 @@ public class Parser {
                 queue.add(symbol);
             }
         }
-        for(int i = 0; i < stack.size(); i++){
+        while(stack.size() > 0){
+            queue.add(stack.get(stack.size()-1));
+            stack.remove(stack.size()-1);
+        }
+        /*for(int i = 0; i < stack.size(); i++){
             queue.add(stack.get(i));
             stack.remove(i);
-        }
+        }*/
         return queue;
     }
 
