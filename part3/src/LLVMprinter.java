@@ -146,7 +146,7 @@ public class LLVMprinter {
             codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 "
                     + exprArith.get(0).getValue().toString() +
                     ", i32* %intermediate" + intermediateIncrement + "\n%" + globalIncrement +
-                    " = load i32, i32* %intermediate" + intermediateIncrement;
+                    " = load i32, i32* %intermediate" + intermediateIncrement + "\n";
             intermediateIncrement++;
             globalIncrement++;
         }
