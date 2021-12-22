@@ -122,7 +122,10 @@ public class LLVMprinter {
             else if(AST.get(i).getValue() == If.getValue()){
                 LLVMcode += If(i);
                 i += 14;
-                System.out.println(i);
+            }
+            else if(AST.get(i).getValue() == For.getValue()){
+                LLVMcode += For(i);
+                i += 11;
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
@@ -335,7 +338,7 @@ public class LLVMprinter {
     }
 
     public String If(int i){
-        String codeFragment = "SALE MERDE";
+        String codeFragment = "";
 
         return codeFragment;
     }
@@ -344,8 +347,9 @@ public class LLVMprinter {
 
     }
 
-    public void For(){
-
+    public String For(int i){
+        String codeFragment = "";
+        return codeFragment;
     }
 
     public String print(int i){
