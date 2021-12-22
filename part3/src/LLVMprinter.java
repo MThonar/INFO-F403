@@ -53,6 +53,9 @@ public class LLVMprinter {
                         "\n" +
                         "define i32 @main(){\n";
             }
+            else if(AST.get(i).getValue() == read.getValue()){
+                LLVMcode += read(i);
+            }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
             }
@@ -264,8 +267,9 @@ public class LLVMprinter {
 
     }
 
-    public void read(){
-
+    public String read(int i){
+        String codeFragment = "";
+        codeFragment += "%" + AST.get(i+1) + " = call i32 @readInt()";
+        return codeFragment;
     }
-
 }
