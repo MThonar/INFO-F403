@@ -6,6 +6,7 @@ public class LLVMprinter {
     private int plusIncrement = 1;
     private int timesIncrement = 1;
     private int intermediateIncrement = 1;
+    private int readIncrement = 0;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -340,7 +341,7 @@ public class LLVMprinter {
     }
 
     public String If(int i){
-        String codeFragment = "call void @if(i32 %" + globalIncrement + ", i32 %" + (globalIncrement+1) + ")\n";
+        String codeFragment = "call void @if(i32 %" + (readIncrement-1) + ", i32 %" + readIncrement + ")\n";
 
         return codeFragment;
     }
@@ -364,6 +365,7 @@ public class LLVMprinter {
         String codeFragment = "%" + AST.get(i+1).getValue().toString() + " = call i32* @readInt()\n";
         codeFragment += "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() + "\n";
         globalIncrement++;
+        readIncrement++;
         return codeFragment;
     }
 }
