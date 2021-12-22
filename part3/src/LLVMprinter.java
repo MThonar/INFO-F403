@@ -120,7 +120,7 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == If.getValue()){
                 LLVMcode += If(i);
-                i += 12;
+                i += 14;
                 System.out.println(i);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
