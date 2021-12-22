@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class LLVMprinter {
     private int numberOfOperators = 0;
-    private int globalIncrement = 0;
-    private int plusIncrement = 0;
-    private int timesIncrement = 0;
-    private int intermediateIncrement = 0;
+    private int globalIncrement = 1;
+    private int plusIncrement = 1;
+    private int timesIncrement = 1;
+    private int intermediateIncrement = 1;
     private final ArrayList<Symbol> AST;
     private final Symbol program = new Symbol(null, "$<$Program$>$");
     private final Symbol code = new Symbol(null, "$<$Code$>$");
@@ -169,7 +169,7 @@ public class LLVMprinter {
             }
             codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" + intermediateIncrement + "\n%" +
-                    globalIncrement + " = load i32, i32* intermediate" + intermediateIncrement + "\n";
+                    globalIncrement + " = load i32, i32* %intermediate" + intermediateIncrement + "\n";
             globalIncrement++;
             intermediateIncrement++;
             plusIncrement++;
