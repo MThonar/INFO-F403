@@ -26,11 +26,11 @@ class Main {
                 }
                 Parser parser = new Parser(list);
                 ArrayList<Symbol> AST = parser.startParsing();
-                System.out.println("AST in form of a list:");
+                /*System.out.println("AST in form of a list:");
                 for(Symbol node : AST){
                     System.out.println(node.getValue().toString());
                 }
-                System.out.println("end AST");
+                System.out.println("end AST");*/
                 LLVMprinter llvm = new LLVMprinter(AST);
                 String llvmCode = llvm.getLLVMcode();
                 System.out.println(llvmCode);
