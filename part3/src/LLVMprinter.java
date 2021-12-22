@@ -121,7 +121,7 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == If.getValue()){
                 LLVMcode += If(i);
-                i += 14;
+                i += 13;
             }
             else if(AST.get(i).getValue() == For.getValue()){
                 LLVMcode += For(i);
