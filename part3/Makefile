@@ -4,7 +4,7 @@ all:
 	jar cfe dist/part3.jar Main -C bin .
 
 testing:
-	java -jar dist/part3.jar test/testReadPrint.co
+	java -jar dist/part3.jar test/readPrint.co
 
 args:
-	java -jar dist/part3.jar test/testReadPrint.co llCode.ll
+	java -jar dist/part3.jar test/readPrint.co llCode.ll
