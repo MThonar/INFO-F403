@@ -349,7 +349,7 @@ public class LLVMprinter {
 
     public String read(int i){
         String codeFragment = "%" + AST.get(i+1).getValue().toString() + " = call i32* @readInt()\n";
-        codeFragment = "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() + "\n";
+        codeFragment += "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() + "\n";
         return codeFragment;
     }
 }
