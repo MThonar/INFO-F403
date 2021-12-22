@@ -143,10 +143,10 @@ public class LLVMprinter {
         }
         else if(isNumeric(AST.get(i+3).getValue().toString())){
             String rightTree = exprArith(inExprArith);
-            codeFragment += "UN NOMBER";
+            codeFragment += "UN NOMBRE\n";
         }
         else if(!isNumeric(AST.get(i+3).getValue().toString())){
-            codeFragment += "UN STRING";
+            codeFragment += "UN STRING\n";
         }
         return codeFragment;
     }
