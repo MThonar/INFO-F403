@@ -32,7 +32,7 @@ public class LLVMprinter {
                         "define i32 @readInt() {\n" +
                         "  %1 = alloca i32, align 4\n" +
                         "  %2 = call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.strR, i32" +
-                        "0, i32 0), i32* %1)\n" +
+                        " 0, i32 0), i32* %1)\n" +
                         "  %3 = load i32, i32* %1, align 4\n" +
                         "  ret i32 %3\n" +
                         "}\n" +
