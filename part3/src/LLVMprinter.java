@@ -175,7 +175,7 @@ public class LLVMprinter {
             plusIncrement++;
             rightTree = times(newExprArith);
             codeFragment += rightTree;
-            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + numberOfOperators +
+            codeFragment += "%" + (globalIncrement + 1) + " = add i32 %" + (numberOfOperators+1) +
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
             numberOfOperators--;
