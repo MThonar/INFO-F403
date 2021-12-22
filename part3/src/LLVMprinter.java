@@ -126,7 +126,7 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == For.getValue()){
                 LLVMcode += For(i);
-                i += 11;
+                i += 10;
                 System.out.println("RECOUCOU LE I" + i);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
