@@ -143,7 +143,12 @@ public class LLVMprinter {
         }
         else if(exprArith.size() == 1){
             System.out.println("RECONNU");
-            codeFragment += exprArith.get(0).getValue().toString();
+            codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 "
+                    + exprArith.get(0).getValue().toString() +
+                    ", i32* %intermediate" + intermediateIncrement + "\n%" + globalIncrement +
+                    " = load i32, i32* %intermediate" + intermediateIncrement;
+            intermediateIncrement++;
+            globalIncrement++;
         }
         return codeFragment;
     }
