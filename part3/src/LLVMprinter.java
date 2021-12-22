@@ -121,7 +121,7 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == If.getValue()){
                 LLVMcode += If(i);
-                i += 13;
+                i += 12;
                 System.out.println("COUCOU LE I" + i);
             }
             else if(AST.get(i).getValue() == For.getValue()){
