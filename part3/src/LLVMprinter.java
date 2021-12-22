@@ -193,6 +193,7 @@ public class LLVMprinter {
             String rightTree = AST.get(i+3).getValue().toString();
             codeFragment += "%" + leftTree + " = call i32* @assign2(i32* %" + rightTree + ")\n%" + globalIncrement +
                     " = load i32, i32* %" + leftTree + "\n";
+            globalIncrement++;
         }
         return codeFragment;
     }
@@ -353,6 +354,7 @@ public class LLVMprinter {
     public String read(int i){
         String codeFragment = "%" + AST.get(i+1).getValue().toString() + " = call i32* @readInt()\n";
         codeFragment += "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() + "\n";
+        globalIncrement++;
         return codeFragment;
     }
 }
