@@ -149,9 +149,8 @@ public class LLVMprinter {
                 j++;
             }
             String rightTree = exprArith(inExprArith);
-            globalIncrement++;
-            codeFragment += rightTree + "\n";
-            codeFragment += "%" + leftTree + " = call i32* @assign1(i32 %" + globalIncrement + ")\n";
+            codeFragment += rightTree;
+            codeFragment += "%" + leftTree + " = call i32* @assign1(i32 %plus" + plusIncrement + ")\n";
         }
         else if(isNumeric(AST.get(i+3).getValue().toString())){
             String rightTree = AST.get(i+3).getValue().toString();
@@ -269,11 +268,6 @@ public class LLVMprinter {
             intermediateIncrement++;
             codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
                     ",%" + (globalIncrement-1) + "\n";*/
-        }
-        else{
-            System.out.println("ON EST PAS DEDANS");
-            System.out.println((exprArith.get(1).getType() == LexicalUnit.TIMES));
-            System.out.println((exprArith.get(4).getType() == LexicalUnit.PLUS));
         }
         return codeFragment;
     }
