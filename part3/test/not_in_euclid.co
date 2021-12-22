@@ -1,0 +1,14 @@
+CO Testing all the tokens that are not present in euclid.co CO
+
+begin
+  read(a);
+  read(b);
+  if a < b then
+    print(a)
+  else
+    print(b)
+  endif;
+  for i from 1 by 2 to 7 do
+    print(i)
+  endfor
+end

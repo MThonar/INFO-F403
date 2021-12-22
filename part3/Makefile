@@ -4,7 +4,11 @@ all:
 	jar cfe dist/part3.jar Main -C bin .
 
 testing:
-	java -jar dist/part3.jar test/euclid.co
+	java -jar dist/part3.jar test/assignPrint.co
 
 args:
 	java -jar dist/part3.jar test/readPrint.co llCode.ll
+
+execute:
+	llvm-as llCode.ll
+	lli llCode.bc
