@@ -357,6 +357,7 @@ public class LLVMprinter {
     }
 
     public String print(int i){
+        globalIncrement--;
         String codeFragment = "call void @println(i32 %" + globalIncrement + ")\n";
         return codeFragment;
     }
