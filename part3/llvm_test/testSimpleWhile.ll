@@ -27,16 +27,17 @@ store i32 5, i32* %a
 
 br label %whileLoop
 whileLoop:
-%0 = load i32, i32* %a
-%1 = icmp slt i32 %0, 10
-br i1 %1, label %endWhile, label %afterWhile
+%1 = load i32, i32* %a
+%2 = icmp slt i32 %1, 10
+br i1 %2, label %endWhile, label %afterWhile
 
 endWhile:
-%2 = load i32, i32* %a
-%3 = add i32 %2, 1
-store i32 %3, i32* %a
+%3 = load i32, i32* %a
+%4 = add i32 %3, 1
+store i32 %4, i32* %a
+call void @println(i32 %4)
 br label %whileLoop
 
-afterFor:
+afterWhile:
 ret i32 0
 }
