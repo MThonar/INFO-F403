@@ -129,23 +129,25 @@ public class LLVMprinter {
     public String assign(int i){
         String codeFragment = "";
         String leftTree = AST.get(i+1).getValue().toString();
-        ArrayList<Symbol> inExprArith = new ArrayList<>();
-        int j = i+3;
-        while(isInExprArith(AST.get(j))){
-            inExprArith.add(AST.get(j));
-            j++;
-        }
-        String rightTree = exprArith(inExprArith);
         if(isAnOperator(AST.get(i+3))){
+            ArrayList<Symbol> inExprArith = new ArrayList<>();
+            int j = i+3;
+            while(isInExprArith(AST.get(j))){
+                inExprArith.add(AST.get(j));
+                j++;
+            }
+            String rightTree = exprArith(inExprArith);
             globalIncrement++;
             codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %"
                     + inExprArith.size() + ", i32* %" + leftTree + "\n";
         }
         else if(isNumeric(AST.get(i+3).getValue().toString())){
+            String rightTree = AST.get(i+3).getValue().toString();
             codeFragment += "%" + leftTree + " = call i32* @assign1(i32 " + rightTree + ")\n%" + globalIncrement;
             globalIncrement++;
         }
         else if(!isNumeric(AST.get(i+3).getValue().toString())){
+            String rightTree = AST.get(i+3).getValue().toString();
             codeFragment += "%" + leftTree + " = call i32* @assign1(i32 " + rightTree + ")\n%" + globalIncrement;
             globalIncrement++;
         }
