@@ -114,6 +114,7 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == print.getValue()){
                 LLVMcode += print(i);
+                System.out.println("ICIIIIII");
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
