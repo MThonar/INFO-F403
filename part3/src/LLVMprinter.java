@@ -67,6 +67,7 @@ public class LLVMprinter {
                         "  store i32 %1, i32* %a\n" +
                         "  ret i32* %a\n" +
                         "}\n" +
+                        "\n" +
                         "define i32 @plus(i32 %x, i32 %y) {\n" +
                         "  %plus = alloca i32\n" +
                         "  %intermediate1 = alloca i32\n" +
@@ -251,7 +252,9 @@ public class LLVMprinter {
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
-            codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
+            codeFragment += "%plus" + plusIncrement + " = call i32 @plus(i32 " + leftTree + ", i32 " + rightTree + ")\n";
+            plusIncrement++;
+            /*codeFragment += "%plus" + plusIncrement + " = alloca i32\n%intermediate" + intermediateIncrement +
                     " = alloca i32\nstore i32 " + leftTree + ", i32* %intermediate" +
                     intermediateIncrement + "\n%" + globalIncrement + " = load i32, i32* %intermediate"
                     + intermediateIncrement + "\n";
@@ -265,7 +268,7 @@ public class LLVMprinter {
             globalIncrement++;
             intermediateIncrement++;
             codeFragment += "%" + globalIncrement + " = add i32 %" + (globalIncrement-2) +
-                    ",%" + (globalIncrement-1) + "\n";
+                    ",%" + (globalIncrement-1) + "\n";*/
         }
         else{
             System.out.println("ON EST PAS DEDANS");
