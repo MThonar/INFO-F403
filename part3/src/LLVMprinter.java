@@ -56,6 +56,9 @@ public class LLVMprinter {
             else if(AST.get(i).getValue() == read.getValue()){
                 LLVMcode += read(i);
             }
+            else if(AST.get(i).getValue() == print.getValue()){
+                LLVMcode += print(i);
+            }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
             }
@@ -263,8 +266,10 @@ public class LLVMprinter {
 
     }
 
-    public void print(){
-
+    public String print(int i){
+        String codeFragment = "";
+        codeFragment += "call void @println(i32 %" + AST.get(i+1).getValue().toString() + ")";
+        return codeFragment;
     }
 
     public String read(int i){
