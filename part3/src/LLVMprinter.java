@@ -143,7 +143,7 @@ public class LLVMprinter {
         }
         else if(exprArith.size() == 1){
             System.out.println("RECONNU");
-            codeFragment += exprArith.get(0);
+            codeFragment += exprArith.get(0).getValue().toString();
         }
         return codeFragment;
     }
