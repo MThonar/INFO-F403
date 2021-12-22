@@ -27,7 +27,31 @@ public class LLVMprinter {
         String LLVMcode = "";
         for(int i = 0; i < AST.size(); i++){
             if(AST.get(i).getValue() == program.getValue()){
-                LLVMcode += "define i32 @main() {\nentry:\n";
+                LLVMcode += "@.strR = private unnamed_addr constant [3 x i8] c\"%d\\00\", align 1\n" +
+                        "\n" +
+                        "define i32 @readInt() {\n" +
+                        "  %1 = alloca i32, align 4\n" +
+                        "  %2 = call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.strR, i32" +
+                        "0, i32 0), i32* %1)\n" +
+                        "  %3 = load i32, i32* %1, align 4\n" +
+                        "  ret i32 %3\n" +
+                        "}\n" +
+                        "\n" +
+                        "declare i32 @scanf(i8*, ...)\n" +
+                        "\n" +
+                        "@.strP = private unnamed_addr constant [4 x i8] c\"%d\\0A\\00\", align 1\n" +
+                        "\n" +
+                        "define void @println(i32 %x) {\n" +
+                        "  %1 = alloca i32, align 4\n" +
+                        "  store i32 %x, i32* %1, align 4\n" +
+                        "  %2 = load i32, i32* %1, align 4\n" +
+                        "  %3 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.strP, i32 0, i32 0), i32 %2)\n" +
+                        "  ret void\n" +
+                        "}\n" +
+                        "\n" +
+                        "declare i32 @printf(i8*, ...)\n" +
+                        "\n" +
+                        "define i32 @main(){";
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
