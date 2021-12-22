@@ -147,6 +147,10 @@ public class LLVMprinter {
                 i += 10;
                 System.out.println("RECOUCOU LE I" + i);
             }
+            else if(AST.get(i).getValue() == While.getValue()){
+                LLVMcode += While(i);
+                i += 15;
+            }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
             }
