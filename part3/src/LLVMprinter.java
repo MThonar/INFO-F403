@@ -340,7 +340,7 @@ public class LLVMprinter {
     }
 
     public String If(int i){
-        String codeFragment = "";
+        String codeFragment = "call void @if(i32 %" + globalIncrement + ", i32 %" + (globalIncrement+1) + ")\n";
 
         return codeFragment;
     }
@@ -350,7 +350,8 @@ public class LLVMprinter {
     }
 
     public String For(int i){
-        String codeFragment = "";
+        String codeFragment = "call void @for(i32 " + AST.get(i+3).getValue().toString() + ", i32 " +
+                AST.get(i+5).getValue().toString() + ", i32 " + AST.get(i+7).getValue().toString() + ")\n";
         return codeFragment;
     }
 
