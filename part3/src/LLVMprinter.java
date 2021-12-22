@@ -79,6 +79,34 @@ public class LLVMprinter {
                         "  ret i32 %3\n" +
                         "}\n" +
                         "\n" +
+                        "define void @if(i32 %a, i32 %b) {\n" +
+                        "%cond = icmp slt i32 %a, %b\n" +
+                        "br i1 %cond, label %if, label %else\n" +
+                        "if:\n" +
+                        "call void @println(i32 %a)\n" +
+                        "ret void\n" +
+                        "else:\n" +
+                        "call void @println(i32 %b)\n" +
+                        "ret void\n" +
+                        "}\n" +
+                        "\n" +
+                        "define void @for(i32 %a, i32 %x, i32 %y) {\n" +
+                        "%i = alloca i32\n" +
+                        "store i32 %a, i32* %i\n" +
+                        "br label %forLoop\n" +
+                        "forLoop:\n" +
+                        "%1 = load i32, i32* %i\n" +
+                        "%2 = icmp slt i32 %1, %y\n" +
+                        "br i1 %2, label %innerFor, label %endFor\n" +
+                        "innerFor:\n" +
+                        "call void @println(i32 %1)\n" +
+                        "%3 = add i32 %1,%x\n" +
+                        "store i32 %3, i32* %i\n" +
+                        "br label %forLoop\n" +
+                        "endFor:\n" +
+                        "ret void\n" +
+                        "}\n" +
+                        "\n" +
                         "define i32 @main(){\n";
             }
             else if(AST.get(i).getValue() == read.getValue()){
@@ -89,6 +117,9 @@ public class LLVMprinter {
             }
             else if(AST.get(i).getValue() == assign.getValue()){
                 LLVMcode += assign(i);
+            }
+            else if(AST.get(i).getValue() == If.getValue()){
+                LLVMcode += If(i);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
@@ -296,8 +327,10 @@ public class LLVMprinter {
         return codeFragment;
     }
 
-    public void If(){
+    public String If(int i){
+        String codeFragment = "";
 
+        return codeFragment;
     }
 
     public void While(){
@@ -309,15 +342,14 @@ public class LLVMprinter {
     }
 
     public String print(int i){
-        String codeFragment = "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() +
-                "\ncall void @println(i32 %" + globalIncrement + ")\n";
+        String codeFragment = "call void @println(i32 %" + globalIncrement + ")\n";
         globalIncrement++;
         return codeFragment;
     }
 
     public String read(int i){
-        String codeFragment = "";
-        codeFragment += "%" + AST.get(i+1).getValue().toString() + " = call i32* @readInt()\n";
+        String codeFragment = "%" + AST.get(i+1).getValue().toString() + " = call i32* @readInt()\n";
+        codeFragment = "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() + "\n";
         return codeFragment;
     }
 }
