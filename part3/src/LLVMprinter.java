@@ -51,6 +51,18 @@ public class LLVMprinter {
                         "\n" +
                         "declare i32 @printf(i8*, ...)\n" +
                         "\n" +
+                        "define i32* @assign1(i32 %x) {\n" +
+                        "  %a = alloca i32\n" +
+                        "  store i32 %x, i32* %a\n" +
+                        "  ret i32* %a\n" +
+                        "}\n" +
+                        "\n" +
+                        "define i32* @assign2(i32* %x) {\n" +
+                        "  %a = alloca i32\n" +
+                        "  %1 = load i32, i32* %x\n" +
+                        "  store i32 %1, i32* %a\n" +
+                        "  ret i32* %a\n" +
+                        "}" +
                         "define i32 @main(){\n";
             }
             else if(AST.get(i).getValue() == read.getValue()){
