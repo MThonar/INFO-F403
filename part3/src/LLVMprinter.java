@@ -33,12 +33,11 @@ public class LLVMprinter {
             if(AST.get(i).getValue() == program.getValue()){
                 LLVMcode += "@.strR = private unnamed_addr constant [3 x i8] c\"%d\\00\", align 1\n" +
                         "\n" +
-                        "define i32 @readInt() {\n" +
+                        "define i32* @readInt() {\n" +
                         "  %1 = alloca i32, align 4\n" +
                         "  %2 = call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.strR, i32" +
                         " 0, i32 0), i32* %1)\n" +
-                        "  %3 = load i32, i32* %1, align 4\n" +
-                        "  ret i32 %3\n" +
+                        "  ret i32* %1\n" +
                         "}\n" +
                         "\n" +
                         "declare i32 @scanf(i8*, ...)\n" +
@@ -181,7 +180,6 @@ public class LLVMprinter {
             codeFragment += plus(exprArith);
         }
         else if(exprArith.size() == 1){
-            System.out.println("RECONNU");
             codeFragment += "%intermediate" + intermediateIncrement + " = alloca i32\nstore i32 "
                     + exprArith.get(0).getValue().toString() +
                     ", i32* %intermediate" + intermediateIncrement + "\n%" + globalIncrement +
