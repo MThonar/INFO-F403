@@ -192,8 +192,8 @@ public class LLVMprinter {
         }
         else{
             System.out.println("ON EST PAS DEDANS");
-            System.out.println((exprArith.get(1).getValue() == LexicalUnit.TIMES));
-            System.out.println((exprArith.get(4).getValue() == LexicalUnit.PLUS));
+            System.out.println((exprArith.get(1).getType() == LexicalUnit.TIMES));
+            System.out.println((exprArith.get(4).getType() == LexicalUnit.PLUS));
         }
         return codeFragment;
     }
