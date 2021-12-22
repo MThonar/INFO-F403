@@ -126,6 +126,7 @@ public class LLVMprinter {
             else if(AST.get(i).getValue() == For.getValue()){
                 LLVMcode += For(i);
                 i += 11;
+                System.out.println(i);
             }
             else if(AST.get(i).getType() == LexicalUnit.END){
                 LLVMcode += "ret i32 0\n}";
