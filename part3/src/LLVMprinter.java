@@ -157,6 +157,7 @@ public class LLVMprinter {
             numberOfOperators--;
         }
         else if( (exprArith.get(1).getType() == LexicalUnit.TIMES) && (exprArith.get(2).getType() == LexicalUnit.PLUS) ){
+            System.out.println("on est dedans");
             ArrayList<Symbol> newExprArith = new ArrayList<>();
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
