@@ -311,8 +311,9 @@ public class LLVMprinter {
     }
 
     public String print(int i){
-        String codeFragment = "";
-        codeFragment += "call void @println(i32 %" + AST.get(i+1).getValue().toString() + ")\n";
+        String codeFragment = "%" + globalIncrement + " = load i32, i32* %" + AST.get(i+1).getValue().toString() +
+                "\ncall void @println(i32 %" + globalIncrement + ")\n";
+        globalIncrement++;
         return codeFragment;
     }
 
