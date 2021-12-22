@@ -67,6 +67,17 @@ public class LLVMprinter {
                         "  store i32 %1, i32* %a\n" +
                         "  ret i32* %a\n" +
                         "}\n" +
+                        "define i32 @plus(i32 %x, i32 %y) {\n" +
+                        "  %plus = alloca i32\n" +
+                        "  %intermediate1 = alloca i32\n" +
+                        "  store i32 %x, i32* %intermediate1\n" +
+                        "  %1 = load i32, i32* %intermediate1\n" +
+                        "  %intermediate2 = alloca i32\n" +
+                        "  store i32 %y, i32* %intermediate2\n" +
+                        "  %2 = load i32, i32* %intermediate2\n" +
+                        "  %3 = add i32 %1,%2\n" +
+                        "  ret i32 %3\n" +
+                        "}\n" +
                         "\n" +
                         "define i32 @main(){\n";
             }
