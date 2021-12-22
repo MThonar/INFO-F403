@@ -22,22 +22,48 @@ define void @println(i32 %x) {
 declare i32 @printf(i8*, ...)
 
 define i32 @main() {
-%a = alloca i32
-store i32 5, i32* %a
-
 br label %whileLoop
 whileLoop:
-%1 = load i32, i32* %a
-%2 = icmp slt i32 %1, 10
-br i1 %2, label %endWhile, label %afterWhile
+%0 = load i32, i32* %b
+%1 = icmp ne i32 %0, 0
+br i1 %1, label %innerWhile, label %afterWhile
 
-endWhile:
-%3 = load i32, i32* %a
-%4 = add i32 %3, 1
-store i32 %4, i32* %a
-call void @println(i32 %4)
-br label %whileLoop
 
-afterWhile:
+
+;1er while
+innerWhile:
+%c = alloca i32
+store i32 %b, i32* %c
+br label %secWhile
+
+
+
+secWhile
+%2 = load i32, i32* %a
+%3 = load i32, i32* %b
+%4 = add i32 %2, 1
+%5 = icmp sgt i32 %4, %3
+br i1 %5, label %innerSecWhile, label %endsecWhile
+
+
+
+;deuxieme while
+innerSecWhile:
+%6 = load i32, i32* %a
+%7 = load i32, i32* %b
+%8 = sub i32 %6, %7
+br label %secWhile
+
+
+
+;1er while
+endsecWhile
+store i32 %a, i32* %b
+store i32 %c, i32* %a
+br label %innerWhile
+
+
+
+%afterWhile
 ret i32 0
 }
