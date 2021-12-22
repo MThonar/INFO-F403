@@ -24,7 +24,11 @@ declare i32 @printf(i8*, ...)
 define i32 @main() {
 %a = alloca i32
 store i32 5, i32* %a
+%1 = call i32 @simpleWhile(i32 %a)
+return i32 0
+}
 
+def i32 simpleWhile(i32 %a){
 br label %whileLoop
 whileLoop:
 %1 = load i32, i32* %a
@@ -39,5 +43,5 @@ call void @println(i32 %4)
 br label %whileLoop
 
 afterWhile:
-ret i32 0
+ret i32 %4
 }
