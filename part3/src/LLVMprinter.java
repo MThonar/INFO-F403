@@ -141,6 +141,9 @@ public class LLVMprinter {
             numberOfOperators = counter - 2;
             codeFragment += plus(exprArith);
         }
+        else if(exprArith.size() == 0){
+            System.out.println("RECONNU");
+        }
         return codeFragment;
     }
 
