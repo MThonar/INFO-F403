@@ -326,6 +326,7 @@ public class LLVMprinter {
     }
 
     public String While(int i){
+        System.out.println("Valeur de i" + i);
         String codeFragment = "call void @while(i32 %" + (globalIncrement-1) + ", i32 " + i+6 + ", i32 " + i+12 + ")\n";
         return codeFragment;
     }
