@@ -185,11 +185,14 @@ public class LLVMprinter {
         }
         else if(isNumeric(AST.get(i+3).getValue().toString())){
             String rightTree = AST.get(i+3).getValue().toString();
-            codeFragment += "%" + leftTree + " = call i32* @assign1(i32 " + rightTree + ")\n";
+            codeFragment += "%" + leftTree + " = call i32* @assign1(i32 " + rightTree + ")\n%" + globalIncrement +
+                    " = load i32, i32* %" + leftTree + "\n";
+            globalIncrement++;
         }
         else if(!isNumeric(AST.get(i+3).getValue().toString())){
             String rightTree = AST.get(i+3).getValue().toString();
-            codeFragment += "%" + leftTree + " = call i32* @assign2(i32* %" + rightTree + ")\n";
+            codeFragment += "%" + leftTree + " = call i32* @assign2(i32* %" + rightTree + ")\n" + globalIncrement +
+                    " = load i32, i32* %" + leftTree + "\n";
         }
         return codeFragment;
     }
