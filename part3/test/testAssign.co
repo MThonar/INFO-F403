@@ -1,4 +1,0 @@
-begin
-a := 5;
-b := a
-end
