@@ -23,6 +23,10 @@ public class LLVMprinter {
         this.AST = AST;
     }
 
+    public boolean isNumeric(String str){
+        return str != null && str.matches("[0-9.]+");
+    }
+
     public String getLLVMcode(){
         String LLVMcode = "";
         for(int i = 0; i < AST.size(); i++){
@@ -123,18 +127,27 @@ public class LLVMprinter {
     }*/
 
     public String assign(int i){
-        ArrayList<Symbol> inExprArith = new ArrayList<>();
         String codeFragment = "";
         String leftTree = AST.get(i+1).getValue().toString();
+        ArrayList<Symbol> inExprArith = new ArrayList<>();
         int j = i+3;
         while(isInExprArith(AST.get(j))){
             inExprArith.add(AST.get(j));
             j++;
         }
-        String rightTree = exprArith(inExprArith);
-        globalIncrement++;
-        codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %"
-                + inExprArith.size() + ", i32* %" + leftTree + "\n";
+        if(isAnOperator(AST.get(i+3))){
+            String rightTree = exprArith(inExprArith);
+            globalIncrement++;
+            codeFragment += "%" + leftTree + " = alloca i32\n" + rightTree + "store i32 %"
+                    + inExprArith.size() + ", i32* %" + leftTree + "\n";
+        }
+        else if(isNumeric(AST.get(i+3).getValue().toString())){
+            String rightTree = exprArith(inExprArith);
+            codeFragment += "UN NOMBER";
+        }
+        else if(!isNumeric(AST.get(i+3).getValue().toString())){
+            codeFragment += "UN STRING";
+        }
         return codeFragment;
     }
 
