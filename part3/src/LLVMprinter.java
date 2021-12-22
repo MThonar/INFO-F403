@@ -156,7 +156,7 @@ public class LLVMprinter {
             globalIncrement++;
             numberOfOperators--;
         }
-        else if( (exprArith.get(1).getType() == LexicalUnit.TIMES) && (exprArith.get(4).getType() == LexicalUnit.PLUS) ){
+        /*else if( (exprArith.get(1).getType() == LexicalUnit.TIMES) && (exprArith.get(4).getType() == LexicalUnit.PLUS) ){
             ArrayList<Symbol> newExprArith = new ArrayList<>();
             for(int i = 2; i < exprArith.size(); i++){
                 newExprArith.add(exprArith.get(i));
@@ -170,7 +170,7 @@ public class LLVMprinter {
                     ",%" + globalIncrement + "\n";
             globalIncrement++;
             numberOfOperators--;
-        }
+        }*/
         else if( (!isAnOperator(exprArith.get(1))) && (!isAnOperator(exprArith.get(2))) ){
             leftTree = exprArith.get(1).getValue().toString();
             rightTree = exprArith.get(2).getValue().toString();
